@@ -46,9 +46,11 @@ mod test {
     let txt_feature = clip_txt
       .encode_batch(word_li.into_iter())?
       .into_dimensionality::<Ix2>()?;
+
     let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
     let mut fp: std::path::PathBuf = std::env::current_dir()?;
     fp.push("cat.jpg");
+
     let fp = fp.display().to_string();
     let img_feature = clip_img
       .encode(&std::fs::read(fp)?)?
