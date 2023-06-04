@@ -143,9 +143,10 @@ mod tests {
 
   #[test]
   fn test_image_processor() -> Result<()> {
-    let mut fp: std::path::PathBuf = std::env::current_dir()?;
-    fp.push("cat.jpg");
-    let fp = fp.display().to_string();
+    let fp = std::env::current_dir()?
+      .join("cat.jpg")
+      .display()
+      .to_string();
     let img = std::fs::read(&fp)?;
     let dim = 224;
     let img = crate::processor(&img, dim, &crate::CropCenter())?;

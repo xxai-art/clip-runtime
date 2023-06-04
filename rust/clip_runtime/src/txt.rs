@@ -42,12 +42,9 @@ mod tests {
 
   #[test]
   fn test() -> Result<()> {
-    let mut dir = std::env::current_dir()?;
-    dir.push("model/AltCLIP-XLMR-L-m18");
-
+    let dir = std::env::current_dir()?;
     let ort = ClipOrt::new()?;
-
-    let model = ort.model(dir.display().to_string());
+    let model = ort.model(dir.join("model/AltCLIP-XLMR-L-m18").display().to_string());
 
     let clip_txt = model.txt("onnx/Txt", 77)?;
 

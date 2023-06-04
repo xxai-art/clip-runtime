@@ -40,17 +40,13 @@ impl<C: Croper> ClipImg<C> {
 #[test]
 fn test_image_encode() -> Result<()> {
   use crate::ort::ClipOrt;
-  let mut dir = std::env::current_dir()?;
-  dir.push("model/AltCLIP-XLMR-L-m18");
+  let dir = std::env::current_dir()?;
 
   let ort = ClipOrt::new()?;
-  let model = ort.model(dir.display().to_string());
+  let model = ort.model(dir.join("model/AltCLIP-XLMR-L-m18").to_str().unwrap());
   let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
 
-  let mut fp: std::path::PathBuf = std::env::current_dir()?;
-  fp.push("cat.jpg");
-  let fp = fp.display().to_string();
-  let img = std::fs::read(fp)?;
+  let img = std::fs::read(dir.join("cat.jpg"))?;
   let out = clip_img.encode(&img)?;
   println!("img {}", out);
   Ok(())

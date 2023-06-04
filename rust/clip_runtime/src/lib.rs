@@ -24,13 +24,9 @@ mod test {
   use crate::ort::ClipOrt;
   #[test]
   fn test() -> clip_txt::Result<()> {
-    let mut dir = std::env::current_dir()?;
-    dir.push("model/AltCLIP-XLMR-L-m18");
-
+    let dir = std::env::current_dir()?;
     let ort = ClipOrt::new()?;
-
-    let model = ort.model(dir.display().to_string());
-
+    let model = ort.model(dir.join("model/AltCLIP-XLMR-L-m18").display().to_string());
     let clip_txt = model.txt("onnx/Txt", 77)?;
 
     let word_li = [
@@ -45,8 +41,7 @@ mod test {
     let txt_feature = clip_txt.encode_batch(word_li.into_iter())?;
 
     let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
-    let mut fp: std::path::PathBuf = std::env::current_dir()?;
-    fp.push("cat.jpg");
+    let fp = dir.join("cat.jpg");
 
     let fp = fp.display().to_string();
     let img_feature = clip_img.encode(&std::fs::read(fp)?)?;
