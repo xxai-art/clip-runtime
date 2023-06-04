@@ -12,9 +12,9 @@ mod test {
   fn init() {
     tracing_subscriber::fmt::init();
   }
-  use ndarray::{Array, Array1, Array2, ArrayBase, Axis, Data, Ix1, Ix2, Zip};
+  use ndarray::Ix2;
 
-  fn softmax(vec: &Vec<f32>) -> Vec<f32> {
+  fn softmax(vec: &[f32]) -> Vec<f32> {
     let max = vec.iter().fold(f32::MIN, |a, &b| a.max(b));
     let mut exps: Vec<f32> = vec.iter().map(|x| (x - max).exp()).collect();
     let sum: f32 = exps.iter().sum();
