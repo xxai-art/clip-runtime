@@ -140,18 +140,18 @@ mod tests {
       v.into_iter().flatten().flatten().collect(),
     )?)
   }
-}
 
-#[test]
-fn test_image_processor() -> Result<()> {
-  let mut fp: std::path::PathBuf = std::env::current_dir()?;
-  fp.push("cat.jpg");
-  let fp = fp.display().to_string();
-  let img = std::fs::read(&fp)?;
-  let dim = 224;
-  let img = crate::processor(&img, dim, crate::CropCenter())?;
-  to_png(img, &(fp.clone() + ".png"))?;
-  let py_img = json_to_narray(&(fp.clone() + ".json"))?;
-  to_png(py_img, &(fp + ".py.png"))?;
-  Ok(())
+  #[test]
+  fn test_image_processor() -> Result<()> {
+    let mut fp: std::path::PathBuf = std::env::current_dir()?;
+    fp.push("cat.jpg");
+    let fp = fp.display().to_string();
+    let img = std::fs::read(&fp)?;
+    let dim = 224;
+    let img = crate::processor(&img, dim, crate::CropCenter())?;
+    to_png(img, &(fp.clone() + ".png"))?;
+    let py_img = json_to_narray(&(fp.clone() + ".json"))?;
+    to_png(py_img, &(fp + ".py.png"))?;
+    Ok(())
+  }
 }
