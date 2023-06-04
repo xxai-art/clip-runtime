@@ -6,7 +6,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.71"
-image = "0.24.6"
+image = { version = "0.24.6", features = ["avif-decoder"] }
 ndarray = "0.15.6"
 tracing = "0.1.37"
 
@@ -20,4 +20,3 @@ build_cfg = "1.1.0"
 
 [dev-dependencies]
 serde_json = "1.0.96"
-anyhow = "1.0.71"
