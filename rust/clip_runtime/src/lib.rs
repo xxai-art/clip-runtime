@@ -70,7 +70,7 @@ mod tests {
       let out = clip_txt.encode(word)?;
       println!("❯ {}\n{}\n", word, out);
     }
-    let out = clip_txt.encode_batch(word_li)?;
+    let out = clip_txt.encode_batch(word_li.into_iter())?;
     for (out, word) in out.rows().into_iter().zip(word_li.iter()) {
       println!("❯ {}\n{}\n", word, out);
     }
