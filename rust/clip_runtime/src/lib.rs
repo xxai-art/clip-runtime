@@ -1,3 +1,8 @@
+mod util;
+
+mod txt;
+pub use txt::ClipTxt;
+
 pub mod providers;
 use std::{path::Path, sync::Arc};
 
@@ -11,26 +16,6 @@ use ort::{
 };
 
 use crate::providers::providers;
-
-pub fn box_u32_i64(li: Box<[u32]>) -> Vec<i64> {
-  li.into_vec().into_iter().map(|x| x as i64).collect()
-}
-
-pub fn box_iter_ndarray<T: std::clone::Clone>(
-  boxli: impl ExactSizeIterator + Iterator<Item = Vec<T>>,
-) -> anyhow::Result<InputTensor>
-where
-  InputTensor: FromArray<T>,
-{
-  let mut vec = Vec::new();
-  let len = boxli.len();
-  for b in boxli {
-    vec.extend_from_slice(&b);
-  }
-  Ok(InputTensor::from_array(
-    Array2::from_shape_vec((len, vec.len() / len), vec)?.into_dyn(),
-  ))
-}
 
 pub struct ClipOrt {
   pub env: Arc<Environment>,
@@ -64,36 +49,6 @@ impl ClipOrt {
       sess,
       tokener: Tokener::from_file(format!("{}/process/tokenizer.json", dir), context_length)?,
     })
-  }
-}
-
-pub struct ClipTxt {
-  pub env: Arc<Environment>,
-  pub sess: Session,
-  pub tokener: Tokener,
-}
-
-impl ClipTxt {
-  pub fn encode(
-    &self,
-    txt: impl AsRef<str>,
-  ) -> clip_txt::Result<ArrayBase<OwnedRepr<f32>, Dim<IxDynImpl>>> {
-    let (ids, mask) = self.tokener.encode(txt)?;
-    let ids = box_iter_ndarray([box_u32_i64(ids)].into_iter())?;
-    let mask = box_iter_ndarray([box_u32_i64(mask)].into_iter())?;
-    let out = &self.sess.run([ids, mask])?;
-    Ok(out[0].try_extract::<f32>()?.view().to_owned())
-  }
-
-  pub fn encode_batch(
-    &self,
-    txt_li: impl ExactSizeIterator + Iterator<Item = impl AsRef<str>>,
-  ) -> clip_txt::Result<ArrayBase<OwnedRepr<f32>, Dim<IxDynImpl>>> {
-    let (ids_li, mask_li) = self.tokener.encode_batch(txt_li)?;
-    let ids_li = box_iter_ndarray(ids_li.into_iter().map(|i| box_u32_i64(i)))?;
-    let mask_li = box_iter_ndarray(mask_li.into_iter().map(|i| box_u32_i64(i)))?;
-    let out = &self.sess.run([ids_li, mask_li])?;
-    Ok(out[0].try_extract::<f32>()?.view().to_owned())
   }
 }
 
