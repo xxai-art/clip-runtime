@@ -1,14 +1,10 @@
 use std::sync::Arc;
 
 use anyhow::Result;
-use clip_img::Croper;
-use clip_txt::Tokener;
-use ndarray::{Array2, ArrayBase, Dim, IxDynImpl, OwnedRepr};
+use ndarray::{ArrayBase, Dim, IxDynImpl, OwnedRepr};
 use ort::{
   environment::Environment, tensor::InputTensor, GraphOptimizationLevel, Session, SessionBuilder,
 };
-
-use crate::{img::ClipImg, providers::providers, txt::ClipTxt};
 
 pub struct ClipSession(Session);
 

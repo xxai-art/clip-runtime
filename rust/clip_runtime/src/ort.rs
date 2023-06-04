@@ -3,7 +3,7 @@ use std::sync::Arc;
 use anyhow::Result;
 use clip_img::Croper;
 use clip_txt::Tokener;
-use ort::{environment::Environment, GraphOptimizationLevel, Session, SessionBuilder};
+use ort::environment::Environment;
 
 use crate::{img::ClipImg, providers::providers, session::ClipSession, txt::ClipTxt};
 
@@ -38,7 +38,7 @@ impl ClipOrt {
 
 impl ClipModel {
   pub fn sess(&self, onnx: &str) -> Result<ClipSession> {
-    Ok(ClipSession::new(&self.dir, &self.env, onnx)?)
+    ClipSession::new(&self.dir, &self.env, onnx)
   }
 
   pub fn txt(&self, onnx: &str, context_length: usize) -> clip_txt::Result<ClipTxt> {

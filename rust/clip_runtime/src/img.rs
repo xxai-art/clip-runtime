@@ -5,7 +5,7 @@ use clip_img::{processor, Croper};
 use ndarray::{s, Array};
 use ort::{
   tensor::{FromArray, InputTensor},
-  Environment, Session,
+  Environment,
 };
 
 use crate::session::ClipSession;
@@ -20,7 +20,7 @@ pub struct ClipImg<C: Croper> {
 impl<C: Croper> ClipImg<C> {
   pub fn encode(&self, img: &[u8]) -> Result<()> {
     let dim = self.dim;
-    let img = processor(&img, self.dim as u32, &self.croper)?;
+    let img = processor(img, self.dim as u32, &self.croper)?;
     let mut a = Array::<f32, _>::zeros((
       1, // 有多少图片
       3, dim, dim,
@@ -32,7 +32,7 @@ impl<C: Croper> ClipImg<C> {
     //     .assign(&md_vec);
     // });
 
-    let out = &self.sess.run([InputTensor::from_array(a.into_dyn())])?;
+    let _out = &self.sess.run([InputTensor::from_array(a.into_dyn())])?;
 
     Ok(())
   }
@@ -51,7 +51,7 @@ fn test_image_encode() -> Result<()> {
   let mut fp: std::path::PathBuf = std::env::current_dir()?;
   fp.push("cat.jpg");
   let fp = fp.display().to_string();
-  let img = std::fs::read(&fp)?;
+  let img = std::fs::read(fp)?;
   clip_img.encode(&img)?;
   Ok(())
 }
