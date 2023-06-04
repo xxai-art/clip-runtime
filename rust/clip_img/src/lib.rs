@@ -21,7 +21,7 @@ impl Croper for CropCenter {
   }
 }
 
-pub fn processor(img: &[u8], dim: u32, croper: impl Croper) -> anyhow::Result<Array3<f32>> {
+pub fn processor(img: &[u8], dim: u32, croper: &impl Croper) -> anyhow::Result<Array3<f32>> {
   // Resize the image.
   let img = image::load_from_memory(img)?.to_rgb8();
   let (w, h) = img.dimensions();

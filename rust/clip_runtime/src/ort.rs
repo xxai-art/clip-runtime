@@ -57,7 +57,7 @@ impl ClipModel {
     })
   }
 
-  pub fn img<C: Croper>(&self, onnx: &str, dim: u32, croper: C) -> clip_txt::Result<ClipImg<C>> {
+  pub fn img<C: Croper>(&self, onnx: &str, dim: u32, croper: C) -> anyhow::Result<ClipImg<C>> {
     Ok(ClipImg {
       env: self.env.clone(),
       sess: self.sess(onnx)?,
