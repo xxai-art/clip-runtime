@@ -2,19 +2,38 @@ use std::sync::Arc;
 
 use anyhow::Result;
 use clip_img::{processor, Croper};
-use ort::{Environment, Session};
+use ndarray::{s, Array};
+use ort::{
+  tensor::{FromArray, InputTensor},
+  Environment, Session,
+};
+
+use crate::session::ClipSession;
 
 pub struct ClipImg<C: Croper> {
   pub env: Arc<Environment>,
-  pub sess: Session,
-  pub dim: u32,
+  pub sess: ClipSession,
+  pub dim: usize,
   pub croper: C,
 }
 
 impl<C: Croper> ClipImg<C> {
   pub fn encode(&self, img: &[u8]) -> Result<()> {
-    let img = processor(&img, self.dim, &self.croper)?;
-    dbg!(img);
+    let dim = self.dim;
+    let img = processor(&img, self.dim as u32, &self.croper)?;
+    let mut a = Array::<f32, _>::zeros((
+      1, // 有多少图片
+      3, dim, dim,
+    ));
+    a.slice_mut(s![0..1, 0..3, 0..dim, 0..dim]).assign(&img);
+
+    // img.iter().enumerate().for_each(|(idx, md_vec)| {
+    //   a.slice_mut(s![idx..idx + 1, 0..3, 0..dim, 0..dim])
+    //     .assign(&md_vec);
+    // });
+
+    let out = &self.sess.run([InputTensor::from_array(a.into_dyn())])?;
+
     Ok(())
   }
 }

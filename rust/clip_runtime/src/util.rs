@@ -1,5 +1,5 @@
-use ndarray::Array2;
-use ort::tensor::{FromArray, InputTensor};
+use ndarray::{Array2, ArrayBase, Dim, IxDynImpl, OwnedRepr};
+use ort::tensor::{DynOrtTensor, FromArray, InputTensor};
 
 pub fn box_u32_i64(li: Box<[u32]>) -> Vec<i64> {
   li.into_vec().into_iter().map(|x| x as i64).collect()

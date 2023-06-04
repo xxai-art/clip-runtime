@@ -5,7 +5,7 @@ use clip_img::Croper;
 use clip_txt::Tokener;
 use ort::{environment::Environment, GraphOptimizationLevel, Session, SessionBuilder};
 
-use crate::{img::ClipImg, providers::providers, txt::ClipTxt};
+use crate::{img::ClipImg, providers::providers, session::ClipSession, txt::ClipTxt};
 
 pub struct ClipOrt {
   pub env: Arc<Environment>,
@@ -37,13 +37,8 @@ impl ClipOrt {
 }
 
 impl ClipModel {
-  pub fn sess(&self, onnx: &str) -> Result<Session> {
-    Ok(
-      SessionBuilder::new(&self.env)?
-        .with_optimization_level(GraphOptimizationLevel::Level3)?
-        .with_inter_threads(num_cpus::get() as i16)?
-        .with_model_from_file(format!("{}/{}.onnx", &self.dir, onnx))?,
-    )
+  pub fn sess(&self, onnx: &str) -> Result<ClipSession> {
+    Ok(ClipSession::new(&self.dir, &self.env, onnx)?)
   }
 
   pub fn txt(&self, onnx: &str, context_length: usize) -> clip_txt::Result<ClipTxt> {
@@ -57,7 +52,7 @@ impl ClipModel {
     })
   }
 
-  pub fn img<C: Croper>(&self, onnx: &str, dim: u32, croper: C) -> anyhow::Result<ClipImg<C>> {
+  pub fn img<C: Croper>(&self, onnx: &str, dim: usize, croper: C) -> anyhow::Result<ClipImg<C>> {
     Ok(ClipImg {
       env: self.env.clone(),
       sess: self.sess(onnx)?,
