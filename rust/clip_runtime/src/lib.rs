@@ -8,12 +8,7 @@ use std::{path::Path, sync::Arc};
 
 use anyhow::Result;
 use clip_txt::Tokener;
-use ndarray::{Array2, ArrayBase, Dim, IxDynImpl, OwnedRepr};
-use ort::{
-  environment::Environment,
-  tensor::{FromArray, InputTensor},
-  GraphOptimizationLevel, Session, SessionBuilder,
-};
+use ort::{environment::Environment, GraphOptimizationLevel, SessionBuilder};
 
 use crate::providers::providers;
 
@@ -75,7 +70,7 @@ mod tests {
       let out = clip_txt.encode(word)?;
       println!("❯ {}\n{}\n", word, out);
     }
-    let out = clip_txt.encode_batch(word_li.into_iter())?;
+    let out = clip_txt.encode_batch(word_li)?;
     for (out, word) in out.rows().into_iter().zip(word_li.iter()) {
       println!("❯ {}\n{}\n", word, out);
     }

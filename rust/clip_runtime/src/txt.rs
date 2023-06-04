@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use clip_txt::Tokener;
-use ndarray::{Array2, ArrayBase, Dim, IxDynImpl, OwnedRepr};
+use ndarray::{ArrayBase, Dim, IxDynImpl, OwnedRepr};
 use ort::{Environment, Session};
 
 use crate::util::{box_iter_ndarray, box_u32_i64};
@@ -29,8 +29,8 @@ impl ClipTxt {
     txt_li: impl ExactSizeIterator + Iterator<Item = impl AsRef<str>>,
   ) -> clip_txt::Result<ArrayBase<OwnedRepr<f32>, Dim<IxDynImpl>>> {
     let (ids_li, mask_li) = self.tokener.encode_batch(txt_li)?;
-    let ids_li = box_iter_ndarray(ids_li.into_iter().map(|i| box_u32_i64(i)))?;
-    let mask_li = box_iter_ndarray(mask_li.into_iter().map(|i| box_u32_i64(i)))?;
+    let ids_li = box_iter_ndarray(ids_li.into_iter().map(box_u32_i64))?;
+    let mask_li = box_iter_ndarray(mask_li.into_iter().map(box_u32_i64))?;
     let out = &self.sess.run([ids_li, mask_li])?;
     Ok(out[0].try_extract::<f32>()?.view().to_owned())
   }
