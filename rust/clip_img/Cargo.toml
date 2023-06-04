@@ -5,6 +5,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+anyhow = "1.0.71"
 image = "0.24.6"
 ndarray = "0.15.6"
 tracing = "0.1.37"

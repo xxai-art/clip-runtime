@@ -21,6 +21,8 @@ impl ClipOrt {
       ),
     })
   }
+
+  // pub fn img()->
   pub fn txt(
     &self,
     dir: impl AsRef<Path>,

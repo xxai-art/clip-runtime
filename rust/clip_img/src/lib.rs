@@ -15,9 +15,10 @@ pub fn crop_center(img: &RgbImage, wh: (u32, u32), dim: u32) -> RgbImage {
 pub fn processor(
   crop: impl Fn(&RgbImage, (u32, u32), u32) -> RgbImage,
   dim: u32,
-  img: &RgbImage,
-) -> Array3<f32> {
+  img: &[u8],
+) -> anyhow::Result<Array3<f32>> {
   // Resize the image.
+  let img = image::load_from_memory(img)?.to_rgb8();
   let (w, h) = img.dimensions();
   let w_f64 = w as f64;
   let h_f64 = h as f64;
@@ -35,7 +36,7 @@ pub fn processor(
   let img = if wh.0 == dim && wh.1 == dim {
     img.clone()
   } else {
-    resize(img, wh)
+    resize(&img, wh)
   };
 
   let img = if wh.0 != wh.1 {
@@ -57,7 +58,7 @@ pub fn processor(
     }
   }
 
-  a
+  Ok(a)
 }
 
 /*
@@ -140,9 +141,9 @@ mod tests {
     let mut fp: std::path::PathBuf = std::env::current_dir()?;
     fp.push("cat.jpg");
     let fp = fp.display().to_string();
-    let img = image::open(&fp)?.to_rgb8();
+    let img = std::fs::read(&fp)?;
     let dim = 224;
-    let img = crate::processor(crate::crop_center, dim, &img);
+    let img = crate::processor(crate::crop_center, dim, &img)?;
     to_png(img, &(fp.clone() + ".png"))?;
     let py_img = json_to_narray(&(fp.clone() + ".json"))?;
     to_png(py_img, &(fp + ".py.png"))?;
