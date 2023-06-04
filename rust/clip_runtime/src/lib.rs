@@ -12,7 +12,6 @@ mod test {
   fn init() {
     tracing_subscriber::fmt::init();
   }
-  use ndarray::Ix2;
 
   fn softmax(vec: &[f32]) -> Vec<f32> {
     let max = vec.iter().fold(f32::MIN, |a, &b| a.max(b));
@@ -43,18 +42,14 @@ mod test {
       "a photo of woman",
     ];
 
-    let txt_feature = clip_txt
-      .encode_batch(word_li.into_iter())?
-      .into_dimensionality::<Ix2>()?;
+    let txt_feature = clip_txt.encode_batch(word_li.into_iter())?;
 
     let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
     let mut fp: std::path::PathBuf = std::env::current_dir()?;
     fp.push("cat.jpg");
 
     let fp = fp.display().to_string();
-    let img_feature = clip_img
-      .encode(&std::fs::read(fp)?)?
-      .into_dimensionality::<Ix2>()?;
+    let img_feature = clip_img.encode(&std::fs::read(fp)?)?;
 
     let text_probs = softmax(&img_feature.dot(&txt_feature.t()).into_raw_vec());
     for (p, word) in text_probs.iter().zip(word_li.iter()) {
