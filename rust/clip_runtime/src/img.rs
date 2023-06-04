@@ -8,7 +8,7 @@ use ort::{
   Environment,
 };
 
-use crate::session::ClipSession;
+use crate::{session::ClipSession, typedef::Arr};
 
 pub struct ClipImg<C: Croper> {
   pub env: Arc<Environment>,
@@ -18,7 +18,7 @@ pub struct ClipImg<C: Croper> {
 }
 
 impl<C: Croper> ClipImg<C> {
-  pub fn encode(&self, img: &[u8]) -> Result<()> {
+  pub fn encode(&self, img: &[u8]) -> Result<Arr> {
     let dim = self.dim;
     let img = processor(img, self.dim as u32, &self.croper)?;
     let mut a = Array::<f32, _>::zeros((
@@ -27,14 +27,13 @@ impl<C: Croper> ClipImg<C> {
     ));
     a.slice_mut(s![0..1, 0..3, 0..dim, 0..dim]).assign(&img);
 
+    // 批量编码图片的时候可以用这个函数
     // img.iter().enumerate().for_each(|(idx, md_vec)| {
     //   a.slice_mut(s![idx..idx + 1, 0..3, 0..dim, 0..dim])
     //     .assign(&md_vec);
     // });
 
-    let _out = &self.sess.run([InputTensor::from_array(a.into_dyn())])?;
-
-    Ok(())
+    self.sess.run([InputTensor::from_array(a.into_dyn())])
   }
 }
 
@@ -52,6 +51,7 @@ fn test_image_encode() -> Result<()> {
   fp.push("cat.jpg");
   let fp = fp.display().to_string();
   let img = std::fs::read(fp)?;
-  clip_img.encode(&img)?;
+  let out = clip_img.encode(&img)?;
+  println!("img {}", out);
   Ok(())
 }

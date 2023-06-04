@@ -6,6 +6,8 @@ use ort::{
   environment::Environment, tensor::InputTensor, GraphOptimizationLevel, Session, SessionBuilder,
 };
 
+use crate::typedef::Arr;
+
 pub struct ClipSession(Session);
 
 impl ClipSession {
@@ -18,10 +20,7 @@ impl ClipSession {
     ))
   }
 
-  pub fn run(
-    &self,
-    li: impl AsRef<[InputTensor]>,
-  ) -> anyhow::Result<ArrayBase<OwnedRepr<f32>, Dim<IxDynImpl>>> {
+  pub fn run(&self, li: impl AsRef<[InputTensor]>) -> anyhow::Result<Arr> {
     let out = self.0.run(li.as_ref())?;
     Ok(out[0].try_extract::<f32>()?.view().to_owned())
   }
