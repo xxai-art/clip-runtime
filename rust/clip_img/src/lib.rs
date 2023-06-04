@@ -148,7 +148,7 @@ mod tests {
     let fp = fp.display().to_string();
     let img = std::fs::read(&fp)?;
     let dim = 224;
-    let img = crate::processor(&img, dim, crate::CropCenter())?;
+    let img = crate::processor(&img, dim, &crate::CropCenter())?;
     to_png(img, &(fp.clone() + ".png"))?;
     let py_img = json_to_narray(&(fp.clone() + ".json"))?;
     to_png(py_img, &(fp + ".py.png"))?;
