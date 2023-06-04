@@ -1,9 +1,11 @@
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 
 use anyhow::Result;
 use clip_img::Croper;
 use clip_txt::Tokener;
-use ort::environment::Environment;
+use ort::{environment::Environment, OrtError};
+
+static ORT: OnceLock<Result<Arc<Environment>, OrtError>> = OnceLock::new();
 
 use crate::{img::ClipImg, providers::providers, session::ClipSession, txt::ClipTxt};
 
@@ -18,14 +20,17 @@ pub struct ClipModel {
 
 impl ClipOrt {
   pub fn new() -> Result<Self> {
-    Ok(ClipOrt {
-      env: Arc::new(
+    match ORT.get_or_init(|| {
+      Ok(Arc::new(
         Environment::builder()
           .with_name("clip")
           .with_execution_providers(providers())
           .build()?,
-      ),
-    })
+      ))
+    }) {
+      Ok(env) => Ok(ClipOrt { env: env.clone() }),
+      Err(err) => Err(err.into()),
+    }
   }
 
   pub fn model(&self, dir: impl Into<String>) -> ClipModel {
