@@ -35,3 +35,34 @@ impl ClipTxt {
     Ok(out[0].try_extract::<f32>()?.view().to_owned())
   }
 }
+
+#[cfg(test)]
+mod tests {
+  use clip_txt::Result;
+
+  use crate::ort::ClipOrt;
+
+  #[test]
+  fn test() -> Result<()> {
+    tracing_subscriber::fmt::init();
+    let mut dir = std::env::current_dir()?;
+    dir.push("model/AltCLIP-XLMR-L-m18");
+
+    let ort = ClipOrt::new()?;
+    let clip_txt = ort.txt(dir, "onnx/Txt", 77)?;
+    let word_li = [
+      "a photo for chinese woman",
+      "a photo of dog",
+      "a photo for cat",
+    ];
+    for word in word_li {
+      let out = clip_txt.encode(word)?;
+      println!("❯ {}\n{}\n", word, out);
+    }
+    let out = clip_txt.encode_batch(word_li.into_iter())?;
+    for (out, word) in out.rows().into_iter().zip(word_li.iter()) {
+      println!("❯ {}\n{}\n", word, out);
+    }
+    Ok(())
+  }
+}
