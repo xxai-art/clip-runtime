@@ -13,9 +13,9 @@ pub fn crop_center(img: &RgbImage, wh: (u32, u32), dim: u32) -> RgbImage {
 }
 
 pub fn processor(
-  crop: impl Fn(&RgbImage, (u32, u32), u32) -> RgbImage,
   dim: u32,
   img: &[u8],
+  crop: impl Fn(&RgbImage, (u32, u32), u32) -> RgbImage,
 ) -> anyhow::Result<Array3<f32>> {
   // Resize the image.
   let img = image::load_from_memory(img)?.to_rgb8();
@@ -143,7 +143,7 @@ mod tests {
     let fp = fp.display().to_string();
     let img = std::fs::read(&fp)?;
     let dim = 224;
-    let img = crate::processor(crate::crop_center, dim, &img)?;
+    let img = crate::processor(dim, &img, crate::crop_center)?;
     to_png(img, &(fp.clone() + ".png"))?;
     let py_img = json_to_narray(&(fp.clone() + ".json"))?;
     to_png(py_img, &(fp + ".py.png"))?;
