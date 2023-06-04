@@ -85,7 +85,7 @@ mod tests {
       let vec = tokener.encode(word)?;
       println!("\n❯ {}\n{:?}\n", word, vec);
     }
-    dbg!(tokener.encode_batch(li.into())?);
+    // dbg!(tokener.encode_batch(li.into())?);
     Ok(())
   }
 }
