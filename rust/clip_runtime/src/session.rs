@@ -1,6 +1,7 @@
 use std::sync::Arc;
 
 use anyhow::Result;
+use ndarray::Ix2;
 use ort::{
   environment::Environment, tensor::InputTensor, GraphOptimizationLevel, Session, SessionBuilder,
 };
@@ -21,6 +22,12 @@ impl ClipSession {
 
   pub fn run(&self, li: impl AsRef<[InputTensor]>) -> anyhow::Result<Arr> {
     let out = self.0.run(li.as_ref())?;
-    Ok(out[0].try_extract::<f32>()?.view().to_owned())
+    Ok(
+      out[0]
+        .try_extract::<f32>()?
+        .view()
+        .to_owned()
+        .into_dimensionality::<Ix2>()?,
+    )
   }
 }
