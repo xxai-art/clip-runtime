@@ -1,7 +1,6 @@
 use std::sync::Arc;
 
 use anyhow::Result;
-use ndarray::{ArrayBase, Dim, IxDynImpl, OwnedRepr};
 use ort::{
   environment::Environment, tensor::InputTensor, GraphOptimizationLevel, Session, SessionBuilder,
 };

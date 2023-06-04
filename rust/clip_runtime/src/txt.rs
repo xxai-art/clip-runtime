@@ -1,7 +1,6 @@
 use std::sync::Arc;
 
 use clip_txt::Tokener;
-use ndarray::{ArrayBase, Dim, IxDynImpl, OwnedRepr};
 use ort::Environment;
 
 use crate::{
