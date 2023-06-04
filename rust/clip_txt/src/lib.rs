@@ -20,14 +20,19 @@ impl Tokener {
     Ok(Tokener { tokenizer })
   }
 
-  pub fn encode_batch(&self, txt_li: Vec<impl AsRef<str>>) -> Result<VecIdsMask> {
+  pub fn encode_batch(
+    &self,
+    txt_li: impl ExactSizeIterator + Iterator<Item = impl AsRef<str>>,
+  ) -> Result<VecIdsMask> {
     let len = txt_li.len();
     let mut id_li_li = Vec::with_capacity(len);
     let mut mask_li = Vec::with_capacity(len);
     if len > 0 {
       let tokenizer = &self.tokenizer;
-      let li =
-        tokenizer.encode_batch(txt_li.iter().map(|x| x.as_ref()).collect::<Vec<_>>(), true)?;
+      let li = tokenizer.encode_batch(
+        txt_li.map(|x| x.as_ref().to_owned()).collect::<Vec<_>>(),
+        true,
+      )?;
       let max = li.iter().map(|item| item.get_ids().len()).max().unwrap();
       for encoding in li {
         let id_li = encoding.get_ids();

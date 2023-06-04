@@ -84,11 +84,16 @@ impl ClipTxt {
     let out = &self.sess.run([ids, mask])?;
     Ok(out[0].try_extract::<f32>()?.view().to_owned())
   }
+
   pub fn encode_batch(
     &self,
-    _txt: Vec<impl AsRef<str>>,
-  ) -> clip_txt::Result<Vec<ArrayBase<OwnedRepr<f32>, Dim<IxDynImpl>>>> {
-    todo!()
+    txt_li: impl ExactSizeIterator + Iterator<Item = impl AsRef<str>>,
+  ) -> clip_txt::Result<ArrayBase<OwnedRepr<f32>, Dim<IxDynImpl>>> {
+    let (ids_li, mask_li) = self.tokener.encode_batch(txt_li)?;
+    let ids_li = box_iter_ndarray(ids_li.into_iter().map(|i| box_u32_i64(i)))?;
+    let mask_li = box_iter_ndarray(mask_li.into_iter().map(|i| box_u32_i64(i)))?;
+    let out = &self.sess.run([ids_li, mask_li])?;
+    Ok(out[0].try_extract::<f32>()?.view().to_owned())
   }
 }
 
@@ -113,6 +118,10 @@ mod tests {
     ];
     for word in word_li {
       let out = clip_txt.encode(word)?;
+      println!("❯ {}\n{}\n", word, out);
+    }
+    let out = clip_txt.encode_batch(word_li.into_iter())?;
+    for (out, word) in out.rows().into_iter().zip(word_li.iter()) {
       println!("❯ {}\n{}\n", word, out);
     }
     Ok(())
