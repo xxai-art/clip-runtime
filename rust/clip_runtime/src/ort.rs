@@ -1,7 +1,4 @@
-use std::{
-  path::{Path, PathBuf},
-  sync::Arc,
-};
+use std::sync::Arc;
 
 use anyhow::Result;
 use clip_img::Croper;

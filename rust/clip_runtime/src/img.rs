@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use clip_img::{processor, Croper, RgbImage};
+use clip_img::Croper;
 use ort::{Environment, Session};
 
 pub struct ClipImg<C: Croper> {

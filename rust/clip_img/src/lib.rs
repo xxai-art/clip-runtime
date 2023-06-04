@@ -39,7 +39,7 @@ pub fn processor(dim: u32, img: &[u8], croper: impl Croper) -> anyhow::Result<Ar
   };
 
   let img = if wh.0 == dim && wh.1 == dim {
-    img.clone()
+    img
   } else {
     resize(&img, wh)
   };
