@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if [ ! -n "$1" ]; then
+  exe=test/main.coffee
+else
+  exe=${@:1}
+fi
+
+exec watchexec --shell=none \
+  --project-origin . -w ./src \
+  -w ./test \
+  --exts coffee,js,mjs,json,wasm,txt,yaml \
+  -r \
+  -- ./run.sh $exe
