@@ -42,7 +42,6 @@ mod tests {
 
   #[test]
   fn test() -> Result<()> {
-    tracing_subscriber::fmt::init();
     let mut dir = std::env::current_dir()?;
     dir.push("model/AltCLIP-XLMR-L-m18");
 
