@@ -4,7 +4,7 @@ use anyhow::Result;
 use clip_txt::Tokener;
 use ort::{environment::Environment, GraphOptimizationLevel, SessionBuilder};
 
-use crate::{providers::providers, txt::ClipTxt};
+use crate::{img::ClipImg, providers::providers, txt::ClipTxt};
 
 pub struct ClipOrt {
   pub env: Arc<Environment>,
@@ -22,7 +22,8 @@ impl ClipOrt {
     })
   }
 
-  // pub fn img()->
+  // pub fn img(&self) -> ClipImg {}
+
   pub fn txt(
     &self,
     dir: impl AsRef<Path>,
@@ -42,3 +43,10 @@ impl ClipOrt {
     })
   }
 }
+
+// pub struct ClipImg<Crop: Fn(&RgbImage, (u32, u32), u32) -> RgbImage> {
+//   pub env: Arc<Environment>,
+//   pub sess: Session,
+//   pub dim: u32,
+//   pub crop: Crop,
+// }

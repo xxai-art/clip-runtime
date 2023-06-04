@@ -1,9 +1,14 @@
-use image::{imageops::crop_imm, RgbImage};
+use image::imageops::crop_imm;
+pub use image::RgbImage;
 use ndarray::Array3;
 
 pub fn resize(img: &RgbImage, wh: (u32, u32)) -> RgbImage {
   let (w, h) = wh;
   image::imageops::resize(img, w, h, image::imageops::FilterType::CatmullRom)
+}
+
+pub enum Crop {
+  Center,
 }
 
 pub fn crop_center(img: &RgbImage, wh: (u32, u32), dim: u32) -> RgbImage {
