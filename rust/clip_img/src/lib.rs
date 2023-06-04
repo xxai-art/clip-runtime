@@ -7,21 +7,21 @@ pub fn resize(img: &RgbImage, wh: (u32, u32)) -> RgbImage {
   image::imageops::resize(img, w, h, image::imageops::FilterType::CatmullRom)
 }
 
-pub enum Crop {
-  Center,
+pub trait Croper {
+  fn crop(&self, img: &RgbImage, wh: (u32, u32), dim: u32) -> RgbImage;
 }
 
-pub fn crop_center(img: &RgbImage, wh: (u32, u32), dim: u32) -> RgbImage {
-  let left = (wh.0 - dim) / 2;
-  let top = (wh.1 - dim) / 2;
-  crop_imm(img, left, top, dim, dim).to_image()
+pub struct CropCenter();
+
+impl Croper for CropCenter {
+  fn crop(&self, img: &RgbImage, wh: (u32, u32), dim: u32) -> RgbImage {
+    let left = (wh.0 - dim) / 2;
+    let top = (wh.1 - dim) / 2;
+    crop_imm(img, left, top, dim, dim).to_image()
+  }
 }
 
-pub fn processor(
-  dim: u32,
-  img: &[u8],
-  crop: impl Fn(&RgbImage, (u32, u32), u32) -> RgbImage,
-) -> anyhow::Result<Array3<f32>> {
+pub fn processor(dim: u32, img: &[u8], croper: impl Croper) -> anyhow::Result<Array3<f32>> {
   // Resize the image.
   let img = image::load_from_memory(img)?.to_rgb8();
   let (w, h) = img.dimensions();
@@ -45,7 +45,7 @@ pub fn processor(
   };
 
   let img = if wh.0 != wh.1 {
-    crop(&img, wh, dim)
+    croper.crop(&img, wh, dim)
   } else {
     img
   };
@@ -71,7 +71,7 @@ Compose(
 [
 _blob2image,
 Resize(n_px, interpolation=BICUBIC),
-CenterCrop(n_px),
+CenterCroper(n_px),
 _convert_image_to_rgb,
 ToTensor(),
 Normalize(
@@ -148,7 +148,7 @@ mod tests {
     let fp = fp.display().to_string();
     let img = std::fs::read(&fp)?;
     let dim = 224;
-    let img = crate::processor(dim, &img, crate::crop_center)?;
+    let img = crate::processor(dim, &img, crate::CropCenter())?;
     to_png(img, &(fp.clone() + ".png"))?;
     let py_img = json_to_narray(&(fp.clone() + ".json"))?;
     to_png(py_img, &(fp + ".py.png"))?;

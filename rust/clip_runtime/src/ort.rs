@@ -1,12 +1,21 @@
-use std::{path::Path, sync::Arc};
+use std::{
+  path::{Path, PathBuf},
+  sync::Arc,
+};
 
 use anyhow::Result;
+use clip_img::Croper;
 use clip_txt::Tokener;
-use ort::{environment::Environment, GraphOptimizationLevel, SessionBuilder};
+use ort::{environment::Environment, GraphOptimizationLevel, Session, SessionBuilder};
 
 use crate::{img::ClipImg, providers::providers, txt::ClipTxt};
 
 pub struct ClipOrt {
+  pub env: Arc<Environment>,
+}
+
+pub struct ClipModel {
+  pub dir: String,
   pub env: Arc<Environment>,
 }
 
@@ -22,31 +31,41 @@ impl ClipOrt {
     })
   }
 
-  // pub fn img(&self) -> ClipImg {}
-
-  pub fn txt(
-    &self,
-    dir: impl AsRef<Path>,
-    onnx: &str,
-    context_length: usize,
-  ) -> clip_txt::Result<ClipTxt> {
-    let env = self.env.clone();
-    let dir = dir.as_ref().display();
-    let sess = SessionBuilder::new(&env)?
-      .with_optimization_level(GraphOptimizationLevel::Level3)?
-      .with_inter_threads(num_cpus::get() as i16)?
-      .with_model_from_file(format!("{}/{}.onnx", dir, onnx))?;
-    Ok(ClipTxt {
-      env,
-      sess,
-      tokener: Tokener::from_file(format!("{}/process/tokenizer.json", dir), context_length)?,
-    })
+  pub fn model(&self, dir: impl Into<String>) -> ClipModel {
+    ClipModel {
+      dir: dir.into(),
+      env: self.env.clone(),
+    }
   }
 }
 
-// pub struct ClipImg<Crop: Fn(&RgbImage, (u32, u32), u32) -> RgbImage> {
-//   pub env: Arc<Environment>,
-//   pub sess: Session,
-//   pub dim: u32,
-//   pub crop: Crop,
-// }
+impl ClipModel {
+  pub fn sess(&self, onnx: &str) -> Result<Session> {
+    Ok(
+      SessionBuilder::new(&self.env)?
+        .with_optimization_level(GraphOptimizationLevel::Level3)?
+        .with_inter_threads(num_cpus::get() as i16)?
+        .with_model_from_file(format!("{}/{}.onnx", &self.dir, onnx))?,
+    )
+  }
+
+  pub fn txt(&self, onnx: &str, context_length: usize) -> clip_txt::Result<ClipTxt> {
+    Ok(ClipTxt {
+      env: self.env.clone(),
+      sess: self.sess(onnx)?,
+      tokener: Tokener::from_file(
+        format!("{}/process/tokenizer.json", self.dir),
+        context_length,
+      )?,
+    })
+  }
+
+  pub fn img<C: Croper>(&self, onnx: &str, dim: u32, croper: C) -> clip_txt::Result<ClipImg<C>> {
+    Ok(ClipImg {
+      env: self.env.clone(),
+      sess: self.sess(onnx)?,
+      dim,
+      croper,
+    })
+  }
+}
