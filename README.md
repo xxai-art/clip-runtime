@@ -5,7 +5,7 @@
 请安装好以下软件（版本仅供参考，更高的版本应该也可以），可以用 [rtx](https://github.com/jdxcode/rtx) 管理版本。
 
 * nodejs 20.2.0
-* rust 1.70.0
+* rust 1.72.0-nightly
 
 [bun 0.6.7](https://bun.sh)
 
