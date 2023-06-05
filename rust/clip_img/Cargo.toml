@@ -1,4 +1,7 @@
 [package]
+homepage = "https://github.com/xxai-art/clip-runtime/tree/main/rust/clip_txt"
+repository = "https://github.com/xxai-art/clip-runtime.git"
+description = "transformers.CLIPImageProcessor 的 rust 版本的实现。用于将图片转为向量（一般是 224x224），然后传给 clip。"
 build = "build.rs"
 name = "clip_img"
 version = "0.1.0"
