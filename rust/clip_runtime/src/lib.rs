@@ -42,9 +42,16 @@ mod test {
     let model = ort.model(dir.join("model/AltCLIP-XLMR-L-m18").display().to_string());
     let clip_txt = model.txt("onnx/Txt", 77)?;
 
-    let word_li = tmpl_kind_li!("a photo of {}", "cat", "rat", "dog", "man", "woman");
+    let prompt_li = [
+      tmpl_kind_li!("a photo of {}", "cat", "rat", "dog", "man", "woman"),
+      tmpl_kind_li!("一张{}的图片", "猫", "老鼠", "狗", "男人", "女人"),
+    ];
 
-    let txt_feature = clip_txt.encode_batch(word_li.clone().into_iter())?;
+    let txt_feature_li = prompt_li
+      .iter()
+      .map(|word_li| clip_txt.encode_batch(word_li.clone().into_iter()).unwrap())
+      .collect::<Vec<_>>();
+
     let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
 
     for file in ["cat", "build"] {
@@ -53,10 +60,12 @@ mod test {
       let fp = fp.display().to_string();
       let img_feature = clip_img.encode(&std::fs::read(fp)?)?;
 
-      let text_probs = cls(&img_feature, &txt_feature);
       println!("\n❯ {}", file);
-      for (p, word) in text_probs.iter().zip(word_li.iter()) {
-        println!("{} {:.2}%", word, (*p) * 100.0)
+      for (txt_feature, word_li) in txt_feature_li.iter().zip(prompt_li.iter()) {
+        let text_probs = cls(&img_feature, txt_feature);
+        for (p, word) in text_probs.iter().zip(word_li.iter()) {
+          println!("{} {:.2}%", word, (*p) * 100.0)
+        }
       }
     }
     Ok(())

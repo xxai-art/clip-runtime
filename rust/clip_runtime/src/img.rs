@@ -46,7 +46,7 @@ fn test_image_encode() -> Result<()> {
   let model = ort.model(dir.join("model/AltCLIP-XLMR-L-m18").to_str().unwrap());
   let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
 
-  let img = std::fs::read(dir.join("cat.jpg"))?;
+  let img = std::fs::read(dir.join("img/cat.jpg"))?;
   let out = clip_img.encode(&img)?;
   println!("img {}", out);
   Ok(())
