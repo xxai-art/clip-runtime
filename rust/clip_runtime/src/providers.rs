@@ -1,5 +1,5 @@
 use ort::ExecutionProvider;
 
-pub fn providers() -> [ExecutionProvider; 1] {
+pub fn providers() -> [ExecutionProvider; 2] {
   [ExecutionProvider::coreml(), ExecutionProvider::cpu()]
 }
