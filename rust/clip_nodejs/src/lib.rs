@@ -1,10 +1,10 @@
 use anyhow::Result;
 use clip_runtime::{
-  img::ClipImg,
+  img::{clip_img::CropCenter, ClipImg},
   ort::{ClipModel, ClipOrt},
   txt::ClipTxt,
 };
-use napi::Either;
+use napi::{bindgen_prelude::Buffer, Either};
 use napi_derive::napi;
 
 #[napi]
@@ -16,8 +16,13 @@ pub struct Model(ClipModel);
 #[napi]
 pub struct Txt(ClipTxt);
 
-// #[napi]
-// pub struct Img(ClipImg);
+#[napi]
+pub struct Img(ClipImg<CropCenter>);
+
+#[napi]
+pub fn img_txt_cls(txt_feature: &Arr, img_feature: &Arr) -> Vec<f32> {
+  clip_runtime::cls(&txt_feature.0, &img_feature.0)
+}
 
 #[napi]
 impl Model {
@@ -29,6 +34,19 @@ impl Model {
   #[napi]
   pub fn txt(&self, onnx: String, context_length: u32) -> anyhow::Result<Txt> {
     Ok(Txt(self.0.txt(&onnx, context_length as usize)?))
+  }
+
+  #[napi]
+  pub fn img(&self, onnx: String, dim: u32) -> anyhow::Result<Img> {
+    Ok(Img(self.0.img(&onnx, dim as usize, CropCenter())?))
+  }
+}
+
+#[napi]
+impl Img {
+  #[napi]
+  pub fn encode(&self, bin: Buffer) -> Result<Arr> {
+    Ok(Arr(self.0.encode(bin.as_ref())?))
   }
 }
 
@@ -51,8 +69,8 @@ impl Arr {
   }
 
   #[napi]
-  pub fn len(&self) -> usize {
-    self.0.len()
+  pub fn width(&self) -> usize {
+    self.shape()[1]
   }
 
   #[napi]

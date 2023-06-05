@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use anyhow::Result;
-use clip_img::{processor, Croper};
+pub use clip_img::{self, processor, Croper};
 use ndarray::{s, Array};
 use ort::{
   tensor::{FromArray, InputTensor},

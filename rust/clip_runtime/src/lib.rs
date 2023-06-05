@@ -27,7 +27,7 @@ pub fn softmax(input: &Arr) -> Arr {
 //   exps
 // }
 
-pub fn cls(img_feature: &Arr, txt_feature: &Arr) -> Vec<f32> {
+pub fn cls(txt_feature: &Arr, img_feature: &Arr) -> Vec<f32> {
   let li = img_feature.dot(&txt_feature.t());
   softmax(&li).into_raw_vec()
 }
@@ -92,7 +92,7 @@ mod test {
 
       println!("\n❯ {}", file);
       for (txt_feature, word_li) in txt_feature_li.iter().zip(prompt_li.iter()) {
-        let text_probs = cls(&img_feature, txt_feature);
+        let text_probs = cls(txt_feature, &img_feature);
         for (p, word) in text_probs.iter().zip(word_li.iter()) {
           println!("{} {:.2}%", word, (*p) * 100.0)
         }
