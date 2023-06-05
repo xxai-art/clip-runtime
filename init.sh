@@ -13,7 +13,7 @@ version=1.14.1
 if [ ! -f "lib/so/onnxruntime.$version.dll" ]; then
   if [[ "$OSTYPE" == "darwin"* ]]; then
     DLL_EXT=dylib
-    OS=darwin
+    OS=osx
   elif [[ "$OSTYPE" == "linux"* ]]; then
     DLL_EXT=so
     OS=linux
@@ -22,7 +22,13 @@ if [ ! -f "lib/so/onnxruntime.$version.dll" ]; then
     OS=win
   fi
 
-  ort=onnxruntime-$OS-$(uname -m)-$version
+  ort=onnxruntime-$OS-$(uname -m)
+
+  if [ -x "$(command -v nvidia-smi)" ]; then
+    ort=$ort-gpu
+  fi
+
+  ort=$ort-$version
   mkdir -p lib/so
   cd lib/so
 
@@ -30,7 +36,7 @@ if [ ! -f "lib/so/onnxruntime.$version.dll" ]; then
   wget -c https://github.com/microsoft/onnxruntime/releases/download/v$version/$tgz
 
   tar zxvf $tgz
-  mv $ort/lib/libonnxruntime.$version.$DLL_EXT $DIR/lib/so/onnxruntime.$version.dll
+  mv $ort/lib/*.$DLL_EXT $DIR/lib/so/
   rm -rf $tgz $ort
 fi
 
