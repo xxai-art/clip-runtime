@@ -5,18 +5,31 @@ pub mod session;
 pub mod txt;
 pub mod typedef;
 pub mod util;
+use ndarray::Axis;
+
 use crate::typedef::Arr;
 
-pub fn softmax(vec: &[f32]) -> Vec<f32> {
-  let max = vec.iter().fold(f32::MIN, |a, &b| a.max(b));
-  let mut exps: Vec<f32> = vec.iter().map(|x| (x - max).exp()).collect();
-  let sum: f32 = exps.iter().sum();
-  exps.iter_mut().for_each(|x| *x /= sum);
-  exps
+fn softmax(input: &Arr) -> Arr {
+  let mut output = Arr::zeros(input.raw_dim());
+  for (in_row, mut out_row) in input.axis_iter(Axis(0)).zip(output.axis_iter_mut(Axis(0))) {
+    let max = in_row.iter().fold(f32::MIN, |max, &val| max.max(val));
+    let exps = in_row.map(|&x| (x - max).exp());
+    let exp_sum = exps.sum();
+    out_row.assign(&(exps / exp_sum));
+  }
+  output
 }
+// pub fn softmax(vec: &[f32]) -> Vec<f32> {
+//   let max = vec.iter().fold(f32::MIN, |a, &b| a.max(b));
+//   let mut exps: Vec<f32> = vec.iter().map(|x| (x - max).exp()).collect();
+//   let sum: f32 = exps.iter().sum();
+//   exps.iter_mut().for_each(|x| *x /= sum);
+//   exps
+// }
 
 pub fn cls(img_feature: &Arr, txt_feature: &Arr) -> Vec<f32> {
-  return softmax(&img_feature.dot(&txt_feature.t()).into_raw_vec());
+  let li = img_feature.dot(&txt_feature.t());
+  softmax(&li).into_raw_vec()
 }
 
 #[cfg(test)]
