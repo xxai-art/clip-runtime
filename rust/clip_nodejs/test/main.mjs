@@ -1,10 +1,10 @@
 #!/usr/bin/env -S node --loader=@w5/jsext --trace-uncaught --expose-gc --unhandled-rejections=strict --experimental-import-meta-resolve
-import test from 'ava';
+var I, T;
 
-import {
-  helloWorld
-} from '../index.js';
+import avat from '@w5/avat';
 
-test('main', (t) => {
-  t.is(helloWorld([1, 2, 3]), 3);
-});
+I = (await import('../index.js'));
+
+T = avat(I);
+
+T.helloWorld([1, 2, 3])(3);
