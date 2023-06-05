@@ -4,6 +4,7 @@ repository = "https://github.com/xxai-art/clip-runtime.git"
 name = "clip_txt"
 version = "0.1.0"
 edition = "2021"
+license = "MulanPSL2"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
