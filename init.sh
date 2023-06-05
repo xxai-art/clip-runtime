@@ -46,4 +46,4 @@ rm -rf onnxruntime.dll
 ln -s $ORT_DLL onnxruntime.dll
 cd $DIR
 
-# direnv exec . ./rust/ort.conf.coffee
+direnv exec . ./rust/ort.conf.coffee
