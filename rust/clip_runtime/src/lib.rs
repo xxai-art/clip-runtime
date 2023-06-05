@@ -6,19 +6,19 @@ pub mod txt;
 pub mod typedef;
 pub mod util;
 
+pub fn softmax(vec: &[f32]) -> Vec<f32> {
+  let max = vec.iter().fold(f32::MIN, |a, &b| a.max(b));
+  let mut exps: Vec<f32> = vec.iter().map(|x| (x - max).exp()).collect();
+  let sum: f32 = exps.iter().sum();
+  exps.iter_mut().for_each(|x| *x /= sum);
+  exps
+}
+
 #[cfg(test)]
 mod test {
   #[test]
   fn init() {
     tracing_subscriber::fmt::init();
-  }
-
-  fn softmax(vec: &[f32]) -> Vec<f32> {
-    let max = vec.iter().fold(f32::MIN, |a, &b| a.max(b));
-    let mut exps: Vec<f32> = vec.iter().map(|x| (x - max).exp()).collect();
-    let sum: f32 = exps.iter().sum();
-    exps.iter_mut().for_each(|x| *x /= sum);
-    exps
   }
 
   use crate::ort::ClipOrt;
