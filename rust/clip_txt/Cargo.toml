@@ -1,4 +1,6 @@
 [package]
+homepage = "https://github.com/xxai-art/clip-runtime/tree/main/rust/clip_txt"
+repository = "https://github.com/xxai-art/clip-runtime.git"
 name = "clip_txt"
 version = "0.1.0"
 edition = "2021"
