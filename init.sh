@@ -6,6 +6,16 @@ set -ex
 
 direnv allow
 
+if [ ! -f "lib/model/$MODEL/process/tokenizer.json" ]; then
+  mkdir -p lib/model
+  cd lib/model
+  wget -c $MODEL_URL
+  FILE=$(basename $MODEL_URL)
+  tar xvf $FILE
+  rm $FILE
+fi
+
+cd $DIR
 if [[ "$OSTYPE" == "darwin"* ]]; then
   DLL_EXT=dylib
   OS=osx
@@ -35,7 +45,7 @@ if [ ! -f "lib/so/$ORT_DLL" ]; then
   tgz=$ort.tgz
   wget -c https://github.com/microsoft/onnxruntime/releases/download/v$version/$tgz
 
-  tar zxvf $tgz
+  tar xvf $tgz
   rm -rf so
   mv $ort/lib so
   rm -rf $tgz $ort

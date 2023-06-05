@@ -34,7 +34,24 @@ pub fn cls(img_feature: &Arr, txt_feature: &Arr) -> Vec<f32> {
 
 #[cfg(test)]
 mod test {
-  use crate::{cls, ort::ClipOrt};
+  use crate::{clip_model::ClipModel, cls, ort::ClipOrt};
+
+  use std::sync::{Arc, OnceLock};
+
+  static MODEL: OnceLock<ClipModel> = OnceLock::new();
+
+  pub fn clip_model() -> anyhow::Result<ClipModel> {
+    MODEL.get_or_init(|| {
+      let ort = ClipOrt::new()?;
+      ort.model(
+        std::env::current_dir()?
+          .join("model")
+          .join(std::env::var("MODEL")?)
+          .display()
+          .to_string(),
+      )
+    })
+  }
 
   #[test]
   fn init() {
@@ -49,9 +66,7 @@ mod test {
 
   #[test]
   fn test() -> clip_txt::Result<()> {
-    let dir = std::env::current_dir()?;
-    let ort = ClipOrt::new()?;
-    let model = ort.model(dir.join("model/AltCLIP-XLMR-L-m18").display().to_string());
+    let model = clip_model();
     let clip_txt = model.txt("onnx/Txt", 77)?;
 
     let prompt_li = [
