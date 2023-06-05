@@ -46,7 +46,7 @@ impl ClipModel {
     ClipSession::new(&self.dir, &self.env, onnx)
   }
 
-  pub fn txt(&self, onnx: &str, context_length: usize) -> clip_txt::Result<ClipTxt> {
+  pub fn txt(&self, onnx: &str, context_length: usize) -> Result<ClipTxt> {
     Ok(ClipTxt {
       env: self.env.clone(),
       sess: self.sess(onnx)?,

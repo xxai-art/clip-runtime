@@ -66,7 +66,7 @@ mod test {
   }
 
   #[test]
-  fn test() -> clip_txt::Result<()> {
+  fn test() -> anyhow::Result<()> {
     let model = clip_model();
     let clip_txt = model.txt("onnx/Txt", 77)?;
 
