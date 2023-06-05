@@ -283,4 +283,4 @@ nativeBinding.zipU64 = (...args) => _zipU64(args);
 */
 
 export const Model = nativeBinding.Model;
-export const helloWorld = nativeBinding.helloWorld;
+export const model = nativeBinding.model;

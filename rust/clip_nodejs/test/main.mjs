@@ -1,10 +1,25 @@
 #!/usr/bin/env -S node --loader=@w5/jsext --trace-uncaught --expose-gc --unhandled-rejections=strict --experimental-import-meta-resolve
-var I, T;
+var ROOT;
 
-import avat from '@w5/avat';
+import test from 'ava';
 
-I = (await import('../index.js'));
+import {
+  Model
+} from '@w5/clip';
 
-T = avat(I);
+import uridir from '@w5/uridir';
 
-T.helloWorld([1, 2, 3])(3);
+import {
+  dirname,
+  join
+} from 'path';
+
+ROOT = dirname(dirname(uridir(import.meta)));
+
+test('txt', (t) => {
+  var dir, model;
+  dir = join(ROOT, 'model', process.env.MODEL);
+  model = Model(dir);
+  console.log(model);
+  t.pass();
+});

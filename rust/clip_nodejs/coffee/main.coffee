@@ -1,8 +1,18 @@
 #!/usr/bin/env coffee
 
-> @w5/avat
+> ava:test
+  @w5/clip > Model
+  @w5/uridir
+  path > dirname join
 
-I = await import('../index.js')
-T = avat I
+ROOT = dirname dirname uridir(import.meta)
 
-T.helloWorld([1,2,3])(3)
+test(
+  'txt'
+  (t)=>
+    dir = join ROOT,'model',process.env.MODEL
+    model = Model dir
+    console.log model
+    t.pass()
+    return
+)

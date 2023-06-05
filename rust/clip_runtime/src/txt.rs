@@ -1,5 +1,6 @@
 use std::sync::Arc;
 
+pub use clip_txt::Result;
 use clip_txt::Tokener;
 use ort::Environment;
 
@@ -16,7 +17,7 @@ pub struct ClipTxt {
 }
 
 impl ClipTxt {
-  pub fn encode(&self, txt: impl AsRef<str>) -> clip_txt::Result<Arr> {
+  pub fn encode(&self, txt: impl AsRef<str>) -> Result<Arr> {
     let (ids, mask) = self.tokener.encode(txt)?;
     let ids = box_iter_ndarray([box_u32_i64(ids)].into_iter())?;
     let mask = box_iter_ndarray([box_u32_i64(mask)].into_iter())?;
@@ -26,7 +27,7 @@ impl ClipTxt {
   pub fn encode_batch(
     &self,
     txt_li: impl ExactSizeIterator + Iterator<Item = impl AsRef<str>>,
-  ) -> clip_txt::Result<Arr> {
+  ) -> Result<Arr> {
     let (ids_li, mask_li) = self.tokener.encode_batch(txt_li)?;
     let ids_li = box_iter_ndarray(ids_li.into_iter().map(box_u32_i64))?;
     let mask_li = box_iter_ndarray(mask_li.into_iter().map(box_u32_i64))?;
