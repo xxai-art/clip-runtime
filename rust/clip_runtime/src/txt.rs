@@ -1,8 +1,7 @@
-use std::sync::Arc;
-
-pub use clip_txt::Result;
+use anyhow::Result;
 use clip_txt::Tokener;
 use ort::Environment;
+use std::sync::Arc;
 
 use crate::{
   session::ClipSession,
@@ -37,7 +36,7 @@ impl ClipTxt {
 
 #[cfg(test)]
 mod tests {
-  use clip_txt::Result;
+  use anyhow::Result;
 
   #[test]
   fn test() -> Result<()> {
