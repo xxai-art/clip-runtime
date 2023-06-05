@@ -92,8 +92,7 @@ mod test {
 
     let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
 
-    let dir = std::env::current_dir()?;
-
+    let dir = crate::test::root();
     for file in ["cat", "build"] {
       let fp = dir.join(format!("img/{}.jpg", file));
 
