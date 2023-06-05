@@ -6,8 +6,8 @@ set -ex
 
 rustc -vV | grep "host:"
 
-mkdir -p so
-cd so
+mkdir -p lib/so
+cd lib/so
 
 version=1.14.1
 name=onnxruntime-osx-arm64-$version

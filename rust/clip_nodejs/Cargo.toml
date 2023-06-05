@@ -10,6 +10,9 @@ crate-type = ["cdylib"]
 anyhow = "1.0.71"
 napi-derive = "2.12.5"
 
+[dependencies.clip_runtime]
+path = "../clip_runtime"
+
 [dependencies.napi]
 version = "2.12.6"
 path = "./lib/napi-rs/crates/napi"

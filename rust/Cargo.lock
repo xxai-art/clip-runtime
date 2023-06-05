@@ -3026,6 +3026,7 @@ name = "w5_clip"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "clip_runtime",
  "napi",
  "napi-build",
  "napi-derive 2.13.0 (registry+https://github.com/rust-lang/crates.io-index)",

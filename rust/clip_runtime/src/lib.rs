@@ -9,7 +9,7 @@ use ndarray::Axis;
 
 use crate::typedef::Arr;
 
-fn softmax(input: &Arr) -> Arr {
+pub fn softmax(input: &Arr) -> Arr {
   let mut output = Arr::zeros(input.raw_dim());
   for (in_row, mut out_row) in input.axis_iter(Axis(0)).zip(output.axis_iter_mut(Axis(0))) {
     let max = in_row.iter().fold(f32::MIN, |max, &val| max.max(val));
@@ -34,7 +34,7 @@ pub fn cls(img_feature: &Arr, txt_feature: &Arr) -> Vec<f32> {
 
 #[cfg(test)]
 mod test {
-  use crate::cls;
+  use crate::{cls, ort::ClipOrt};
 
   #[test]
   fn init() {
@@ -42,11 +42,10 @@ mod test {
   }
 
   macro_rules! tmpl_kind_li {
-        ($tmpl:expr, $($x:expr),* $(,)? ) => {{
-            [ $(format!($tmpl, $x)),* ]
-        }};
-    }
-  use crate::ort::ClipOrt;
+    ($tmpl:expr, $($x:expr),* $(,)? ) => {{
+      [ $(format!($tmpl, $x)),* ]
+    }};
+  }
 
   #[test]
   fn test() -> clip_txt::Result<()> {
