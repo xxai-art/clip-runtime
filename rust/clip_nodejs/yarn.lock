@@ -188,6 +188,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@w5/clip@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@w5/clip@workspace:."
+  dependencies:
+    "@napi-rs/cli": ^2.16.1
+    "@w5/avat": ^0.0.8
+    "@w5/coffee_plus": ^0.0.13
+    "@w5/loader": ^0.0.3
+    "@w5/mdt": ^0.0.16
+    "@w5/read": ^0.0.1
+    "@w5/uridir": ^0.0.1
+    "@w5/write": ^0.0.1
+    ava: ^5.3.0
+    coffeescript: ^2.7.0
+    concurrently: ^8.1.0
+    esm: ^3.2.25
+    zx: ^7.2.2
+  languageName: unknown
+  linkType: soft
+
 "@w5/coffee_plus@npm:^0.0.12":
   version: 0.0.12
   resolution: "@w5/coffee_plus@npm:0.0.12"
@@ -262,26 +282,6 @@ __metadata:
   checksum: c1dd9997b5bcb3edf0c0db1f5bf1e545151b40a8e1517176959300a96ff1b8ff4e8b399efb1daa100df2ebf091ec87d1438c9f9a35c3190099fabd907f6f7bcf
   languageName: node
   linkType: hard
-
-"@w5/clip@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@w5/clip@workspace:."
-  dependencies:
-    "@napi-rs/cli": ^2.16.1
-    "@w5/avat": ^0.0.8
-    "@w5/coffee_plus": ^0.0.13
-    "@w5/loader": ^0.0.3
-    "@w5/mdt": ^0.0.16
-    "@w5/read": ^0.0.1
-    "@w5/uridir": ^0.0.1
-    "@w5/write": ^0.0.1
-    ava: ^5.3.0
-    coffeescript: ^2.7.0
-    concurrently: ^8.1.0
-    esm: ^3.2.25
-    zx: ^7.2.2
-  languageName: unknown
-  linkType: soft
 
 "@w5/uridir@npm:^0.0.1":
   version: 0.0.1
