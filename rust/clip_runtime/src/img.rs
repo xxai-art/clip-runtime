@@ -40,7 +40,7 @@ impl<C: Croper> ClipImg<C> {
 #[test]
 fn test_image_encode() -> Result<()> {
   let model = crate::test::clip_model();
-  let dir = std::env::current_dir()?;
+  let dir = crate::test::root();
   let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
 
   let img = std::fs::read(dir.join("img/cat.jpg"))?;

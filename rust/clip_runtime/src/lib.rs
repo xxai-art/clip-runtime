@@ -40,12 +40,22 @@ mod test {
 
   static MODEL: OnceLock<ClipModel> = OnceLock::new();
 
+  pub fn root() -> std::path::PathBuf {
+    std::env::current_dir()
+      .unwrap()
+      .parent()
+      .unwrap()
+      .parent()
+      .unwrap()
+      .join("lib")
+      .into()
+  }
+
   pub fn clip_model() -> &'static ClipModel {
     MODEL.get_or_init(|| {
       let ort = ClipOrt::new().unwrap();
       ort.model(
-        std::env::current_dir()
-          .unwrap()
+        root()
           .join("model")
           .join(std::env::var("MODEL").unwrap())
           .display()
