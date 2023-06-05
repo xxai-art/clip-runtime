@@ -29,10 +29,10 @@ mod test {
   }
 
   macro_rules! tmpl_kind_li {
-    ($tmpl:expr, $($x:expr),* $(,)? ) => {{
-        [ $(format!($tmpl, $x)),* ]
-    }};
-}
+        ($tmpl:expr, $($x:expr),* $(,)? ) => {{
+            [ $(format!($tmpl, $x)),* ]
+        }};
+    }
   use crate::ort::ClipOrt;
 
   #[test]
@@ -45,16 +45,19 @@ mod test {
     let word_li = tmpl_kind_li!("a photo of {}", "cat", "rat", "dog", "man", "woman");
 
     let txt_feature = clip_txt.encode_batch(word_li.clone().into_iter())?;
-
     let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
-    let fp = dir.join("img/build.jpg");
 
-    let fp = fp.display().to_string();
-    let img_feature = clip_img.encode(&std::fs::read(fp)?)?;
+    for file in ["cat", "build"] {
+      let fp = dir.join(format!("img/{}.jpg", file));
 
-    let text_probs = cls(&img_feature, &txt_feature);
-    for (p, word) in text_probs.iter().zip(word_li.iter()) {
-      println!("{} {:.2}%", word, (*p) * 100.0)
+      let fp = fp.display().to_string();
+      let img_feature = clip_img.encode(&std::fs::read(fp)?)?;
+
+      let text_probs = cls(&img_feature, &txt_feature);
+      println!("\n❯ {}", file);
+      for (p, word) in text_probs.iter().zip(word_li.iter()) {
+        println!("{} {:.2}%", word, (*p) * 100.0)
+      }
     }
     Ok(())
   }
