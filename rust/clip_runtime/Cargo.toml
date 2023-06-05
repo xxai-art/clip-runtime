@@ -1,4 +1,6 @@
 [package]
+homepage = "https://github.com/xxai-art/clip-runtime/tree/main/rust/clip_runtime"
+repository = "https://github.com/xxai-art/clip-runtime.git"
 name = "clip_runtime"
 version = "0.1.0"
 edition = "2021"
@@ -8,16 +10,16 @@ anyhow = "1.0.71"
 ndarray = "0.15.6"
 num_cpus = "1.15.0"
 
-  [dependencies.tracing-subscriber]
-  version = "0.3.17"
-  features = [ "env-filter", "fmt" ]
+[dependencies.tracing-subscriber]
+version = "0.3.17"
+features = ["env-filter", "fmt"]
 
-  [dependencies.clip_txt]
-  path = "../clip_txt"
+[dependencies.clip_txt]
+path = "../clip_txt"
 
-  [dependencies.clip_img]
-  path = "../clip_img"
+[dependencies.clip_img]
+path = "../clip_img"
 
-  [dependencies.ort]
-  version = "1.14.8"
-  features = [ "load-dynamic", "coreml" ]
+[dependencies.ort]
+version = "1.14.8"
+features = ["load-dynamic", "coreml"]

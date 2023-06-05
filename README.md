@@ -21,9 +21,15 @@ curl -sfL https://direnv.net/install.sh | bash
 
 请配置好[direnv hook](https://direnv.net/docs/hook.html)。
 
-## Rust 编译说明
+然后 ./init.sh
 
-先运行 [rust/ort.conf.coffee](./rust/ort.conf.coffee) 配置 ONNX 运行时支持的[加速器 (execution-providers)](https://github.com/pykeio/ort#execution-providers)。
+`./init.sh` 会调用 [rust/ort.conf.coffee](./rust/ort.conf.coffee) 配置 ONNX 运行时支持的[加速器 (execution-providers)](https://github.com/pykeio/ort#execution-providers)，基于模板 [./rust/clip_runtime/Cargo.make.toml](./rust/clip_runtime/Cargo.make.toml) 生成 ONNX 加速器配置。
+
+TODO
+
+* rust 和 js 的接口文档
+
+* 性能评测
 
 ## 相关链接
 

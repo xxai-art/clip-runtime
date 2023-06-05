@@ -2,13 +2,14 @@
 
 > ava:test
   @w5/clip > Clip
+  glob-promise:glob
   @w5/uridir
+  glob-promise
   path > resolve join
 
 ROOT = resolve uridir(import.meta),'../../..'
-
 test(
-  'txt'
+  'clip'
   (t)=>
     dir = join ROOT,'lib/model',process.env.MODEL
     clip = Clip dir
@@ -28,6 +29,7 @@ test(
       t.is i.length,1024
     t.is n,word_li.length
 
+    img_dir = join ROOT,'lib/img'
 
     t.pass()
     return

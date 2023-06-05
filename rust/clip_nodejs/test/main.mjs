@@ -7,7 +7,11 @@ import {
   Clip
 } from '@w5/clip';
 
+import glob from 'glob-promise';
+
 import uridir from '@w5/uridir';
+
+import GlobPromise from 'glob-promise';
 
 import {
   resolve,
@@ -16,8 +20,8 @@ import {
 
 ROOT = resolve(uridir(import.meta), '../../..');
 
-test('txt', (t) => {
-  var clip, context_length, dir, i, n, otxt, vec, vec_li, word_li;
+test('clip', (t) => {
+  var clip, context_length, dir, i, img_dir, n, otxt, vec, vec_li, word_li;
   dir = join(ROOT, 'lib/model', process.env.MODEL);
   clip = Clip(dir);
   context_length = 77;
@@ -32,5 +36,6 @@ test('txt', (t) => {
     t.is(i.length, 1024);
   }
   t.is(n, word_li.length);
+  img_dir = join(ROOT, 'lib/img');
   t.pass();
 });

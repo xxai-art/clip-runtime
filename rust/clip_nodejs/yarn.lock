@@ -128,12 +128,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/glob@npm:^8.0.0":
+  version: 8.1.0
+  resolution: "@types/glob@npm:8.1.0"
+  dependencies:
+    "@types/minimatch": ^5.1.2
+    "@types/node": "*"
+  checksum: 9101f3a9061e40137190f70626aa0e202369b5ec4012c3fabe6f5d229cce04772db9a94fa5a0eb39655e2e4ad105c38afbb4af56a56c0996a8c7d4fc72350e3d
+  languageName: node
+  linkType: hard
+
 "@types/jsonfile@npm:*":
   version: 6.1.1
   resolution: "@types/jsonfile@npm:6.1.1"
   dependencies:
     "@types/node": "*"
   checksum: 0f8fe0a9221a00e8413cffba723dfe16553868724b830237256fb0052ecd5cac96498189d1235a001cfa815f352008261c9ceb373f0aa58227f891e0c7a12c4d
+  languageName: node
+  linkType: hard
+
+"@types/minimatch@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@types/minimatch@npm:5.1.2"
+  checksum: 0391a282860c7cb6fe262c12b99564732401bdaa5e395bee9ca323c312c1a0f45efbf34dce974682036e857db59a5c9b1da522f3d6055aeead7097264c8705a8
   languageName: node
   linkType: hard
 
@@ -172,15 +189,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@w5/avat@npm:^0.0.9":
-  version: 0.0.9
-  resolution: "@w5/avat@npm:0.0.9"
-  dependencies:
-    ava: ^5.3.0
-  checksum: 41f3ed76e58dabae11e527a24fcc2e72d0cf338b5be66b2e149065e89108c9238f30de495c20049ba661ef51066d905bb047c206f478b610904c426860b977fd
-  languageName: node
-  linkType: hard
-
 "@w5/camel@npm:^0.0.1":
   version: 0.0.1
   resolution: "@w5/camel@npm:0.0.1"
@@ -193,7 +201,6 @@ __metadata:
   resolution: "@w5/clip@workspace:."
   dependencies:
     "@napi-rs/cli": ^2.16.1
-    "@w5/avat": ^0.0.9
     "@w5/coffee_plus": ^0.0.13
     "@w5/loader": ^0.0.3
     "@w5/mdt": ^0.0.16
@@ -204,6 +211,7 @@ __metadata:
     coffeescript: ^2.7.0
     concurrently: ^8.1.0
     esm: ^3.2.25
+    glob-promise: ^6.0.2
     zx: ^7.2.2
   languageName: unknown
   linkType: soft
@@ -1261,6 +1269,17 @@ __metadata:
   dependencies:
     is-glob: ^4.0.1
   checksum: f4f2bfe2425296e8a47e36864e4f42be38a996db40420fe434565e4480e3322f18eb37589617a98640c5dc8fdec1a387007ee18dbb1f3f5553409c34d17f425e
+  languageName: node
+  linkType: hard
+
+"glob-promise@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "glob-promise@npm:6.0.2"
+  dependencies:
+    "@types/glob": ^8.0.0
+  peerDependencies:
+    glob: ^8.0.3
+  checksum: 3caa63b052ddcf28d3498a0c93ef623bc43d0fa57487844782b77175c32db1602fd63e4e26091075125083b21eb3e81b4318d5d24139b9b033a764e64b6b3bc3
   languageName: node
   linkType: hard
 
