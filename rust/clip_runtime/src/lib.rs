@@ -34,19 +34,20 @@ pub fn cls(img_feature: &Arr, txt_feature: &Arr) -> Vec<f32> {
 
 #[cfg(test)]
 mod test {
-  use crate::{clip_model::ClipModel, cls, ort::ClipOrt};
+  use crate::{cls, ort::ClipModel, ort::ClipOrt};
 
-  use std::sync::{Arc, OnceLock};
+  use std::sync::OnceLock;
 
   static MODEL: OnceLock<ClipModel> = OnceLock::new();
 
-  pub fn clip_model() -> anyhow::Result<ClipModel> {
+  pub fn clip_model() -> &'static ClipModel {
     MODEL.get_or_init(|| {
-      let ort = ClipOrt::new()?;
+      let ort = ClipOrt::new().unwrap();
       ort.model(
-        std::env::current_dir()?
+        std::env::current_dir()
+          .unwrap()
           .join("model")
-          .join(std::env::var("MODEL")?)
+          .join(std::env::var("MODEL").unwrap())
           .display()
           .to_string(),
       )
@@ -80,6 +81,8 @@ mod test {
       .collect::<Vec<_>>();
 
     let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
+
+    let dir = std::env::current_dir()?;
 
     for file in ["cat", "build"] {
       let fp = dir.join(format!("img/{}.jpg", file));

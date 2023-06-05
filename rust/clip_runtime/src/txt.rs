@@ -38,13 +38,9 @@ impl ClipTxt {
 mod tests {
   use clip_txt::Result;
 
-  use crate::ort::ClipOrt;
-
   #[test]
   fn test() -> Result<()> {
-    let dir = std::env::current_dir()?;
-    let ort = ClipOrt::new()?;
-    let model = ort.model(dir.join("model/AltCLIP-XLMR-L-m18").display().to_string());
+    let model = crate::test::clip_model();
 
     let clip_txt = model.txt("onnx/Txt", 77)?;
 
