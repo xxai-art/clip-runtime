@@ -1,0 +1,19 @@
+# @w5/rust-template
+
+## Install
+
+```
+pnpm i -g @w5/rust-template
+```
+
+## Test
+
+[coffee/main.coffee](./coffee/main.coffee) :
+
+```coffee
+<+ ./coffee/main.coffee >
+```
+
+output :
+
+<+ ./out.txt >
