@@ -1,7 +1,8 @@
+use std::sync::Arc;
+
 use anyhow::Result;
 use clip_txt::Tokener;
 use ort::Environment;
-use std::sync::Arc;
 
 use crate::{
   session::ClipSession,

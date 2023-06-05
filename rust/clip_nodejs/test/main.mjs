@@ -10,16 +10,19 @@ import {
 import uridir from '@w5/uridir';
 
 import {
-  dirname,
+  resolve,
   join
 } from 'path';
 
-ROOT = dirname(dirname(uridir(import.meta)));
+ROOT = resolve(uridir(import.meta), '../../..');
 
 test('txt', (t) => {
-  var dir, model;
-  dir = join(ROOT, 'model', process.env.MODEL);
-  model = Model(dir);
+  var context_length, dir, model, otxt;
+  dir = join(ROOT, 'lib/model', process.env.MODEL);
+  model = new Model(dir);
+  context_length = 77;
   console.log(model);
+  otxt = model.txt('onnx/Txt', context_length);
+  console.log(otxt);
   t.pass();
 });

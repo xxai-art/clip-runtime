@@ -1,20 +1,2 @@
-[36m<ref *1>[39m Object [global] {
-  global: [36m[Circular *1][39m,
-  queueMicrotask: [36m[Function: queueMicrotask][39m,
-  clearImmediate: [36m[Function: clearImmediate][39m,
-  setImmediate: [Function: setImmediate] {
-    [[32mSymbol(nodejs.util.promisify.custom)[39m]: [36m[Getter][39m
-  },
-  structuredClone: [36m[Getter/Setter][39m,
-  clearInterval: [36m[Function: clearInterval][39m,
-  clearTimeout: [36m[Function: clearTimeout][39m,
-  setInterval: [36m[Function: setInterval][39m,
-  setTimeout: [Function: setTimeout] {
-    [[32mSymbol(nodejs.util.promisify.custom)[39m]: [36m[Getter][39m
-  },
-  atob: [36m[Getter/Setter][39m,
-  btoa: [36m[Getter/Setter][39m,
-  performance: [36m[Getter/Setter][39m,
-  fetch: [36m[AsyncFunction: fetch][39m,
-  crypto: [36m[Getter][39m
-}
+Model {}
+Txt {}
