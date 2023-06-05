@@ -4,7 +4,7 @@ var ROOT;
 import test from 'ava';
 
 import {
-  Model
+  Clip
 } from '@w5/clip';
 
 import uridir from '@w5/uridir';
@@ -17,12 +17,15 @@ import {
 ROOT = resolve(uridir(import.meta), '../../..');
 
 test('txt', (t) => {
-  var context_length, dir, model, otxt;
+  var clip, context_length, dir, otxt, vec, vec_li;
   dir = join(ROOT, 'lib/model', process.env.MODEL);
-  model = new Model(dir);
+  clip = Clip(dir);
   context_length = 77;
-  console.log(model);
-  otxt = model.txt('onnx/Txt', context_length);
-  console.log(otxt);
+  console.log(clip);
+  otxt = clip.txt('onnx/Txt', context_length);
+  vec = otxt.encode('a photo of cat');
+  vec_li = otxt.encode(['a photo of cat', 'a photo of dog']);
+  console.log(vec_li.len() + '');
+  // console.log JSON.stringify vec.get()
   t.pass();
 });

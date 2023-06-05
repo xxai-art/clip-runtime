@@ -1,3 +1,5 @@
+export const Clip = (dir)=>
+  new Model(dir)
 /*
 import autoe from "@w5/utf8/autoe.js";
 import { u8merge } from "@w5/u8";

@@ -1,7 +1,7 @@
 #!/usr/bin/env coffee
 
 > ava:test
-  @w5/clip > Model
+  @w5/clip > Clip
   @w5/uridir
   path > resolve join
 
@@ -11,11 +11,17 @@ test(
   'txt'
   (t)=>
     dir = join ROOT,'lib/model',process.env.MODEL
-    model = new Model dir
+    clip = Clip dir
     context_length=77
-    console.log model
-    otxt = model.txt 'onnx/Txt',context_length
-    console.log otxt
+    console.log clip
+    otxt = clip.txt 'onnx/Txt',context_length
+    vec = otxt.encode 'a photo of cat'
+    vec_li = otxt.encode [
+      'a photo of cat'
+      'a photo of dog'
+    ]
+    console.log vec_li.len()+''
+    # console.log JSON.stringify vec.get()
     t.pass()
     return
 )

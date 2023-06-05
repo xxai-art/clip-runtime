@@ -4,8 +4,11 @@ use clip_runtime::{
   ort::{ClipModel, ClipOrt},
   txt::ClipTxt,
 };
-use napi::JsNumber;
+use napi::Either;
 use napi_derive::napi;
+
+#[napi]
+pub struct Arr(clip_runtime::typedef::Arr);
 
 #[napi]
 pub struct Model(ClipModel);
@@ -30,4 +33,30 @@ impl Model {
 }
 
 #[napi]
-impl Txt {}
+impl Txt {
+  #[napi]
+  pub fn encode(&self, txt: Either<Vec<String>, String>) -> Result<Arr> {
+    Ok(Arr(match txt {
+      Either::A(li) => self.0.encode_batch(li.into_iter()),
+      Either::B(txt) => self.0.encode(txt),
+    }?))
+  }
+}
+
+#[napi]
+impl Arr {
+  #[napi]
+  pub fn raw(&self) -> &[f32] {
+    self.0.as_slice().unwrap()
+  }
+
+  #[napi]
+  pub fn len(&self) -> usize {
+    self.0.len()
+  }
+
+  #[napi]
+  pub fn shape(&self) -> &[usize] {
+    self.0.shape()
+  }
+}

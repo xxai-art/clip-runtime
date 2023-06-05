@@ -256,6 +256,8 @@ if (!nativeBinding) {
 }
 
 ;
+export const Clip = (dir)=>
+  new Model(dir)
 /*
 import autoe from "@w5/utf8/autoe.js";
 import { u8merge } from "@w5/u8";
@@ -282,5 +284,6 @@ nativeBinding.z85Dump = (s) => _z85Dump(autoe(s));
 nativeBinding.zipU64 = (...args) => _zipU64(args);
 */
 
+export const Arr = nativeBinding.Arr;
 export const Model = nativeBinding.Model;
 export const Txt = nativeBinding.Txt;

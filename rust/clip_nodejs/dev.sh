@@ -13,5 +13,5 @@ export RUSTFLAGS='--cfg reqwest_unstable'
 export RUST_LOG=$RUST_LOG,watchexec=off,watchexec_cli=off,globset=warn
 
 bunx concurrently --kill-others --raw -- \
-  "watchexec -n --project-origin . -r -w ./coffee --exts coffee -- ./test.sh" \
+  "watchexec -n --project-origin . -w ./coffee --exts coffee -r -- ./test.sh" \
   "watchexec -pn --project-origin . -w ./src --exts rs,toml -r -- ./run.sh"
