@@ -1,7 +1,7 @@
+use anyhow::anyhow;
+use anyhow::Result;
 use std::path::Path;
-
-pub use tokenizers::tokenizer::{Result, Tokenizer};
-
+pub use tokenizers::tokenizer::Tokenizer;
 pub struct Tokener {
   tokenizer: Tokenizer,
 }
@@ -11,7 +11,7 @@ pub type IdsMask = (Box<[u32]>, Box<[u32]>);
 
 impl Tokener {
   pub fn from_file(path: impl AsRef<Path>, max_length: usize) -> Result<Self> {
-    let mut tokenizer = Tokenizer::from_file(path)?;
+    let mut tokenizer = Tokenizer::from_file(path).map_err(|e| anyhow!(e))?;
     let truncation = tokenizers::utils::truncation::TruncationParams {
       max_length,
       ..Default::default()
@@ -29,10 +29,12 @@ impl Tokener {
     let mut mask_li = Vec::with_capacity(len);
     if len > 0 {
       let tokenizer = &self.tokenizer;
-      let li = tokenizer.encode_batch(
-        txt_li.map(|x| x.as_ref().to_owned()).collect::<Vec<_>>(),
-        true,
-      )?;
+      let li = tokenizer
+        .encode_batch(
+          txt_li.map(|x| x.as_ref().to_owned()).collect::<Vec<_>>(),
+          true,
+        )
+        .map_err(|e| anyhow!(e))?;
       let max = li.iter().map(|item| item.get_ids().len()).max().unwrap();
       for encoding in li {
         let id_li = encoding.get_ids();
@@ -58,7 +60,9 @@ impl Tokener {
 
   pub fn encode(&self, txt: impl AsRef<str>) -> Result<IdsMask> {
     let tokenizer = &self.tokenizer;
-    let encoding = tokenizer.encode(txt.as_ref(), true)?;
+    let encoding = tokenizer
+      .encode(txt.as_ref(), true)
+      .map_err(|e| anyhow!(e))?;
     let id_li = Box::from(encoding.get_ids());
     let mask = Box::from(encoding.get_attention_mask());
     Ok((id_li, mask))
