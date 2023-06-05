@@ -1,8 +1,11 @@
 #!/usr/bin/env coffee
 
-> @w5/avat
+> ava:test
+  ../index.js > helloWorld
 
-I = await import('../index.js')
-T = avat I
-
-T.helloWorld([1,2,3])(3)
+test(
+  'main'
+  (t)=>
+    t.is(helloWorld([1,2,3]),3)
+    return
+)
