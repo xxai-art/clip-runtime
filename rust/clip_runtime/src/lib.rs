@@ -21,14 +21,20 @@ pub fn cls(img_feature: &Arr, txt_feature: &Arr) -> Vec<f32> {
 
 #[cfg(test)]
 mod test {
-  use crate::{cls, softmax};
+  use crate::cls;
 
   #[test]
   fn init() {
     tracing_subscriber::fmt::init();
   }
 
+  macro_rules! tmpl_kind_li {
+    ($tmpl:expr, $($x:expr),* $(,)? ) => {{
+        [ $(format!($tmpl, $x)),* ]
+    }};
+}
   use crate::ort::ClipOrt;
+
   #[test]
   fn test() -> clip_txt::Result<()> {
     let dir = std::env::current_dir()?;
@@ -36,19 +42,12 @@ mod test {
     let model = ort.model(dir.join("model/AltCLIP-XLMR-L-m18").display().to_string());
     let clip_txt = model.txt("onnx/Txt", 77)?;
 
-    let word_li = [
-      "a photo of chinese woman",
-      "a photo of dog",
-      "a photo of cat",
-      "a photo of rat",
-      "a photo of man",
-      "a photo of woman",
-    ];
+    let word_li = tmpl_kind_li!("a photo of {}", "cat", "rat", "dog", "man", "woman");
 
-    let txt_feature = clip_txt.encode_batch(word_li.into_iter())?;
+    let txt_feature = clip_txt.encode_batch(word_li.clone().into_iter())?;
 
     let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
-    let fp = dir.join("cat.jpg");
+    let fp = dir.join("img/build.jpg");
 
     let fp = fp.display().to_string();
     let img_feature = clip_img.encode(&std::fs::read(fp)?)?;
