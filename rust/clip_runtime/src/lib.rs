@@ -5,6 +5,7 @@ pub mod session;
 pub mod txt;
 pub mod typedef;
 pub mod util;
+use crate::typedef::Arr;
 
 pub fn softmax(vec: &[f32]) -> Vec<f32> {
   let max = vec.iter().fold(f32::MIN, |a, &b| a.max(b));
@@ -14,8 +15,14 @@ pub fn softmax(vec: &[f32]) -> Vec<f32> {
   exps
 }
 
+pub fn cls(img_feature: &Arr, txt_feature: &Arr) -> Vec<f32> {
+  return softmax(&img_feature.dot(&txt_feature.t()).into_raw_vec());
+}
+
 #[cfg(test)]
 mod test {
+  use crate::{cls, softmax};
+
   #[test]
   fn init() {
     tracing_subscriber::fmt::init();
@@ -46,7 +53,7 @@ mod test {
     let fp = fp.display().to_string();
     let img_feature = clip_img.encode(&std::fs::read(fp)?)?;
 
-    let text_probs = softmax(&img_feature.dot(&txt_feature.t()).into_raw_vec());
+    let text_probs = cls(&img_feature, &txt_feature);
     for (p, word) in text_probs.iter().zip(word_li.iter()) {
       println!("{} {:.2}%", word, (*p) * 100.0)
     }
