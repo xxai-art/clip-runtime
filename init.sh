@@ -13,12 +13,16 @@ version=1.14.1
 if [ ! -f "lib/so/onnxruntime.$version.dll" ]; then
   if [[ "$OSTYPE" == "darwin"* ]]; then
     DLL_EXT=dylib
-  elif [[ "$OSTYPE" == "linux"* ]] || [[ "$OSTYPE" == *"bsd"* ]]; then
+    OS=darwin
+  elif [[ "$OSTYPE" == "linux"* ]]; then
     DLL_EXT=so
+    OS=linux
   else
     DLL_EXT=dll
+    OS=win
   fi
-  ort=onnxruntime-osx-arm64-$version
+
+  ort=onnxruntime-$OS-$(uname -m)-$version
   mkdir -p lib/so
   cd lib/so
 
@@ -34,3 +38,5 @@ cd $DIR/lib
 rm -rf onnxruntime.dll
 ln -s lib/onnxruntime.$version.dll lib/onnxruntime.dll
 cd $DIR
+
+direnv exec . ./rust/ort.conf.coffee
