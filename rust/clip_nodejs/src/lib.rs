@@ -20,7 +20,7 @@ pub struct Txt(ClipTxt);
 pub struct Img(ClipImg<CropCenter>);
 
 #[napi]
-pub fn img_txt_cls(txt_feature: &Arr, img_feature: &Arr) -> Vec<f32> {
+pub fn cls_img(txt_feature: &Arr, img_feature: &Arr) -> Vec<f32> {
   clip_runtime::cls(&txt_feature.0, &img_feature.0)
 }
 

@@ -303,4 +303,4 @@ export const Arr = nativeBinding.Arr;
 export const Model = nativeBinding.Model;
 export const Txt = nativeBinding.Txt;
 export const Img = nativeBinding.Img;
-export const imgTxtCls = nativeBinding.imgTxtCls;
+export const clsImg = nativeBinding.clsImg;
