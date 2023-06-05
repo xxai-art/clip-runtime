@@ -1,3 +1,3 @@
-# `@w5/rust-template-darwin-x64`
+# `@w5/clip-darwin-x64`
 
-This is the **x86_64-apple-darwin** binary for `@w5/rust-template`
+This is the **x86_64-apple-darwin** binary for `@w5/clip`

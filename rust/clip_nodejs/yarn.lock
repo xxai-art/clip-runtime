@@ -263,9 +263,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@w5/rust-template@workspace:.":
+"@w5/clip@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@w5/rust-template@workspace:."
+  resolution: "@w5/clip@workspace:."
   dependencies:
     "@napi-rs/cli": ^2.16.1
     "@w5/avat": ^0.0.8

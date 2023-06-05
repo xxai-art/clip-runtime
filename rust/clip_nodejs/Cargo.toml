@@ -1,6 +1,6 @@
 [package]
 edition = "2021"
-name = "w5_rust-template"
+name = "w5_clip"
 version = "0.0.0"
 
 [lib]

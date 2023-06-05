@@ -1,7 +1,7 @@
 name: CI
 env:
   DEBUG: napi:*
-  APP_NAME: rust-template
+  APP_NAME: clip
   MACOSX_DEPLOYMENT_TARGET: '13.3'
 'on':
   push:

@@ -1,11 +1,11 @@
 [‼️]: ✏️README.mdt
 
-# @w5/rust-template
+# @w5/clip
 
 ## Install
 
 ```
-pnpm i -g @w5/rust-template
+pnpm i -g @w5/clip
 ```
 
 ## Test
