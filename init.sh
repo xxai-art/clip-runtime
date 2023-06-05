@@ -6,21 +6,23 @@ set -ex
 
 direnv allow
 
-rustc -vV | grep "host:"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  DLL_EXT=dylib
+  OS=osx
+elif [[ "$OSTYPE" == "linux"* ]]; then
+  DLL_EXT=so
+  OS=linux
+else
+  DLL_EXT=dll
+  OS=win
+fi
 
 version=1.14.1
 
-if [ ! -f "lib/so/onnxruntime.$version.dll" ]; then
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    DLL_EXT=dylib
-    OS=osx
-  elif [[ "$OSTYPE" == "linux"* ]]; then
-    DLL_EXT=so
-    OS=linux
-  else
-    DLL_EXT=dll
-    OS=win
-  fi
+ORT_DLL=libonnxruntime.$version.$DLL_EXT
+
+if [ ! -f "lib/so/$ORT_DLL" ]; then
+  cd lib
 
   ort=onnxruntime-$OS-$(uname -m)
 
@@ -29,20 +31,19 @@ if [ ! -f "lib/so/onnxruntime.$version.dll" ]; then
   fi
 
   ort=$ort-$version
-  mkdir -p lib/so
-  cd lib/so
 
   tgz=$ort.tgz
   wget -c https://github.com/microsoft/onnxruntime/releases/download/v$version/$tgz
 
   tar zxvf $tgz
-  mv $ort/lib/*.$DLL_EXT $DIR/lib/so/
+  rm -rf so
+  mv $ort/lib so
   rm -rf $tgz $ort
 fi
 
-cd $DIR/lib
+cd $DIR/lib/so
 rm -rf onnxruntime.dll
-ln -s lib/onnxruntime.$version.dll lib/onnxruntime.dll
+ln -s $ORT_DLL onnxruntime.dll
 cd $DIR
 
-direnv exec . ./rust/ort.conf.coffee
+# direnv exec . ./rust/ort.conf.coffee
