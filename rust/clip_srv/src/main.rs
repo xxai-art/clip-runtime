@@ -1,6 +1,7 @@
-use anyhow::Result;
-use qdrant_client::prelude::QdrantClientConfig;
 use std::env::var;
+
+use anyhow::Result;
+use qdrant_client::prelude::{QdrantClient, QdrantClientConfig};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -12,7 +13,7 @@ async fn main() -> Result<()> {
   }
   let client = QdrantClient::new(Some(config))?;
 
-  let li = client.list_collections().await?;
+  let li = client.list_collections().await?.collections;
 
   dbg!(li);
   // let config = QdrantClientConfig::from_url("http://localhost:");
