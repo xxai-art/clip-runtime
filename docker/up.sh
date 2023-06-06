@@ -37,3 +37,6 @@ for var in "${vars[@]}"; do
     sed -i "s|^\([[:space:]]*\)# ${key}.*|\1${key}: ${value}|" "$CONFIG_FILE"
   fi
 done
+
+docker-compose down || true
+docker-compose up -d
