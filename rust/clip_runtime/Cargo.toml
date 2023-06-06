@@ -4,7 +4,7 @@ description = "run AltCLIP ( Altering the Language Encoder in CLIP for Extended 
 homepage = "https://github.com/xxai-art/clip-runtime/tree/main/rust/clip_runtime"
 repository = "https://github.com/xxai-art/clip-runtime.git"
 name = "clip_runtime"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 
 [dependencies]
@@ -22,7 +22,7 @@ version = "0.1.0"
 
 [dependencies.clip_img]
 path = "../clip_img"
-version = "0.1.0"
+version = "0.1.1"
 
 [dependencies.ort]
 version = "1.14.8"
