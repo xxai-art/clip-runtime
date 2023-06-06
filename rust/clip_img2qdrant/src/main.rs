@@ -7,12 +7,12 @@ use clip_runtime::{
   ort::{ClipModel, ClipOrt},
 };
 
-static MODEL: OnceLock<ClipImg<clip_img::CropTop>> = OnceLock::new();
+static ONNX: OnceLock<ClipImg<clip_img::CropTop>> = OnceLock::new();
 
-pub fn clip_model() -> &'static ClipImg<clip_img::CropTop> {
-  MODEL.get_or_init(|| {
+pub fn clip_onnx() -> &'static ClipImg<clip_img::CropTop> {
+  ONNX.get_or_init(|| {
     let ort = ClipOrt::new().unwrap();
-    ort.model(std::env::var("MODEL_DIR").unwrap());
+    let model = ort.model(std::env::var("ONNX_DIR").unwrap());
     model.img("onnx/ImgNorm", 224, clip_img::CropTop()).unwrap()
   })
 }
@@ -20,7 +20,7 @@ pub fn clip_model() -> &'static ClipImg<clip_img::CropTop> {
 #[tokio::main]
 async fn main() -> Result<()> {
   let client = qdrant_client().await?;
-  let model = clip_model();
+  let onnx = clip_onnx();
 
   println!("Hello, world!");
   Ok(())
