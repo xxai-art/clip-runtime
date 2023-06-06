@@ -21,7 +21,7 @@ impl ClipTxt {
     let (ids, mask) = self.tokener.encode(txt)?;
     let ids = box_iter_ndarray([box_u32_i64(ids)].into_iter())?;
     let mask = box_iter_ndarray([box_u32_i64(mask)].into_iter())?;
-    Ok(self.sess.run([ids, mask])?)
+    self.sess.run([ids, mask])
   }
 
   pub fn encode_batch(
@@ -31,7 +31,7 @@ impl ClipTxt {
     let (ids_li, mask_li) = self.tokener.encode_batch(txt_li)?;
     let ids_li = box_iter_ndarray(ids_li.into_iter().map(box_u32_i64))?;
     let mask_li = box_iter_ndarray(mask_li.into_iter().map(box_u32_i64))?;
-    Ok(self.sess.run([ids_li, mask_li])?)
+    self.sess.run([ids_li, mask_li])
   }
 }
 

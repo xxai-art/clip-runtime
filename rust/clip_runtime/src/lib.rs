@@ -51,7 +51,6 @@ mod test {
       .parent()
       .unwrap()
       .join("lib")
-      .into()
   }
 
   pub fn clip_model() -> &'static ClipModel {
