@@ -1,6 +1,22 @@
-use image::imageops::crop_imm;
+use anyhow::Result;
 pub use image::RgbImage;
+use image::{imageops::crop_imm, DynamicImage, ImageFormat};
 use ndarray::Array3;
+
+pub fn load_image(ext: &str, bin: &[u8]) -> Result<DynamicImage> {
+  Ok(if let Some(format) = ImageFormat::from_extension(ext) {
+    match image::load_from_memory_with_format(bin, format) {
+      Ok(r) => r,
+      Err(_) => {
+        let format = image::guess_format(bin)?;
+        image::load_from_memory_with_format(bin, format)?
+      }
+    }
+  } else {
+    let format = image::guess_format(bin)?;
+    image::load_from_memory_with_format(bin, format)?
+  })
+}
 
 pub fn resize(img: &RgbImage, wh: (u32, u32)) -> RgbImage {
   let (w, h) = wh;
@@ -31,9 +47,13 @@ impl Croper for CropTop {
   }
 }
 
-pub fn processor(img: &[u8], dim: u32, croper: &impl Croper) -> anyhow::Result<Array3<f32>> {
-  // Resize the image.
-  let img = image::load_from_memory(img)?.to_rgb8();
+pub fn processor(
+  ext: &str,
+  img: &[u8],
+  dim: u32,
+  croper: &impl Croper,
+) -> anyhow::Result<Array3<f32>> {
+  let img = load_image(ext, img)?.to_rgb8();
   let (w, h) = img.dimensions();
   let w_f64 = w as f64;
   let h_f64 = h as f64;
@@ -159,7 +179,7 @@ mod tests {
       .to_string();
     let img = std::fs::read(&fp)?;
     let dim = 224;
-    let img = crate::processor(&img, dim, &crate::CropCenter())?;
+    let img = crate::processor("jpg", &img, dim, &crate::CropCenter())?;
     to_png(img, &(fp.clone() + ".png"))?;
     let py_img = json_to_narray(&(fp.clone() + ".json"))?;
     to_png(py_img, &(fp + ".py.png"))?;

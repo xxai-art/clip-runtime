@@ -1,4 +1,6 @@
 mod env;
+mod img;
+
 use std::sync::OnceLock;
 
 use anyhow::Result;
@@ -12,7 +14,7 @@ use clip_runtime::{
 
 use crate::env::TO;
 
-static ONNX: OnceLock<ClipImg<clip_img::CropTop>> = OnceLock::new();
+pub static ONNX: OnceLock<ClipImg<clip_img::CropTop>> = OnceLock::new();
 
 pub fn clip_onnx() -> &'static ClipImg<clip_img::CropTop> {
   ONNX.get_or_init(|| {
@@ -34,8 +36,7 @@ async fn main() -> Result<()> {
   }
 
   let mut router = Router::new();
-
-  println!("Hello, world!");
+  router = router.route(r"/*url", get(crate::img::get));
   awp::srv(router, 5550).await;
   Ok(())
 }
