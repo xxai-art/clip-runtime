@@ -22,7 +22,7 @@ features = ["tokio-rustls", "http3"]
 
 [dependencies.clip_qdrant]
 path = "../clip_qdrant"
-version = "0.1.0"
+version = "0.1.1"
 
 [dependencies.clip_runtime]
 path = "../clip_runtime"

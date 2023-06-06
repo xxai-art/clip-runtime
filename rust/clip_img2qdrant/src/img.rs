@@ -8,7 +8,7 @@ use axum::{
 };
 use reqwest::header::CONTENT_TYPE;
 
-use crate::ONNX;
+use crate::{ONNX, Q};
 
 pub async fn get(Path(args): Path<String>) -> Result<Response> {
   if args == "favicon.ico" {
@@ -45,5 +45,6 @@ pub async fn get(Path(args): Path<String>) -> Result<Response> {
     None
   };
   let vec = ONNX.get().unwrap().encode(ext, &bin);
+  let q = Q.get().unwrap();
   return rt!(mime, bin);
 }
