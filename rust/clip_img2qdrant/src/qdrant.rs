@@ -1,9 +1,10 @@
-use std::{collections::BTreeSet, env::var};
+use std::{collections::BTreeSet, env::var, sync::OnceLock};
 
 use clip_qdrant::{
   qdrant_client, Config, CreateCollection, Distance, QdrantClient, Quantization,
   QuantizationConfig, VectorParams, VectorsConfig,
 };
+
 pub static Q: OnceLock<QdrantClient> = OnceLock::new();
 
 pub async fn init() -> anyhow::Result<()> {
@@ -41,7 +42,6 @@ pub async fn init() -> anyhow::Result<()> {
       })
       .await?;
   }
-  let client = qdrant::init().await?;
-  Q.set(client);
+  let _ = Q.set(client);
   Ok(())
 }

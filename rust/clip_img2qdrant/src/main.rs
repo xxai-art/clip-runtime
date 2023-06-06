@@ -13,19 +13,17 @@ use clip_runtime::{
 };
 use tonic::{transport::Server, Request, Response, Status};
 
+pub use crate::qdrant::Q;
 use crate::{
   env::TO,
   rpc::{ImgQdrant, ImgQdrantServer},
 };
-
 pub static ONNX: OnceLock<ClipImg<clip_img::CropTop>> = OnceLock::new();
-pub static Q: OnceLock<QdrantClient> = OnceLock::new();
 
 #[tokio::main]
 async fn main() -> Result<()> {
   log::init();
-  let client = qdrant::init().await?;
-  let _ = Q.set(client);
+  qdrant::init().await?;
   let _ = ONNX.set({
     let ort = ClipOrt::new().unwrap();
     let model = ort.model(std::env::var("MODEL_DIR").unwrap());
