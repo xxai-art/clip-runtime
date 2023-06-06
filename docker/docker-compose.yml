@@ -10,7 +10,8 @@ services:
       REDIS_ARGS: >
         --aclfile /data/acl --appendonly yes --bind 0.0.0.0 --port ${REDIS_PORT} --save 64 1 --save 32 8 --save 2 32768 --repl-backlog-size 256m
     volumes:
-      - ./data/qdrant/storage:/qdrant/storage
+      - ./qdrant/data/storage:/qdrant/storage
+      - ./qdrant/config.yaml:/qdrant/config/config.yaml
     ports:
       - 6333:6333
 
