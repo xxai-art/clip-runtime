@@ -5,10 +5,13 @@ services:
     container_name: clip-qdrant
     image:  qdrant/qdrant
     restart: always
+    environment:
+      QDRANT__SERVICE__HTTP_PORT: ${QDRANT__SERVICE__HTTP_PORT}
+      QDRANT__SERVICE__GRPC_PORT: ${QDRANT__SERVICE__GRPC_PORT}
+      QDRANT__SERVICE__API_KEY: ${QDRANT__SERVICE__API_KEY}
     volumes:
-      - ./qdrant/data:/qdrant/storage
-      - ./qdrant/config.yml:/qdrant/config/config.yaml
+      - ./qdrant/storage:/qdrant/storage
     ports:
-      - ${QDRANT_grpc_port}:${QDRANT_grpc_port}
-      - 6333:6333
+      - ${QDRANT__SERVICE__GRPC_PORT}:${QDRANT__SERVICE__GRPC_PORT}
+      - ${QDRANT__SERVICE__HTTP_PORT}:${QDRANT__SERVICE__HTTP_PORT}
 
