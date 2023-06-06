@@ -1,7 +1,13 @@
 use std::env::var;
 
 use anyhow::Result;
-use qdrant_client::prelude::{QdrantClient, QdrantClientConfig};
+use qdrant_client::{
+  prelude::{QdrantClient, QdrantClientConfig},
+  qdrant::{
+    quantization_config::Quantization, vectors_config::Config, CreateCollection, Distance,
+    QuantizationConfig, VectorParams, VectorsConfig,
+  },
+};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -13,11 +19,34 @@ async fn main() -> Result<()> {
   }
   let client = QdrantClient::new(Some(config))?;
 
+  let name = var("CLIP_NAME").unwrap_or_else(|_| "clip".into());
   let li = client.list_collections().await?.collections;
-
   dbg!(li);
+
   // let config = QdrantClientConfig::from_url("http://localhost:");
   // let model_dir = var("MODEL_DIR")?;
+  client
+    .create_collection(&CreateCollection {
+      collection_name: name,
+      vectors_config: Some(VectorsConfig {
+        config: Some(Config::Params(VectorParams {
+          size: 1024,
+          distance: Distance::Euclid.into(),
+          on_disk: Some(true),
+          hnsw_config: None,
+          quantization_config: Some(QuantizationConfig {
+            quantization: Quantization::Scalar(qdrant_client::qdrant::ScalarQuantization {
+              r#type: qdrant_client::qdrant::QuantizationType::Int8 as i32,
+              quantile: Some(0.99),
+              always_ram: Some(false),
+            })
+            .into(),
+          }),
+        })),
+      }),
+      ..Default::default()
+    })
+    .await?;
 
   Ok(())
 }
