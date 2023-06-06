@@ -542,9 +542,11 @@ dependencies = [
  "awp",
  "clip_qdrant",
  "clip_runtime",
+ "prost",
  "quinn",
  "reqwest",
  "tokio",
+ "tonic",
  "tonic-build",
  "tracing",
 ]
