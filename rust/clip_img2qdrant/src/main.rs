@@ -40,7 +40,9 @@ async fn main() -> Result<()> {
     tracing::info!("→ {TO}");
   }
 
-  let addr = "0.0.0.0:8662".parse()?;
+  let port = std::env::var("PORT").unwrap_or("8662".to_string());
+
+  let addr = format!("0.0.0.0:{}", port).parse()?;
 
   tracing::info!("grpc://{}", addr);
 
@@ -49,5 +51,6 @@ async fn main() -> Result<()> {
     .add_service(ImgQdrantServer::new(img_qdrant))
     .serve(addr)
     .await?;
+
   Ok(())
 }
