@@ -447,10 +447,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2da6da31387c7e4ef160ffab6d5e7f00c42626fe39aea70a7b0f1773f7dd6c1b"
 
 [[package]]
-name = "clip_cli"
-version = "0.1.0"
-
-[[package]]
 name = "clip_img"
 version = "0.1.0"
 dependencies = [
@@ -475,6 +471,10 @@ dependencies = [
  "ort",
  "tracing-subscriber",
 ]
+
+[[package]]
+name = "clip_srv"
+version = "0.1.0"
 
 [[package]]
 name = "clip_txt"
