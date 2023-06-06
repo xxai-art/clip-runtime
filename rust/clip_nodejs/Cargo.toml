@@ -8,7 +8,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 anyhow = "1.0.71"
-napi-derive = "2.12.5"
+napi-derive = "2.13.0"
 
 [dependencies.clip_runtime]
 path = "../clip_runtime"
