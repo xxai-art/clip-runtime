@@ -1,5 +1,5 @@
 [package]
-name = "clip_cli"
+name = "clip_srv"
 version = "0.1.0"
 edition = "2021"
 
