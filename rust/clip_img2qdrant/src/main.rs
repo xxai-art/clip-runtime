@@ -6,7 +6,7 @@ use std::sync::OnceLock;
 use anyhow::Result;
 use awp::srv;
 use axum::{routing::get, Router};
-use clip_qdrant::qdrant_client;
+use clip_qdrant::qdrant_client::{self, QdrantClient};
 use clip_runtime::{
   img::{clip_img, ClipImg},
   ort::{ClipModel, ClipOrt},
@@ -15,6 +15,7 @@ use clip_runtime::{
 use crate::env::TO;
 
 pub static ONNX: OnceLock<ClipImg<clip_img::CropTop>> = OnceLock::new();
+pub static ONNX: OnceLock = OnceLock::new();
 
 pub fn clip_onnx() -> &'static ClipImg<clip_img::CropTop> {
   ONNX.get_or_init(|| {

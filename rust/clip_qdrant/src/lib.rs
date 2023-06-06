@@ -1,7 +1,8 @@
 use std::{collections::BTreeSet, env::var};
 
 use anyhow::Result;
-use qdrant_client::{
+pub use qdrant_client::{
+  self,
   prelude::{QdrantClient, QdrantClientConfig},
   qdrant::{
     quantization_config::Quantization, vectors_config::Config, CreateCollection, Distance,
