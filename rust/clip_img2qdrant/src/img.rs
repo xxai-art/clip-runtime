@@ -1,19 +1,11 @@
 use anyhow::anyhow;
 use awp::Result;
-use axum::{
-  extract::Path,
-  response::{IntoResponse, Response},
-};
 use reqwest::header::CONTENT_TYPE;
 
 use crate::{ONNX, Q};
 
-pub async fn get(Path(args): Path<String>) -> Result<Response> {
-  if args == "favicon.ico" {
-    return Ok("".into_response());
-  }
-
-  let url = unsafe { crate::env::TO.clone() + &args };
+pub async fn get(url: &str) -> Result<()> {
+  let url = unsafe { crate::env::TO.clone() + url };
   dbg!(&url);
   let req = reqwest::get(&url).await?;
 
@@ -44,5 +36,5 @@ pub async fn get(Path(args): Path<String>) -> Result<Response> {
   };
   let vec = ONNX.get().unwrap().encode(ext, &bin);
   let q = Q.get().unwrap();
-  return rt!(mime, bin);
+  Ok(())
 }
