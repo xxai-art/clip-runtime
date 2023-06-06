@@ -13,5 +13,6 @@ services:
       - ./qdrant/data:/qdrant/storage
       - ./qdrant/config.yml:/qdrant/config/config.yaml
     ports:
-      - 6333:6333
+      - ${QDRANT_grpc_port}:${QDRANT_grpc_port}
+      - ${QDRANT_http_port}:${QDRANT_http_port}
 
