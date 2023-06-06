@@ -1,23 +1,9 @@
-use anyhow::Result;
-pub use image::RgbImage;
-use image::{imageops::crop_imm, DynamicImage, ImageFormat};
+pub use avif_img::image::RgbImage;
+use avif_img::{
+  image::{self, imageops::crop_imm},
+  load_image,
+};
 use ndarray::Array3;
-
-pub fn load_image(ext: &str, bin: &[u8]) -> Result<DynamicImage> {
-  Ok(if let Some(format) = ImageFormat::from_extension(ext) {
-    dbg!(format);
-    match image::load_from_memory_with_format(bin, format) {
-      Ok(r) => r,
-      Err(_) => {
-        let format = image::guess_format(bin)?;
-        image::load_from_memory_with_format(bin, format)?
-      }
-    }
-  } else {
-    let format = image::guess_format(bin)?;
-    image::load_from_memory_with_format(bin, format)?
-  })
-}
 
 pub fn resize(img: &RgbImage, wh: (u32, u32)) -> RgbImage {
   let (w, h) = wh;
@@ -49,7 +35,7 @@ impl Croper for CropTop {
 }
 
 pub fn processor(
-  ext: &str,
+  ext: Option<&str>,
   img: &[u8],
   dim: u32,
   croper: &impl Croper,
@@ -121,8 +107,10 @@ mod tests {
   };
 
   use anyhow::Result;
-  use image::{codecs::png::PngEncoder, ImageBuffer, ImageEncoder, Rgb};
+  use avif_img::image::{codecs::png::PngEncoder, ImageBuffer, ImageEncoder, Rgb};
   use ndarray::Array3;
+
+  use crate::image::ColorType;
 
   fn to_png(mut img: Array3<f32>, path: &str) -> Result<()> {
     let (_, height, width) = img.dim();
@@ -153,7 +141,7 @@ mod tests {
 
     let w = imgbuf.width();
     let h = imgbuf.height();
-    encoder.write_image(imgbuf.into_raw().as_slice(), w, h, image::ColorType::Rgb8)?;
+    encoder.write_image(imgbuf.into_raw().as_slice(), w, h, ColorType::Rgb8)?;
 
     Ok(())
   }
@@ -180,7 +168,7 @@ mod tests {
       .to_string();
     let img = std::fs::read(&fp)?;
     let dim = 224;
-    let img = crate::processor("jpg", &img, dim, &crate::CropCenter())?;
+    let img = crate::processor(Some("jpg"), &img, dim, &crate::CropCenter())?;
     to_png(img, &(fp.clone() + ".png"))?;
     let py_img = json_to_narray(&(fp.clone() + ".json"))?;
     to_png(py_img, &(fp + ".py.png"))?;

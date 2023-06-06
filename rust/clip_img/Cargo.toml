@@ -10,7 +10,8 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.71"
-image = { version = "0.24.6", features = ["avif-decoder"] }
+aom-decode = "0.2.5"
+avif_img = "0.1.1"
 ndarray = "0.15.6"
 tracing = "0.1.37"
 
