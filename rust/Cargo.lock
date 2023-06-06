@@ -498,6 +498,7 @@ dependencies = [
  "prost",
  "quinn",
  "reqwest",
+ "serde_json",
  "thiserror",
  "tokio",
  "tonic",

@@ -1,5 +1,6 @@
 pub use proto::img_qdrant_server::ImgQdrantServer;
 use proto::{AddIn, AddOut};
+use serde_json::json;
 use tonic::{transport::Server, Request, Response, Status};
 use tonic_catch::{tonic_catch, Error, Result};
 
@@ -12,16 +13,10 @@ pub struct ImgQdrant {}
 
 #[tonic_catch]
 impl proto::img_qdrant_server::ImgQdrant for ImgQdrant {
-  async fn add(
-    &self,
-    req: Request<AddIn>, // 接收以HelloRequest为类型的请求
-  ) -> Result<AddOut> {
+  async fn add(&self, req: Request<AddIn>) -> Result<AddOut> {
     let req = req.get_ref();
-    println!("{:?}", req);
     let vec = crate::img::get(&req.url).await?;
-
-    let reply = AddOut {};
-
-    Ok(Response::new(reply))
+    let q = crate::Q.get().unwrap();
+    Ok(Response::new(AddOut {}))
   }
 }

@@ -1,11 +1,11 @@
 mod env;
 mod img;
 mod log;
+mod qdrant;
 mod rpc;
 use std::sync::OnceLock;
 
 use anyhow::Result;
-use clip_qdrant::{qdrant_client, QdrantClient};
 use clip_runtime::{
   img::{clip_img, ClipImg},
   ort::{ClipModel, ClipOrt},
@@ -23,7 +23,7 @@ pub static Q: OnceLock<QdrantClient> = OnceLock::new();
 #[tokio::main]
 async fn main() -> Result<()> {
   log::init();
-  let client = qdrant_client().await?;
+  let client = qdrant::init().await?;
   let _ = Q.set(client);
   let _ = ONNX.set({
     let ort = ClipOrt::new().unwrap();
