@@ -12,3 +12,7 @@ tokio = { version = "1.28.2", features = ["rt-multi-thread"] }
 [dependencies.clip_qdrant]
 path = "../clip_qdrant"
 version = "0.1.0"
+
+[dependencies.clip_runtime]
+path = "../clip_runtime"
+version = "0.1.0"

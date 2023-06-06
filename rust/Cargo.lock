@@ -591,6 +591,7 @@ dependencies = [
  "anyhow",
  "awp",
  "clip_qdrant",
+ "clip_runtime",
  "tokio",
 ]
 
