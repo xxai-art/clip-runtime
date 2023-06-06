@@ -9,7 +9,7 @@ direnv allow
 if [ ! -f "./.env" ]; then
   cp .env.example .env
   KEY=$(openssl rand -base64 15 | tr '/+' '_-')
-  echo "\nQDRANT__SERVICE__API_KEY=$KEY\n" >>.env
+  echo -e "\nQDRANT__SERVICE__API_KEY=$KEY\n" >>.env
 fi
 
 set -o allexport
