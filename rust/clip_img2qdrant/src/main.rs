@@ -4,7 +4,6 @@ mod rpc;
 use std::sync::OnceLock;
 
 use anyhow::Result;
-use awp::srv;
 use clip_qdrant::{qdrant_client, QdrantClient};
 use clip_runtime::{
   img::{clip_img, ClipImg},
@@ -20,20 +19,15 @@ use crate::{
 pub static ONNX: OnceLock<ClipImg<clip_img::CropTop>> = OnceLock::new();
 pub static Q: OnceLock<QdrantClient> = OnceLock::new();
 
-pub fn clip_onnx() -> &'static ClipImg<clip_img::CropTop> {
-  ONNX.get_or_init(|| {
+#[tokio::main]
+async fn main() -> Result<()> {
+  let client = qdrant_client().await?;
+  let _ = Q.set(client);
+  let _ = ONNX.set({
     let ort = ClipOrt::new().unwrap();
     let model = ort.model(std::env::var("MODEL_DIR").unwrap());
     model.img("onnx/ImgNorm", 224, clip_img::CropTop()).unwrap()
-  })
-}
-
-#[tokio::main]
-async fn main() -> Result<()> {
-  awp::init();
-  let client = qdrant_client().await?;
-  let _ = Q.set(client);
-  let onnx = clip_onnx();
+  });
 
   unsafe {
     TO = std::env::var("TO").unwrap_or("".to_string());
