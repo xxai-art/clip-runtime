@@ -590,6 +590,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "awp",
+ "axum",
  "clip_qdrant",
  "clip_runtime",
  "tokio",

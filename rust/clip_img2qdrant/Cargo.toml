@@ -7,6 +7,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.71"
 awp = "0.1.2"
+axum = "0.6.18"
 tokio = { version = "1.28.2", features = ["rt-multi-thread"] }
 tracing = "0.1.37"
 

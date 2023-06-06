@@ -3,6 +3,7 @@ use std::sync::OnceLock;
 
 use anyhow::Result;
 use awp::srv;
+use axum::{routing::get, Router};
 use clip_qdrant::qdrant_client;
 use clip_runtime::{
   img::{clip_img, ClipImg},
@@ -23,14 +24,18 @@ pub fn clip_onnx() -> &'static ClipImg<clip_img::CropTop> {
 
 #[tokio::main]
 async fn main() -> Result<()> {
+  awp::init();
   let client = qdrant_client().await?;
   let onnx = clip_onnx();
 
   unsafe {
-    TO = std::env::var("TO").unwrap();
+    TO = std::env::var("TO").unwrap_or("".to_string());
     tracing::info!("→ {TO}");
   }
 
+  let mut router = Router::new();
+
   println!("Hello, world!");
+  awp::srv(router, 5550).await;
   Ok(())
 }
