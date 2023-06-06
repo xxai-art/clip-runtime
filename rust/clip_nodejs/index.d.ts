@@ -18,5 +18,5 @@ export class Txt {
   encode(txt: Array<string> | string): Arr
 }
 export class Img {
-  encode(ext: string, bin: Buffer): Arr
+  encode(ext: string | undefined | null, bin: Buffer): Arr
 }

@@ -45,8 +45,8 @@ impl Model {
 #[napi]
 impl Img {
   #[napi]
-  pub fn encode(&self, ext: String, bin: Buffer) -> Result<Arr> {
-    Ok(Arr(self.0.encode(&ext, bin.as_ref())?))
+  pub fn encode(&self, ext: Option<&str>, bin: Buffer) -> Result<Arr> {
+    Ok(Arr(self.0.encode(ext, bin.as_ref())?))
   }
 }
 
