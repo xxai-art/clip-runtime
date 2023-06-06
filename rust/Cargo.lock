@@ -538,6 +538,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "clip_nodejs"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clip_runtime",
+ "napi",
+ "napi-build",
+ "napi-derive 2.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "clip_runtime"
 version = "0.1.0"
 dependencies = [
@@ -3358,17 +3369,6 @@ checksum = "d3b17ae1f6c8a2b28506cd96d412eebf83b4a0ff2cbefeeb952f2f9dfa44ba18"
 dependencies = [
  "cc",
  "libc",
-]
-
-[[package]]
-name = "w5_clip"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "clip_runtime",
- "napi",
- "napi-build",
- "napi-derive 2.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
