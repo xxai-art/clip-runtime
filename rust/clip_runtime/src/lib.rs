@@ -34,9 +34,12 @@ pub fn cls(txt_feature: &Arr, img_feature: &Arr) -> Vec<f32> {
 
 #[cfg(test)]
 mod test {
-  use crate::{cls, ort::ClipModel, ort::ClipOrt};
-
   use std::sync::OnceLock;
+
+  use crate::{
+    cls,
+    ort::{ClipModel, ClipOrt},
+  };
 
   static MODEL: OnceLock<ClipModel> = OnceLock::new();
 

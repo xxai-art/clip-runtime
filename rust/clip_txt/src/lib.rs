@@ -1,6 +1,6 @@
-use anyhow::anyhow;
-use anyhow::Result;
 use std::path::Path;
+
+use anyhow::{anyhow, Result};
 pub use tokenizers::tokenizer::Tokenizer;
 pub struct Tokener {
   tokenizer: Tokenizer,
