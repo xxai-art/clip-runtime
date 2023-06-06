@@ -3,8 +3,6 @@ license = "SSPL-1.0"
 description = "qdrant client for clip"
 homepage = "https://github.com/xxai-art/clip-runtime/tree/main/rust/clip_qdrant"
 repository = "https://github.com/xxai-art/clip-runtime.git"
-
-[package]
 name = "clip_qdrant"
 version = "0.1.0"
 edition = "2021"
