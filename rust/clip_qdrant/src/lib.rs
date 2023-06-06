@@ -1,4 +1,4 @@
-use std::{collections::BTreeSet, env::var};
+use std::{env::var};
 
 use anyhow::Result;
 pub use qdrant_client::{

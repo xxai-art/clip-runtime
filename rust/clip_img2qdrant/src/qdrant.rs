@@ -4,8 +4,9 @@ use clip_qdrant::{
   qdrant_client, Config, CreateCollection, Distance, QdrantClient, Quantization,
   QuantizationConfig, VectorParams, VectorsConfig,
 };
+pub static Q: OnceLock<QdrantClient> = OnceLock::new();
 
-pub async fn init() -> anyhow::Result<QdrantClient> {
+pub async fn init() -> anyhow::Result<()> {
   let client = qdrant_client().await?;
   let li = client
     .list_collections()
@@ -40,5 +41,7 @@ pub async fn init() -> anyhow::Result<QdrantClient> {
       })
       .await?;
   }
-  Ok(client)
+  let client = qdrant::init().await?;
+  Q.set(client);
+  Ok(())
 }
