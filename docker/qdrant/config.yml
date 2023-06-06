@@ -119,11 +119,11 @@ service:
   host: 0.0.0.0
 
   # HTTP(S) port to bind the service on
-  http_port: 6333
+  http_port: 3680
 
   # gRPC port to bind the service on.
   # If `null` - gRPC is disabled. Default: null
-  grpc_port: 6334
+  grpc_port: 3679
   # Uncomment to enable gRPC:
   # grpc_port: 6334
 
@@ -148,7 +148,7 @@ service:
   # Sending an api-key over an unencrypted channel is insecure.
   #
   # Uncomment to enable.
-  # api_key: your_secret_api_key_here
+  api_key: B6ZJoPLjM8zq6J
 
 cluster:
   # Use `enabled: true` to run Qdrant in distributed deployment mode
