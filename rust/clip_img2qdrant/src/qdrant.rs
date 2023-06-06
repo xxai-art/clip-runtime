@@ -18,6 +18,11 @@ pub async fn init() -> anyhow::Result<()> {
     .collect::<BTreeSet<_>>();
 
   let name = var("CLIP_NAME").unwrap_or_else(|_| "clip".into());
+
+  unsafe {
+    crate::env::CLIP = name.clone();
+  }
+
   if li.get(&name).is_none() {
     client
       .create_collection(&CreateCollection {

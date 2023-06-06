@@ -1,5 +1,11 @@
+use anyhow::anyhow;
+use clip_qdrant::qdrant_client::{
+  prelude::{Payload, PointStruct},
+  serde::PayloadConversionError,
+};
 pub use proto::img_qdrant_server::ImgQdrantServer;
 use proto::{AddIn, AddOut};
+use serde_json::json;
 use tonic::{Request, Response};
 use tonic_catch::{tonic_catch, Error, Result};
 
@@ -14,8 +20,24 @@ pub struct ImgQdrant {}
 impl proto::img_qdrant_server::ImgQdrant for ImgQdrant {
   async fn add(&self, req: Request<AddIn>) -> Result<AddOut> {
     let req = req.get_ref();
-    let _vec = crate::img::get(&req.url).await?;
-    let _q = crate::Q.get().unwrap();
+    let vec = crate::img::get(&req.url).await?;
+
+    let payload: Payload = json!(
+        {
+            "t": req.tag
+        }
+    )
+    .try_into()
+    .map_err(|e: PayloadConversionError| anyhow!(e))?;
+
+    let point = PointStruct::new(req.id, vec, payload);
+    unsafe {
+      crate::Q
+        .get()
+        .unwrap()
+        .upsert_points_blocking(&crate::env::CLIP, vec![point], None)
+        .await?;
+    }
     Ok(Response::new(AddOut {}))
   }
 }
