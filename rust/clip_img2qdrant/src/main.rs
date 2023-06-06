@@ -1,34 +1,6 @@
 mod env;
+mod rpc;
 // mod img;
-
-use img2qdrant::{
-  img_qdrant_server::{ImgQdrant, ImgQdrantServer},
-  AddIn, AddOut,
-};
-use tonic::{transport::Server, Request, Response, Status};
-
-pub mod img2qdrant {
-  tonic::include_proto!("img2qdrant");
-}
-
-#[derive(Debug, Default)]
-pub struct _ImgQdrant {}
-
-#[tonic::async_trait]
-impl ImgQdrant for _ImgQdrant {
-  async fn add(
-    &self,
-    request: Request<AddIn>, // 接收以HelloRequest为类型的请求
-  ) -> Result<Response<AddOut>, Status> {
-    // 返回以HelloReply为类型的示例作为响应
-    println!("Got a request: {:?}", request);
-
-    let reply = AddOut {};
-
-    Ok(Response::new(reply)) // 发回格式化的问候语
-  }
-}
-
 use std::sync::OnceLock;
 
 use anyhow::Result;
@@ -38,8 +10,12 @@ use clip_runtime::{
   img::{clip_img, ClipImg},
   ort::{ClipModel, ClipOrt},
 };
+use tonic::{transport::Server, Request, Response, Status};
 
-use crate::env::TO;
+use crate::{
+  env::TO,
+  rpc::{ImgQdrant, ImgQdrantServer},
+};
 
 pub static ONNX: OnceLock<ClipImg<clip_img::CropTop>> = OnceLock::new();
 pub static Q: OnceLock<QdrantClient> = OnceLock::new();
@@ -64,8 +40,14 @@ async fn main() -> Result<()> {
     tracing::info!("→ {TO}");
   }
 
-  // let mut router = Router::new();
-  // router = router.route(r"/*url", get(crate::img::get));
-  // awp::srv(router, 5550).await;
+  let addr = "0.0.0.0:8662".parse()?;
+
+  tracing::info!("grpc://{}", addr);
+
+  let img_qdrant = ImgQdrant::default();
+  Server::builder()
+    .add_service(ImgQdrantServer::new(img_qdrant))
+    .serve(addr)
+    .await?;
   Ok(())
 }
