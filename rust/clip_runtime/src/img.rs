@@ -18,7 +18,7 @@ pub struct ClipImg<C: Croper> {
 }
 
 impl<C: Croper> ClipImg<C> {
-  pub fn encode(&self, ext: &str, img: &[u8]) -> Result<Arr> {
+  pub fn encode(&self, ext: Option<&str>, img: &[u8]) -> Result<Arr> {
     let dim = self.dim;
     let img = processor(ext, img, self.dim as u32, &self.croper)?;
     let mut a = Array::<f32, _>::zeros((
@@ -44,7 +44,7 @@ fn test_image_encode() -> Result<()> {
   let clip_img = model.img("onnx/Img", 224, clip_img::CropCenter())?;
 
   let img = std::fs::read(dir.join("img/cat.jpg"))?;
-  let out = clip_img.encode("jpg", &img)?;
+  let out = clip_img.encode(Some("jpg"), &img)?;
   println!("img {}", out);
   Ok(())
 }
