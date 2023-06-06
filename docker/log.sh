@@ -4,4 +4,4 @@ DIR=$(realpath $0) && DIR=${DIR%/*}
 cd $DIR
 set -ex
 
-docker-compose logs -f
+exec docker-compose logs -f
