@@ -21,6 +21,16 @@ impl Croper for CropCenter {
   }
 }
 
+pub struct CropTop();
+
+impl Croper for CropTop {
+  fn crop(&self, img: &RgbImage, wh: (u32, u32), dim: u32) -> RgbImage {
+    let left = (wh.0 - dim) / 2;
+    let top = 0;
+    crop_imm(img, left, top, dim, dim).to_image()
+  }
+}
+
 pub fn processor(img: &[u8], dim: u32, croper: &impl Croper) -> anyhow::Result<Array3<f32>> {
   // Resize the image.
   let img = image::load_from_memory(img)?.to_rgb8();
