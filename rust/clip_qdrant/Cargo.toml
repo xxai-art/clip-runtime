@@ -1,10 +1,15 @@
 [package]
+license = "SSPL-1.0"
+description = "qdrant client for clip"
+homepage = "https://github.com/xxai-art/clip-runtime/tree/main/rust/clip_qdrant"
+repository = "https://github.com/xxai-art/clip-runtime.git"
+
+[package]
 name = "clip_qdrant"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 anyhow = "1.0.71"
 qdrant-client = "1.2.0"
