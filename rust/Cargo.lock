@@ -555,6 +555,7 @@ name = "clip_srv"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "clip_runtime",
  "qdrant-client",
  "tokio",
  "tonic",
