@@ -1,3 +1,0 @@
-[submodule "rust/clip_nodejs/lib/napi-rs"]
-	path = rust/clip_nodejs/lib/napi-rs
-	url = git@github.com:napi-rs/napi-rs.git
