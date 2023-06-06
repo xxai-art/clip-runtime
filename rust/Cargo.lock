@@ -579,6 +579,8 @@ dependencies = [
  "anyhow",
  "clip_img",
  "clip_txt",
+ "coarsetime",
+ "futures",
  "ndarray",
  "num_cpus",
  "ort",
@@ -608,6 +610,18 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "tokenizers",
+]
+
+[[package]]
+name = "coarsetime"
+version = "0.1.23"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a90d114103adbc625300f346d4d09dfb4ab1c4a8df6868435dd903392ecf4354"
+dependencies = [
+ "libc",
+ "once_cell",
+ "wasi 0.11.0+wasi-snapshot-preview1",
+ "wasm-bindgen",
 ]
 
 [[package]]

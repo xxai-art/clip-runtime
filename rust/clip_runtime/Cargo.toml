@@ -9,6 +9,8 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.71"
+coarsetime = "0.1.23"
+futures = "0.3.28"
 ndarray = "0.15.6"
 num_cpus = "1.15.0"
 
