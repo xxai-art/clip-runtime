@@ -64,7 +64,6 @@ use crate::ONNX;
 // }
 
 pub async fn get(Path(args): Path<String>) -> Result<Response> {
-  let pos = args.find('/');
   if args == "favicon.ico" {
     return Ok("".into_response());
   }
@@ -93,9 +92,15 @@ pub async fn get(Path(args): Path<String>) -> Result<Response> {
     return rt!(mime, bin);
   }
 
-  let vec = ONNX.get().unwrap().encode(&bin)?;
+  let ext = if let Some(pos) = mime.rfind('/') {
+    &mime[1 + pos..]
+  } else {
+    mime.as_str()
+  };
+  dbg!(ext);
+  let vec = ONNX.get().unwrap().encode(ext, &bin);
   dbg!(vec);
-  return Ok("".into_response());
+  return rt!(mime, bin);
 
   // let pos = pos.unwrap();
   // let opt = &args[..pos];

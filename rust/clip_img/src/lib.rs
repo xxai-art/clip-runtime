@@ -5,6 +5,7 @@ use ndarray::Array3;
 
 pub fn load_image(ext: &str, bin: &[u8]) -> Result<DynamicImage> {
   Ok(if let Some(format) = ImageFormat::from_extension(ext) {
+    dbg!(format);
     match image::load_from_memory_with_format(bin, format) {
       Ok(r) => r,
       Err(_) => {
