@@ -1,3 +1,13 @@
 [workspace]
 members = ["clip_runtime", "clip_srv", "clip_txt", "clip_img", "clip_nodejs"]
 resolver = "2"
+
+[profile.release]
+lto = true
+opt-level = 3
+incremental = true
+codegen-units = 1
+overflow-checks = false
+panic = 'abort'
+debug-assertions = false
+strip = true
