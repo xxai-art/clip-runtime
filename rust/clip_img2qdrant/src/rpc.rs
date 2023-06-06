@@ -38,6 +38,7 @@ impl proto::img_qdrant_server::ImgQdrant for ImgQdrant {
         .upsert_points_blocking(&crate::env::CLIP, vec![point], None)
         .await?;
     }
+    dbg!("inserted", req);
     Ok(Response::new(AddOut {}))
   }
 }
