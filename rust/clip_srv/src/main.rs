@@ -9,8 +9,7 @@ use qdrant_client::{
   },
 };
 
-#[tokio::main]
-async fn main() -> Result<()> {
+async fn qdrant_client() -> Result<QdrantClient> {
   let grpc = var("QDRANT_GRPC")?;
   let mut config = QdrantClientConfig::from_url(&grpc);
 
@@ -53,7 +52,12 @@ async fn main() -> Result<()> {
       .await?;
   }
 
-  // let config = QdrantClientConfig::from_url("http://localhost:");
+  Ok(client)
+}
+
+#[tokio::main]
+async fn main() -> Result<()> {
+  let client = qdrant_client().await?;
   // let model_dir = var("MODEL_DIR")?;
   Ok(())
 }
