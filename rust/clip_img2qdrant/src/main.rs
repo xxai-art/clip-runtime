@@ -1,11 +1,10 @@
 mod env;
-mod img;
+// mod img;
 
 use std::sync::OnceLock;
 
 use anyhow::Result;
 use awp::srv;
-use axum::{routing::get, Router};
 use clip_qdrant::{qdrant_client, QdrantClient};
 use clip_runtime::{
   img::{clip_img, ClipImg},
@@ -29,7 +28,7 @@ pub fn clip_onnx() -> &'static ClipImg<clip_img::CropTop> {
 async fn main() -> Result<()> {
   awp::init();
   let client = qdrant_client().await?;
-  Q.get_or_init(|| client);
+  let _ = Q.set(client);
   let onnx = clip_onnx();
 
   unsafe {
@@ -37,8 +36,8 @@ async fn main() -> Result<()> {
     tracing::info!("→ {TO}");
   }
 
-  let mut router = Router::new();
-  router = router.route(r"/*url", get(crate::img::get));
-  awp::srv(router, 5550).await;
+  // let mut router = Router::new();
+  // router = router.route(r"/*url", get(crate::img::get));
+  // awp::srv(router, 5550).await;
   Ok(())
 }

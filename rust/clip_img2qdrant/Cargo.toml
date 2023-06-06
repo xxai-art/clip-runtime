@@ -7,14 +7,13 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.71"
 awp = "0.1.2"
-axum = "0.6.18"
 tokio = { version = "1.28.2", features = ["rt-multi-thread"] }
-tracing = "0.1.37"
 quinn = { version = "0.10", default-features = false, features = [
   "runtime-tokio",
   "tls-rustls",
   "ring"
 ] }
+tracing = "0.1.37"
 
 [dependencies.reqwest]
 version = "0.11.18"
