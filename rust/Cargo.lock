@@ -593,6 +593,7 @@ dependencies = [
  "clip_qdrant",
  "clip_runtime",
  "tokio",
+ "tracing",
 ]
 
 [[package]]
