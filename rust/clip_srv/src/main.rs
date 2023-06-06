@@ -28,10 +28,9 @@ async fn main() -> Result<()> {
   let mut router = Router::new();
 
   // router = router.route(r"/*li", get(crate::url::img::get));
-
   if var("TXT").is_ok() {
     let clip_txt = model.txt("onnx/Txt", 77)?;
   }
-  srv::srv(router).await;
+  srv::srv(router, 3678).await;
   Ok(())
 }
