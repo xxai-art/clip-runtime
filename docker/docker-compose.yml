@@ -5,10 +5,6 @@ services:
     container_name: clip-qdrant
     image:  qdrant/qdrant
     restart: always
-    environment:
-      REDIS_DATA_DIR: /data
-      REDIS_ARGS: >
-        --aclfile /data/acl --appendonly yes --bind 0.0.0.0 --port ${REDIS_PORT} --save 64 1 --save 32 8 --save 2 32768 --repl-backlog-size 256m
     volumes:
       - ./qdrant/data:/qdrant/storage
       - ./qdrant/config.yml:/qdrant/config/config.yaml
