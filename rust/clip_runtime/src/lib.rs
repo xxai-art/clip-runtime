@@ -54,13 +54,7 @@ mod test {
   pub fn clip_model() -> &'static ClipModel {
     MODEL.get_or_init(|| {
       let ort = ClipOrt::new().unwrap();
-      ort.model(
-        root()
-          .join("model")
-          .join(std::env::var("MODEL").unwrap())
-          .display()
-          .to_string(),
-      )
+      ort.model(std::env::var("MODEL_DIR").unwrap())
     })
   }
 
