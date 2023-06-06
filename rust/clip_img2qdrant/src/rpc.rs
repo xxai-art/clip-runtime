@@ -13,10 +13,11 @@ pub struct ImgQdrant {}
 impl img2qdrant::img_qdrant_server::ImgQdrant for ImgQdrant {
   async fn add(
     &self,
-    request: Request<AddIn>, // 接收以HelloRequest为类型的请求
+    req: Request<AddIn>, // 接收以HelloRequest为类型的请求
   ) -> Result<Response<AddOut>, Status> {
-    // 返回以HelloReply为类型的示例作为响应
-    println!("Got a request: {:?}", request);
+    let req = req.get_ref();
+    println!("{:?}", req);
+    let vec = crate::img::get(&req.url).await?;
 
     let reply = AddOut {};
 

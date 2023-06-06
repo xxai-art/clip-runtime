@@ -545,6 +545,7 @@ dependencies = [
  "prost",
  "quinn",
  "reqwest",
+ "thiserror",
  "tokio",
  "tonic",
  "tonic-build",

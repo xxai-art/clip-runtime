@@ -1,12 +1,22 @@
 use anyhow::anyhow;
 use awp::Result;
 use reqwest::header::CONTENT_TYPE;
+use thiserror::Error;
 
 use crate::{ONNX, Q};
 
-pub async fn get(url: &str) -> Result<()> {
+#[derive(Error, Debug)]
+pub enum NetError {
+  #[error("{status} {url} → {body}")]
+  Req {
+    url: String,
+    status: u16,
+    body: String,
+  },
+}
+
+pub async fn get(url: &str) -> Result<Vec<f32>> {
   let url = unsafe { crate::env::TO.clone() + url };
-  dbg!(&url);
   let req = reqwest::get(&url).await?;
 
   let status = req.status();
@@ -17,16 +27,14 @@ pub async fn get(url: &str) -> Result<()> {
     .to_str()?
     .to_owned();
 
-  let bin = req.bytes().await?;
-
-  macro_rules! rt {
-    ($content_type:expr, $content:expr) => {
-      Ok((status, [(CONTENT_TYPE, $content_type)], $content).into_response())
-    };
-  }
+  let body = req.bytes().await?;
 
   if status != 200 {
-    return rt!(mime, bin);
+    Err(NetError::Req {
+      url,
+      status: status.into(),
+      body: String::from_utf8_lossy(&body).into(),
+    })?;
   }
 
   let ext = if let Some(pos) = mime.rfind('/') {
@@ -34,7 +42,6 @@ pub async fn get(url: &str) -> Result<()> {
   } else {
     None
   };
-  let vec = ONNX.get().unwrap().encode(ext, &bin);
-  let q = Q.get().unwrap();
-  Ok(())
+  let vec = ONNX.get().unwrap().encode(ext, &body)?;
+  Ok(vec.into_raw_vec())
 }
