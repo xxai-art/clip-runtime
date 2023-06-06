@@ -93,9 +93,9 @@ pub async fn get(Path(args): Path<String>) -> Result<Response> {
   }
 
   let ext = if let Some(pos) = mime.rfind('/') {
-    &mime[1 + pos..]
+    Some(&mime[1 + pos..])
   } else {
-    mime.as_str()
+    None
   };
   dbg!(ext);
   let vec = ONNX.get().unwrap().encode(ext, &bin);
