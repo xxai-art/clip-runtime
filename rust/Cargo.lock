@@ -588,8 +588,10 @@ dependencies = [
 name = "clip_img2qdrant"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "awp",
  "clip_qdrant",
+ "tokio",
 ]
 
 [[package]]
