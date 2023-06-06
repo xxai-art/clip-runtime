@@ -6,12 +6,11 @@ mod rpc;
 use std::sync::OnceLock;
 
 use anyhow::Result;
-use clip_qdrant::QdrantClient;
 use clip_runtime::{
   img::{clip_img, ClipImg},
-  ort::{ClipModel, ClipOrt},
+  ort::ClipOrt,
 };
-use tonic::{transport::Server, Request, Response, Status};
+use tonic::transport::Server;
 
 pub use crate::qdrant::Q;
 use crate::{

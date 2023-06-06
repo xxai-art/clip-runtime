@@ -1,8 +1,8 @@
-use anyhow::{anyhow, Result};
+use anyhow::Result;
 use reqwest::header::CONTENT_TYPE;
 use thiserror::Error;
 
-use crate::{ONNX, Q};
+use crate::ONNX;
 
 #[derive(Error, Debug)]
 pub enum NetError {
@@ -36,11 +36,7 @@ pub async fn get(url: &str) -> Result<Vec<f32>> {
     })?;
   }
 
-  let ext = if let Some(pos) = mime.rfind('/') {
-    Some(&mime[1 + pos..])
-  } else {
-    None
-  };
+  let ext = mime.rfind('/').map(|pos| &mime[1 + pos..]);
   let vec = ONNX.get().unwrap().encode(ext, &body)?;
   Ok(vec.into_raw_vec())
 }
