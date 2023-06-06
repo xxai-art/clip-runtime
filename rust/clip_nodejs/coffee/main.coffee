@@ -34,7 +34,7 @@ test(
 
     oimg = clip.img 'onnx/Img',224
     for fp from await glob join(ROOT,'lib/img/*.jpg')
-      img_feature = oimg.encode readFileSync fp
+      img_feature = oimg.encode "jpg",readFileSync fp
       console.log basename fp
       for txt_feature, ti in txt_feature_li
         word_li = word_li_li[ti]

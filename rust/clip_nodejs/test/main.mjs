@@ -46,7 +46,7 @@ test('clip', async(t) => {
   oimg = clip.img('onnx/Img', 224);
   ref = (await glob(join(ROOT, 'lib/img/*.jpg')));
   for (fp of ref) {
-    img_feature = oimg.encode(readFileSync(fp));
+    img_feature = oimg.encode("jpg", readFileSync(fp));
     console.log(basename(fp));
     for (ti = j = 0, len = txt_feature_li.length; j < len; ti = ++j) {
       txt_feature = txt_feature_li[ti];
