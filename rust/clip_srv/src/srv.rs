@@ -4,17 +4,14 @@ use axum::{error_handling::HandleErrorLayer, http::StatusCode, BoxError, Router}
 use coarsetime::Duration;
 use tower::ServiceBuilder;
 
-use crate::env::{env_default, TO};
+use crate::env::env_default;
 
 const TIMEOUT: u64 = 600;
 
 pub async fn srv(router: Router) {
   let addr = SocketAddr::from(([0, 0, 0, 0], env_default("PORT", 3678)));
 
-  unsafe {
-    TO = std::env::var("TO").unwrap();
-    tracing::info!("http://{addr} -> {}", TO);
-  }
+  tracing::warn!("http://{addr}");
 
   // https://github.com/tokio-rs/axum/discussions/1383
   let middleware = ServiceBuilder::new()

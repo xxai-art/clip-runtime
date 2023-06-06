@@ -1,3 +1,5 @@
+#![feature(impl_trait_in_assoc_type)]
+mod env;
 mod log;
 mod srv;
 
@@ -19,16 +21,17 @@ pub fn clip_model() -> &'static ClipModel {
 
 #[tokio::main]
 async fn main() -> Result<()> {
+  crate::log::init();
+
   let client = qdrant_client().await?;
   let model = clip_model();
-
   let mut router = Router::new();
 
   // router = router.route(r"/*li", get(crate::url::img::get));
 
-  srv::srv(router).await;
   if var("TXT").is_ok() {
     let clip_txt = model.txt("onnx/Txt", 77)?;
   }
+  srv::srv(router).await;
   Ok(())
 }
