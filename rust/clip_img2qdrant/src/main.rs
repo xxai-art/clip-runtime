@@ -1,5 +1,6 @@
 mod env;
 mod img;
+mod log;
 mod rpc;
 use std::sync::OnceLock;
 
@@ -21,6 +22,7 @@ pub static Q: OnceLock<QdrantClient> = OnceLock::new();
 
 #[tokio::main]
 async fn main() -> Result<()> {
+  log::init();
   let client = qdrant_client().await?;
   let _ = Q.set(client);
   let _ = ONNX.set({

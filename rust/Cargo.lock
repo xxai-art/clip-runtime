@@ -504,6 +504,7 @@ dependencies = [
  "tonic-build",
  "tonic_catch",
  "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]
