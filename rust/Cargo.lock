@@ -525,7 +525,6 @@ name = "clip_img"
 version = "0.1.2"
 dependencies = [
  "anyhow",
- "aom-decode",
  "avif_img",
  "build_cfg",
  "ndarray",
