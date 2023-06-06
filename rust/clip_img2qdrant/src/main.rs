@@ -38,7 +38,7 @@ async fn main() -> Result<()> {
 
   let addr = format!("0.0.0.0:{}", port).parse()?;
 
-  println!("grpc://{}", addr);
+  tracing::info!("grpc://{}", addr);
 
   let img_qdrant = ImgQdrant::default();
   Server::builder()
