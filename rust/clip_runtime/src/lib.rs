@@ -93,7 +93,7 @@ mod test {
       let fp = dir.join(format!("img/{}.jpg", file));
 
       let fp = fp.display().to_string();
-      let img_feature = clip_img.encode(&std::fs::read(fp)?)?;
+      let img_feature = clip_img.encode("jpg", &std::fs::read(fp)?)?;
 
       println!("\n❯ {}", file);
       for (txt_feature, word_li) in txt_feature_li.iter().zip(prompt_li.iter()) {
