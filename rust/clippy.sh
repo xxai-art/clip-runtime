@@ -12,7 +12,7 @@ fi
 
 git add -u && git commit -m'.' || true
 
-dasel ".workspace.members.all()" -r toml -f Cargo.toml | xargs cargo fmt -p
-
+cargo fmt
 cargo +nightly clippy --fix -Z unstable-options -- \
   -A clippy::uninit_assumed_init
+cargo fmt
