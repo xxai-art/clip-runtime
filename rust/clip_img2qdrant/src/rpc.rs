@@ -1,9 +1,9 @@
-pub use img2qdrant::img_qdrant_server::ImgQdrantServer;
-use img2qdrant::{AddIn, AddOut};
+pub use proto::img_qdrant_server::ImgQdrantServer;
+use proto::{AddIn, AddOut};
 use tonic::{transport::Server, Request, Response, Status};
 use tonic_catch::{tonic_catch, Error, Result};
 
-pub mod img2qdrant {
+pub mod proto {
   tonic::include_proto!("img2qdrant");
 }
 
@@ -11,7 +11,7 @@ pub mod img2qdrant {
 pub struct ImgQdrant {}
 
 #[tonic_catch]
-impl img2qdrant::img_qdrant_server::ImgQdrant for ImgQdrant {
+impl proto::img_qdrant_server::ImgQdrant for ImgQdrant {
   async fn add(
     &self,
     req: Request<AddIn>, // 接收以HelloRequest为类型的请求
