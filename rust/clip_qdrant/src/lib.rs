@@ -4,10 +4,6 @@ use std::{env::var, sync::OnceLock};
 use anyhow::Result;
 use qdrant_client::{
   prelude::{QdrantClient, QdrantClientConfig},
-  qdrant::{
-    quantization_config::Quantization, vectors_config::Config, CreateCollection, Distance,
-    QuantizationConfig, VectorParams, VectorsConfig,
-  },
 };
 
 pub static Q: OnceLock<QdrantClient> = OnceLock::new();

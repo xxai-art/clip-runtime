@@ -1,6 +1,6 @@
 use anyhow::Result;
 use qdrant_client::{
-  prelude::{Payload, QdrantClient, QdrantClientConfig},
+  prelude::{Payload},
   qdrant::{
     quantization_config::Quantization, vectors_config::Config, CreateCollection, Distance,
     PointStruct, QuantizationConfig, VectorParams, VectorsConfig,
