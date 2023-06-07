@@ -1,11 +1,5 @@
-use anyhow::{anyhow, Result};
-use qdrant_client::{
-  prelude::Payload,
-  qdrant::{
-    quantization_config::Quantization, vectors_config::Config, CreateCollection, Distance,
-    PointStruct, QuantizationConfig, VectorParams, VectorsConfig,
-  },
-};
+use anyhow::Result;
+use qdrant_client::{prelude::Payload, qdrant::PointStruct};
 
 use crate::qdrant_client;
 
