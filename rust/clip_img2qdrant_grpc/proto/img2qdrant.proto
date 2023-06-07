@@ -1,0 +1,18 @@
+syntax = "proto3";
+package img2qdrant;
+
+message addIn
+{
+  uint64 id = 1;
+  string url = 2;
+  string payload = 3;
+}
+
+message addOut
+{
+}
+
+service ImgQdrant
+{
+  rpc add(addIn) returns (addOut);
+}
