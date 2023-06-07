@@ -18,3 +18,5 @@ set +o allexport
 
 docker-compose down || true
 docker-compose up -d
+sleep 1
+direnv exec . ./init.coffee
