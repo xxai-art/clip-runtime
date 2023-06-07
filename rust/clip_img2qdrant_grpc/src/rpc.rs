@@ -5,7 +5,6 @@ use clip_qdrant::qdrant_client::{
 };
 pub use proto::img_qdrant_server::ImgQdrantServer;
 use proto::{AddIn, AddOut};
-use serde_json::json;
 use tonic::{Request, Response};
 use tonic_catch::{tonic_catch, Error, Result};
 
@@ -20,12 +19,9 @@ pub struct ImgQdrant {}
 impl proto::img_qdrant_server::ImgQdrant for ImgQdrant {
   async fn add(&self, req: Request<AddIn>) -> Result<AddOut> {
     let req = req.get_ref();
-    let vec = crate::img::get(&req.url).await?;
 
-    let payload: Payload = req
-      .payload
-      .try_into()
-      .map_err(|e: PayloadConversionError| anyhow!(e))?;
+    let payload = serde_json::from_str::<Payload>(&req.payload)?;
+    let vec = crate::img::get(&req.url).await?;
 
     let point = PointStruct::new(req.id, vec, payload);
     unsafe {
