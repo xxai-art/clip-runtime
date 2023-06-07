@@ -11,6 +11,7 @@ services:
       QDRANT__SERVICE__API_KEY: ${QDRANT__SERVICE__API_KEY}
     volumes:
       - ./qdrant/storage:/qdrant/storage
+      - ./qdrant/snapshots:/qdrant/snapshots
     ports:
       - ${QDRANT__SERVICE__GRPC_PORT}:${QDRANT__SERVICE__GRPC_PORT}
       - ${QDRANT__SERVICE__HTTP_PORT}:${QDRANT__SERVICE__HTTP_PORT}
