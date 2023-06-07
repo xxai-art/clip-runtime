@@ -25,7 +25,13 @@ curl -sfL https://direnv.net/install.sh | bash
 
 `./init.sh` 会调用 [rust/ort.conf.coffee](./rust/ort.conf.coffee) 配置 ONNX 运行时支持的[加速器 (execution-providers)](https://github.com/pykeio/ort#execution-providers)，基于模板 [./rust/clip_runtime/Cargo.make.toml](./rust/clip_runtime/Cargo.make.toml) 生成 ONNX 加速器配置。
 
-TODO
+## qdrant
+
+运行 ./qdrant.docker/up.sh 会启动一个 qdrant 。
+
+./rust/clip_img2qdrant_grpc 可以通过 grpc 传入图片网址录入图片到向量数据库，用 bloomrpc 加载 ./rust/clip_img2qdrant_grpc/proto/img2qdrant.proto 可以调试。
+
+## TODO
 
 * rust 和 js 的接口文档
 
