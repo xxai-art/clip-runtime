@@ -8,7 +8,7 @@ pub mod proto {
   tonic::include_proto!("img2qdrant");
 }
 
-db!(clip, 1024);
+db!(clip);
 
 #[derive(Debug, Default)]
 pub struct ImgQdrant {}
