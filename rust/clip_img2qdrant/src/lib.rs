@@ -29,30 +29,26 @@ pub fn onnx() -> &'static ClipImgCropTop {
   }
 }
 
-pub struct TaskAdd {
-  id: i64,
-  payload: String,
-  img: Buffer,
-  ext: Option<String>,
-  db: String,
-}
-
-impl Task for TaskAdd {
-  type Output = ();
-  type JsValue = ();
-
-  fn compute(&mut self) -> napi::Result<Self::Output> {
-    let vec = onnx().encode(self.ext.as_deref(), &self.img);
-    let db = clip_client::Db(self.db)
-      .add(self.id, vec, self.payload)
-      .await?;
-    Ok(())
-  }
-
-  fn resolve(&mut self, _: Env, output: Self::Output) -> napi::Result<Self::JsValue> {
-    Ok(())
-  }
-}
+// pub struct TaskAdd {
+//   id: i64,
+//   payload: String,
+//   img: Buffer,
+//   ext: Option<String>,
+//   db: String,
+// }
+//
+// impl Task for TaskAdd {
+//   type Output = ();
+//   type JsValue = ();
+//
+//   fn compute(&mut self) -> napi::Result<Self::Output> {
+//     Ok(())
+//   }
+//
+//   fn resolve(&mut self, _: Env, output: Self::Output) -> napi::Result<Self::JsValue> {
+//     Ok(())
+//   }
+// }
 
 #[napi]
 pub struct Db(String);
@@ -60,20 +56,20 @@ pub struct Db(String);
 #[napi]
 impl Db {
   #[napi]
-  pub fn add(
+  pub async fn add(
     &self,
     id: i64,
     payload: String,
     img: Buffer,
     ext: Option<String>,
-  ) -> AsyncTask<TaskAdd> {
-    AsyncTask::new(TaskAdd {
-      db: self.0.clone(),
-      id,
-      payload,
-      img,
-      ext,
-    })
+  ) -> napi::Result<()> {
+    let vec = onnx().encode(ext.as_deref(), &img)?.into_raw_vec();
+    let db = clip_qdrant::Db {
+      name: self.0.clone(),
+    }
+    .add(id as u64, vec, &payload)
+    .await?;
+    Ok(())
   }
 }
 

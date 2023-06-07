@@ -14,12 +14,7 @@ napi-derive = "2.12.5"
 version = "2.12.6"
 #path = "../napi-rs/crates/napi"
 default-features = false
-features = [
-  "napi8",
-  "error_anyhow"
-  # "tokio_rt",
-  # "async"
-]
+features = ["napi8", "error_anyhow", "tokio_rt", "async"]
 
 [build-dependencies]
 napi-build = "2.0.1"

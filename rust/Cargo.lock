@@ -1748,6 +1748,7 @@ dependencies = [
  "napi-derive 2.13.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "napi-sys 2.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "once_cell",
+ "tokio",
 ]
 
 [[package]]

@@ -5,5 +5,5 @@
 
 export function dbNew(name: string): Db
 export class Db {
-  add(id: number, payload: string, img: Buffer, ext?: string | undefined | null): Promise<unknown>
+  add(id: number, payload: string, img: Buffer, ext?: string | undefined | null): Promise<void>
 }
