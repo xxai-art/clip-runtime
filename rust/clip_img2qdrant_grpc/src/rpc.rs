@@ -1,8 +1,4 @@
-use anyhow::anyhow;
-use clip_qdrant::qdrant_client::{
-  prelude::{Payload, PointStruct},
-  serde::PayloadConversionError,
-};
+use clip_qdrant::qdrant_client::prelude::{Payload, PointStruct};
 pub use proto::img_qdrant_server::ImgQdrantServer;
 use proto::{AddIn, AddOut};
 use tonic::{Request, Response};
