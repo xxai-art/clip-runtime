@@ -12,9 +12,8 @@ fi
 
 git add -u && git commit -m'.' || true
 cargo fmt
-cd clip_nodejs/lib/napi-rs
-git checkout .
-cd $DIR
+cd clip_nodejs/lib/napi-rs && git checkout . && cd $DIR
 cargo +nightly clippy --fix -Z unstable-options -- \
   -A clippy::uninit_assumed_init
 cargo fmt
+cd clip_nodejs/lib/napi-rs && git checkout . && cd $DIR
