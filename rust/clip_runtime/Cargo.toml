@@ -12,18 +12,18 @@ anyhow = "1.0.71"
 ndarray = "0.15.6"
 num_cpus = "1.15.0"
 
-[dependencies.tracing-subscriber]
-version = "0.3.17"
-features = ["env-filter", "fmt"]
+  [dependencies.tracing-subscriber]
+  version = "0.3.17"
+  features = [ "env-filter", "fmt" ]
 
-[dependencies.clip_txt]
-path = "../clip_txt"
-version = "0.1.0"
+  [dependencies.clip_txt]
+  path = "../clip_txt"
+  version = "0.1.0"
 
-[dependencies.clip_img]
-path = "../clip_img"
-version = "0.1.3"
+  [dependencies.clip_img]
+  path = "../clip_img"
+  version = "0.1.3"
 
-[dependencies.ort]
-version = "1.14.8"
-features = ["load-dynamic", "coreml"]
+  [dependencies.ort]
+  version = "1.14.8"
+  features = [ "load-dynamic", "coreml" ]
