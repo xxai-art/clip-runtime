@@ -19,26 +19,26 @@ pub struct Db {
 macro_rules! db {
     ($name:ident, $size:expr) => {
         $crate::paste! {
-        pub static [<DB_ $name:snake:upper>]: std::sync::OnceLock<$crate::Db> = std::sync::OnceLock::new();
+            pub static [<DB_ $name:snake:upper>]: std::sync::OnceLock<$crate::Db> = std::sync::OnceLock::new();
 
-        pub fn [<db_ $name>]() -> &'static clip_qdrant::Db {
-            loop {
-                match [<DB_ $name:snake:upper>].get() {
-                    Some(r) => return r,
-                    None => {
-                        let _  = [<DB_ $name:snake:upper>].set(
-                            $crate::Db {
-                                name:stringify!($name).to_string(),
-                                size:$size
-                            }
-                        );
-                        continue;
+            pub fn [<db_ $name>]() -> &'static clip_qdrant::Db {
+                loop {
+                    match [<DB_ $name:snake:upper>].get() {
+                        Some(r) => return r,
+                        None => {
+                            let _  = [<DB_ $name:snake:upper>].set(
+                                $crate::Db {
+                                    name:stringify!($name).to_string(),
+                                    size:$size
+                                }
+                            );
+                            continue;
+                        }
                     }
                 }
             }
         }
     }
-  }
 }
 
 impl Db {
@@ -47,9 +47,27 @@ impl Db {
     let payload = serde_json::from_str::<Payload>(payload)?;
     let point = PointStruct::new(id, vec, payload);
 
-    client
-      .upsert_points_blocking(&self.name, vec![point], None)
-      .await?;
+    let vec = vec![point];
+
+    if let Err(err) = client
+      .upsert_points_blocking(&self.name, vec.clone(), None)
+      .await
+    {
+      match err.downcast::<tonic::Status>() {
+        Ok(status) => {
+          if status.code() == tonic::Code::NotFound {
+            self.init().await?;
+            client.upsert_points_blocking(&self.name, vec, None).await?;
+          }
+        }
+        Err(err) => return Err(err),
+      }
+      // if err.code() == "NotFound" {
+      //     self.init().await?
+      //   } else {
+      //     return Err(err);
+      //   }
+    }
 
     Ok(())
   }
