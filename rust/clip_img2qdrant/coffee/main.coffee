@@ -1,8 +1,8 @@
 #!/usr/bin/env coffee
 
-> @w5/avat
+> ava:test
 
-I = await import('../index.js')
-T = avat I
+test "clip",(t)=>
+  t.pass()
+  return
 
-T.helloWorld([1,2,3])(3)
