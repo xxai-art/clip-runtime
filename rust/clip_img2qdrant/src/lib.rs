@@ -29,33 +29,55 @@ pub fn onnx() -> &'static ClipImgCropTop {
   }
 }
 
-#[napi]
-struct Db(clip_qdrant::Db);
-
-#[napi]
-impl Db {
-  #[napi(constructor)]
-  pub fn new(&self, name: String) -> Self {
-    Self(clip_qdrant::Db { name })
-  }
+pub struct TaskAdd {
+  id: i64,
+  payload: String,
+  img: Buffer,
+  ext: Option<String>,
+  db: String,
 }
 
-pub struct AsyncArg(i64, Buffer);
-
-impl Task for AsyncArg {
-  type Output = i64;
-  type JsValue = i64;
+impl Task for TaskAdd {
+  type Output = ();
+  type JsValue = ();
 
   fn compute(&mut self) -> napi::Result<Self::Output> {
-    Ok(self.0 + self.1.len() as i64)
+    let vec = onnx().encode(self.ext.as_deref(), &self.img);
+    let db = clip_client::Db(self.db)
+      .add(self.id, vec, self.payload)
+      .await?;
+    Ok(())
   }
 
   fn resolve(&mut self, _: Env, output: Self::Output) -> napi::Result<Self::JsValue> {
-    Ok(output)
+    Ok(())
   }
 }
 
 #[napi]
-pub fn async_add(a: i64, b: Buffer) -> AsyncTask<AsyncArg> {
-  AsyncTask::new(AsyncArg(a, b))
+pub struct Db(String);
+
+#[napi]
+impl Db {
+  #[napi]
+  pub fn add(
+    &self,
+    id: i64,
+    payload: String,
+    img: Buffer,
+    ext: Option<String>,
+  ) -> AsyncTask<TaskAdd> {
+    AsyncTask::new(TaskAdd {
+      db: self.0.clone(),
+      id,
+      payload,
+      img,
+      ext,
+    })
+  }
+}
+
+#[napi]
+pub fn db_new(name: String) -> Db {
+  Db(name)
 }

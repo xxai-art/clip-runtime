@@ -5,8 +5,9 @@
 
 
 test "clip",(t)=>
-  db = Db 'clip'
-  console.log db
+  console.log Db 'clip'
+  # db = new Dbx 'clip'
+  # console.log db
   t.pass()
   return
 

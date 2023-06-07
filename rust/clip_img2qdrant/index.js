@@ -256,6 +256,7 @@ if (!nativeBinding) {
 }
 
 ;
+nativeBinding.Db = nativeBinding.dbNew
 /*
 import autoe from "@w5/utf8/autoe.js";
 import { u8merge } from "@w5/u8";
@@ -282,12 +283,12 @@ nativeBinding.z85Dump = (s) => _z85Dump(autoe(s));
 nativeBinding.zipU64 = (...args) => _zipU64(args);
 */
 
-const _Db = nativeBinding.Db;
-
-export const Db = (name)=>
-  new _Db(name)
-
-
+// const _Db = nativeBinding.Db;
+//
+// nativeBinding.Db = (name)=>
+//   new _Db(name)
+//
+//
 
 export const Db = nativeBinding.Db;
-export const asyncAdd = nativeBinding.asyncAdd;
+export const dbNew = nativeBinding.dbNew;
