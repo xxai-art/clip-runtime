@@ -283,3 +283,4 @@ nativeBinding.zipU64 = (...args) => _zipU64(args);
 */
 
 export const helloWorld = nativeBinding.helloWorld;
+export const asyncAdd = nativeBinding.asyncAdd;

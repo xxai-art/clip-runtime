@@ -3400,6 +3400,8 @@ name = "w5_clip_img2qdrant"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "clip_qdrant",
+ "clip_runtime",
  "napi 2.13.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "napi-build",
  "napi-derive 2.13.0 (registry+https://github.com/rust-lang/crates.io-index)",

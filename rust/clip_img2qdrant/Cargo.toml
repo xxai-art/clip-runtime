@@ -33,3 +33,11 @@ overflow-checks = false
 panic = 'abort'
 debug-assertions = false
 strip = true
+
+[dependencies.clip_qdrant]
+path = "../clip_qdrant"
+version = "0.1.1"
+
+[dependencies.clip_runtime]
+path = "../clip_runtime"
+version = "0.1.3"
