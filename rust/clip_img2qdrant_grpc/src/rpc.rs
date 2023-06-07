@@ -19,7 +19,7 @@ impl proto::img_qdrant_server::ImgQdrant for ImgQdrant {
     let req = req.get_ref();
     let vec = crate::img::get(&req.url).await?;
 
-    db_clip().await?.add(req.id, vec, &req.payload).await?;
+    db_clip().add(req.id, vec, &req.payload).await?;
     Ok(Response::new(AddOut {}))
   }
 }

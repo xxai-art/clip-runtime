@@ -21,10 +21,10 @@ macro_rules! db {
         $crate::paste! {
         pub static [<DB_ $name:snake:upper>]: std::sync::OnceLock<$crate::Db> = std::sync::OnceLock::new();
 
-        pub async fn [<db_ $name>]() -> anyhow::Result<&'static clip_qdrant::Db> {
+        pub fn [<db_ $name>]() -> &'static clip_qdrant::Db {
             loop {
                 match [<DB_ $name:snake:upper>].get() {
-                    Some(r) => return Ok(r),
+                    Some(r) => return r,
                     None => {
                         let _  = [<DB_ $name:snake:upper>].set(
                             $crate::Db {
