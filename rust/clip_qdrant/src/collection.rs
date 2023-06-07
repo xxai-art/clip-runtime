@@ -14,6 +14,7 @@ pub struct Collection {
   pub size: u64,
 }
 
+#[macro_export]
 macro_rules! collection {
 ($name:ident, size:ident) => {{
     pub static [<COLLECTION_ $name:snake:upper>]: OnceLock<Collection> = OnceLock::new();
@@ -24,7 +25,7 @@ macro_rules! collection {
                 Some(r) => return Ok(r),
                 None => {
                     let _  = [<COLLECTION_ $name:snake:upper>].set(
-                        clip_qdrant::Collection {
+                        $crate::Collection {
                             name:stringify!($name).to_string(),
                             size:$size
                         }
