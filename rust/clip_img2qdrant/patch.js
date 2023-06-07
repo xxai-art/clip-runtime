@@ -23,3 +23,10 @@ autoeLi.cookieEncode;
 nativeBinding.z85Dump = (s) => _z85Dump(autoe(s));
 nativeBinding.zipU64 = (...args) => _zipU64(args);
 */
+
+const _Db = nativeBinding.Db;
+
+nativeBinding.Db = (name)=>
+  new _Db(name)
+
+

@@ -282,5 +282,12 @@ nativeBinding.z85Dump = (s) => _z85Dump(autoe(s));
 nativeBinding.zipU64 = (...args) => _zipU64(args);
 */
 
+const _Db = nativeBinding.Db;
+
+export const Db = (name)=>
+  new _Db(name)
+
+
+
 export const Db = nativeBinding.Db;
 export const asyncAdd = nativeBinding.asyncAdd;
