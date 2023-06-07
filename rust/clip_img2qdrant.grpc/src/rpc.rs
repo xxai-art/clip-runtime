@@ -22,13 +22,10 @@ impl proto::img_qdrant_server::ImgQdrant for ImgQdrant {
     let req = req.get_ref();
     let vec = crate::img::get(&req.url).await?;
 
-    let payload: Payload = json!(
-        {
-            "t": req.tag
-        }
-    )
-    .try_into()
-    .map_err(|e: PayloadConversionError| anyhow!(e))?;
+    let payload: Payload = req
+      .payload
+      .try_into()
+      .map_err(|e: PayloadConversionError| anyhow!(e))?;
 
     let point = PointStruct::new(req.id, vec, payload);
     unsafe {

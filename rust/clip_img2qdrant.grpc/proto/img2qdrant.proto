@@ -5,7 +5,7 @@ message addIn
 {
   uint64 id = 1;
   string url = 2;
-  repeated uint64 tag = 3;
+  string payload = 3;
 }
 
 message addOut
