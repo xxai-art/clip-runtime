@@ -1,4 +1,10 @@
+use std::sync::OnceLock;
+
 use anyhow::Result;
+use clip_runtime::{
+  img::{clip_img, ClipImg},
+  ort::ClipOrt,
+};
 use napi::JsNumber;
 use napi_derive::napi;
 
@@ -30,4 +36,22 @@ impl Task for AsyncArg {
 #[napi]
 pub fn async_add(a: i64, b: Buffer) -> AsyncTask<AsyncArg> {
   AsyncTask::new(AsyncArg(a, b))
+}
+
+pub type ClipImgCropTop = ClipImg<clip_img::CropTop>;
+pub static ONNX: OnceLock<ClipImgCropTop> = OnceLock::new();
+
+pub fn onnx() -> &'static ClipImgCropTop {
+  loop {
+    match ONNX.get() {
+      Some(r) => return r,
+      None => {
+        let ort = ClipOrt::new().unwrap();
+        let model = ort.model(std::env::var("MODEL_DIR").unwrap());
+        let onnx = model.img("onnx/ImgNorm", 224, clip_img::CropTop()).unwrap();
+        let _ = ONNX.set(onnx);
+        continue;
+      }
+    }
+  }
 }
