@@ -9,36 +9,39 @@ use qdrant_client::{
 
 use crate::qdrant_client;
 
-pub struct Collection {
+#[derive(Debug)]
+pub struct Db {
   pub name: String,
   pub size: u64,
 }
 
 #[macro_export]
-macro_rules! collection {
-($name:ident, size:ident) => {{
-    pub static [<COLLECTION_ $name:snake:upper>]: OnceLock<Collection> = OnceLock::new();
+macro_rules! db {
+    ($name:ident, $size:expr) => {
+        $crate::paste! {
+        pub static [<DB_ $name:snake:upper>]: std::sync::OnceLock<$crate::Db> = std::sync::OnceLock::new();
 
-    pub async fn paste![<collect_ $name>]() -> Result<&'static Collection> {
-        loop {
-            match [<COLLECTION_ $name:snake:upper>].get() {
-                Some(r) => return Ok(r),
-                None => {
-                    let _  = [<COLLECTION_ $name:snake:upper>].set(
-                        $crate::Collection {
-                            name:stringify!($name).to_string(),
-                            size:$size
-                        }
-                    );
-                    continue;
+        pub async fn [<db_ $name>]() -> anyhow::Result<&'static clip_qdrant::Db> {
+            loop {
+                match [<DB_ $name:snake:upper>].get() {
+                    Some(r) => return Ok(r),
+                    None => {
+                        let _  = [<DB_ $name:snake:upper>].set(
+                            $crate::Db {
+                                name:stringify!($name).to_string(),
+                                size:$size
+                            }
+                        );
+                        continue;
+                    }
                 }
             }
         }
     }
-}};
+  }
 }
 
-impl Collection {
+impl Db {
   pub async fn add(&self, id: u64, vec: Vec<f32>, payload: &str) -> Result<()> {
     let client = qdrant_client().await?;
     let payload = serde_json::from_str::<Payload>(payload)?;
@@ -82,7 +85,7 @@ impl Collection {
 // use std::{collections::BTreeSet, env::var, sync::OnceLock};
 //
 // use clip_qdrant::{
-//   qdrant_client, Config, CreateCollection, Distance, QdrantClient, Quantization,
+//   qdrant_client, Config, CreateDb, Distance, QdrantClient, Quantization,
 //   QuantizationConfig, VectorParams, VectorsConfig,
 // };
 //

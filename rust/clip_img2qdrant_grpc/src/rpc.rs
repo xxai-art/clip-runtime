@@ -1,4 +1,5 @@
-use clip_qdrant::Collection;
+db!(clip, 1024);
+use clip_qdrant::db;
 pub use proto::img_qdrant_server::ImgQdrantServer;
 use proto::{AddIn, AddOut};
 use tonic::{Request, Response};
@@ -16,10 +17,11 @@ impl proto::img_qdrant_server::ImgQdrant for ImgQdrant {
   async fn add(&self, req: Request<AddIn>) -> Result<AddOut> {
     let req = req.get_ref();
 
-    let payload = serde_json::from_str::<Payload>(&req.payload)?;
+    dbg!(&DB_CLIP);
+    // let payload = serde_json::from_str::<Payload>(&req.payload)?;
     let vec = crate::img::get(&req.url).await?;
 
-    let point = PointStruct::new(req.id, vec, payload);
+    // let point = PointStruct::new(req.id, vec, payload);
 
     // unsafe {
     //   crate::Q
