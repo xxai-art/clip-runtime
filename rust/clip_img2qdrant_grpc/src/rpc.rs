@@ -1,4 +1,3 @@
-db!(clip, 1024);
 use clip_qdrant::db;
 pub use proto::img_qdrant_server::ImgQdrantServer;
 use proto::{AddIn, AddOut};
@@ -9,6 +8,8 @@ pub mod proto {
   tonic::include_proto!("img2qdrant");
 }
 
+db!(clip, 1024);
+
 #[derive(Debug, Default)]
 pub struct ImgQdrant {}
 
@@ -16,21 +17,9 @@ pub struct ImgQdrant {}
 impl proto::img_qdrant_server::ImgQdrant for ImgQdrant {
   async fn add(&self, req: Request<AddIn>) -> Result<AddOut> {
     let req = req.get_ref();
-
-    dbg!(&DB_CLIP);
-    // let payload = serde_json::from_str::<Payload>(&req.payload)?;
     let vec = crate::img::get(&req.url).await?;
 
-    // let point = PointStruct::new(req.id, vec, payload);
-
-    // unsafe {
-    //   crate::Q
-    //     .get()
-    //     .unwrap()
-    //     .upsert_points_blocking(&crate::env::CLIP, vec![point], None)
-    //     .await?;
-    // }
-    dbg!("inserted", req);
+    db_clip().await?.add(req.id, vec, &req.payload).await?;
     Ok(Response::new(AddOut {}))
   }
 }
