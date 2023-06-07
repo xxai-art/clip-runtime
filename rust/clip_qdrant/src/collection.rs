@@ -1,6 +1,6 @@
 use anyhow::Result;
 use qdrant_client::{
-  prelude::{Payload},
+  prelude::Payload,
   qdrant::{
     quantization_config::Quantization, vectors_config::Config, CreateCollection, Distance,
     PointStruct, QuantizationConfig, VectorParams, VectorsConfig,
@@ -11,13 +11,33 @@ use crate::qdrant_client;
 
 pub struct Collection {
   pub name: String,
+  pub size: u64,
+}
+
+macro_rules! collection {
+($name:ident, size:ident) => {{
+    pub static [<COLLECTION_ $name:snake:upper>]: OnceLock<Collection> = OnceLock::new();
+
+    pub async fn paste![<collect_ $name>]() -> Result<&'static Collection> {
+        loop {
+            match [<COLLECTION_ $name:snake:upper>].get() {
+                Some(r) => return Ok(r),
+                None => {
+                    let _  = [<COLLECTION_ $name:snake:upper>].set(
+                        clip_qdrant::Collection {
+                            name:stringify!($name).to_string(),
+                            size:$size
+                        }
+                    );
+                    continue;
+                }
+            }
+        }
+    }
+}};
 }
 
 impl Collection {
-  pub fn new(name: String) -> Self {
-    Self { name }
-  }
-
   pub async fn add(&self, id: u64, vec: Vec<f32>, payload: &str) -> Result<()> {
     let client = qdrant_client().await?;
     let payload = serde_json::from_str::<Payload>(payload)?;
@@ -30,14 +50,14 @@ impl Collection {
     Ok(())
   }
 
-  pub async fn init(&self, size: u64) -> Result<()> {
+  pub async fn init(&self) -> Result<()> {
     let client = qdrant_client().await?;
     client
       .create_collection(&CreateCollection {
         collection_name: self.name.clone(),
         vectors_config: Some(VectorsConfig {
           config: Some(Config::Params(VectorParams {
-            size,
+            size: self.size,
             distance: Distance::Euclid.into(),
             on_disk: Some(true),
             hnsw_config: None,

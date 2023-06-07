@@ -1,7 +1,6 @@
 mod env;
 mod img;
 mod log;
-mod qdrant;
 mod rpc;
 use std::sync::OnceLock;
 
@@ -12,7 +11,6 @@ use clip_runtime::{
 };
 use tonic::transport::Server;
 
-pub use crate::qdrant::Q;
 use crate::{
   env::TO,
   rpc::{ImgQdrant, ImgQdrantServer},
@@ -22,7 +20,6 @@ pub static ONNX: OnceLock<ClipImg<clip_img::CropTop>> = OnceLock::new();
 #[tokio::main]
 async fn main() -> Result<()> {
   log::init();
-  qdrant::init().await?;
   let _ = ONNX.set({
     let ort = ClipOrt::new().unwrap();
     let model = ort.model(std::env::var("MODEL_DIR").unwrap());

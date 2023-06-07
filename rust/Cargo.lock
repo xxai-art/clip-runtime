@@ -524,6 +524,7 @@ name = "clip_qdrant"
 version = "0.1.1"
 dependencies = [
  "anyhow",
+ "paste",
  "qdrant-client",
  "serde_json",
  "tokio",

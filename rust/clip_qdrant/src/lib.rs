@@ -2,9 +2,8 @@ pub mod collection;
 use std::{env::var, sync::OnceLock};
 
 use anyhow::Result;
-use qdrant_client::{
-  prelude::{QdrantClient, QdrantClientConfig},
-};
+pub use collection::Collection;
+use qdrant_client::prelude::{QdrantClient, QdrantClientConfig};
 
 pub static Q: OnceLock<QdrantClient> = OnceLock::new();
 
