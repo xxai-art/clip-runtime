@@ -2,6 +2,7 @@
 members = [
   "clip_runtime",
   "clip_img2qdrant",
+  "clip_img2qdrant_grpc",
   "clip_txt",
   "clip_img",
   "clip_nodejs",
