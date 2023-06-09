@@ -11,8 +11,7 @@ ROOT = dirname dirname dirname uridir import.meta
 DB = Db.clip
 
 test "clip",(t)=>
-  #fp = join ROOT,'lib/img/cat.jpg'
-  fp = '/Users/z/art/clip-runtime/rust/clip_img2qdrant/1.avif'
+  fp = join ROOT,'lib/img/cat.jpg'
   img = readFileSync fp
   console.log await DB.add(
     1
