@@ -1,4 +1,18 @@
-nativeBinding.Db = nativeBinding.dbNew
+const add = nativeBinding.Db.prototype.add;
+
+nativeBinding.Db.prototype.add = function (id, payload, img, ext){
+  return add.call(this,id,JSON.stringify(payload),img,ext)
+} 
+
+nativeBinding.Db = new Proxy(
+  {},
+  {
+    get:(_,name)=>nativeBinding.dbNew(name)
+  }
+)
+
+
+
 /*
 import autoe from "@w5/utf8/autoe.js";
 import { u8merge } from "@w5/u8";

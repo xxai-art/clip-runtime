@@ -20,14 +20,14 @@ import {
 
 ROOT = dirname(dirname(dirname(uridir(import.meta))));
 
-DB = Db('clip');
+DB = Db.clip;
 
 test("clip", async(t) => {
   var fp, img;
   fp = join(ROOT, 'lib/img/cat.jpg');
   img = readFileSync(fp);
-  await DB.add(1, JSON.stringify({
+  console.log((await DB.add(1, {
     t: [1, 2, 3]
-  }), img, "jpg");
+  }, img, "jpg")));
   t.pass();
 });

@@ -8,16 +8,16 @@
 
 ROOT = dirname dirname dirname uridir import.meta
 
-DB = Db 'clip'
+DB = Db.clip
 
 test "clip",(t)=>
   fp = join ROOT,'lib/img/cat.jpg'
   img = readFileSync fp
-  await DB.add(
+  console.log await DB.add(
     1
-    JSON.stringify({
+    {
       t:[1,2,3]
-    })
+    }
     img
     "jpg"
   )
