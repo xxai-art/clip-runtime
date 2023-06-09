@@ -5,6 +5,14 @@ import {
   Db
 } from '@w5/clip_img2qdrant';
 
+import KV from '@w5/redis/KV';
+
+import R from '@w5/redis/R';
+
+import gid from '@w5/gid';
+
+console.log(R, gid, KV);
+
 // URL = 'https://5ok.pw/h950/'
 
 // {clip:DB} = Db

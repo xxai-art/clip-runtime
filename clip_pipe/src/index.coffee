@@ -2,7 +2,11 @@
 
 > @w5/req/reqBin
   @w5/clip_img2qdrant > Db
+  @w5/redis/KV
+  @w5/redis/R
+  @w5/gid
 
+console.log R,gid,KV
 # URL = 'https://5ok.pw/h950/'
 #
 # {clip:DB} = Db

@@ -4,6 +4,9 @@ dependencies:
   '@w5/clip_img2qdrant':
     specifier: link:../rust/clip_img2qdrant
     version: link:../rust/clip_img2qdrant
+  '@w5/gid':
+    specifier: ^0.0.2
+    version: 0.0.2
   '@w5/redis':
     specifier: ^0.0.23
     version: 0.0.23
@@ -70,6 +73,10 @@ packages:
 
   /@w5/dot@0.0.2:
     resolution: {integrity: sha512-F6Ihmj2XeJ7pvYDGlWj5lK+BTbqB8HXlLz7IkF/EAUe5vtQmD9HGCGy7MP8FFwER7h8aXilpd0kN9/2zGlh0JQ==}
+    dev: false
+
+  /@w5/gid@0.0.2:
+    resolution: {integrity: sha512-5bmSO8JWHmhtdPWntsL5Izlj5tAOkAxctz0sYonaSIijcoBpzjGHrGq0+3Iu4v6FNRfMmLtCWhQniwjbuHpAeQ==}
     dev: false
 
   /@w5/onexit@0.0.8:
