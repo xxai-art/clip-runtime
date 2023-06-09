@@ -1,4 +1,6 @@
 #!/usr/bin/env -S node --loader=@w5/jsext --trace-uncaught --expose-gc --unhandled-rejections=strict --experimental-import-meta-resolve
+var PORN, URL;
+
 import reqBin from '@w5/req/reqBin';
 
 import {
@@ -7,13 +9,20 @@ import {
 
 import KV from '@w5/redis/KV';
 
+import {
+  UPSERT
+} from '@w5/pg/PG';
+
 import R from '@w5/redis/R';
 
 import gid from '@w5/gid';
 
-console.log(R, gid, KV);
+PORN = (await UPSERT('tag.tag', {
+  val: 'porn'
+}));
 
-// URL = 'https://5ok.pw/h950/'
+URL = 'https://5ok.pw/h950/';
+
 
 // {clip:DB} = Db
 
@@ -29,4 +38,4 @@ console.log(R, gid, KV);
 //   bin
 //   'avif'
 // )
-
+process.exit();
