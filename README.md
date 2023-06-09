@@ -1,9 +1,12 @@
 # Clip Runtime
 
-## [qdrant 的 docker](https://github.com/xxai-art/qdrant.docker)
+## 请先初始化子模块
+
+[qdrant 的 docker](https://github.com/xxai-art/qdrant.docker)
 
 ```
-git clone --depth=1 git@github.com:xxai-art/qdrant.docker.git
+git submodule update --init --recursive
+
 ```
 
 ## 开发环境

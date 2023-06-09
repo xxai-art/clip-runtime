@@ -1,3 +1,6 @@
 [submodule "rust/clip_nodejs/lib/napi-rs"]
 	path = rust/clip_nodejs/lib/napi-rs
 	url = git@github.com:wacdev/napi-rs.git
+[submodule "qdrant.docker"]
+	path = qdrant.docker
+	url = git@github.com:xxai-art/qdrant.docker.git
