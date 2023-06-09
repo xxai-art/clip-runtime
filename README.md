@@ -1,5 +1,11 @@
 # Clip Runtime
 
+## [qdrant 的 docker](https://github.com/xxai-art/qdrant.docker)
+
+```
+git clone --depth=1 git@github.com:xxai-art/qdrant.docker.git
+```
+
 ## 开发环境
 
 请安装好以下软件（版本仅供参考，更高的版本应该也可以），可以用 [rtx](https://github.com/jdxcode/rtx) 管理版本。
