@@ -1,10 +1,7 @@
 #!/usr/bin/env coffee
 
 > @w5/clip_img2qdrant > Db
-  @w5/gid
   @w5/pg/PG > UPSERT
-  @w5/redis/KV
-  @w5/redis/R
   @w5/redistream
   @w5/req/reqBin
 
