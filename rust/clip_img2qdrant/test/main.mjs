@@ -24,10 +24,11 @@ DB = Db.clip;
 
 test("clip", async(t) => {
   var fp, img;
-  fp = join(ROOT, 'lib/img/cat.jpg');
+  //fp = join ROOT,'lib/img/cat.jpg'
+  fp = '/Users/z/art/clip-runtime/rust/clip_img2qdrant/1.avif';
   img = readFileSync(fp);
   console.log((await DB.add(1, {
     t: [1, 2, 3]
-  }, img, "jpg")));
+  }, img, "avif")));
   t.pass();
 });
