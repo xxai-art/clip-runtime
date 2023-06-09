@@ -17,6 +17,10 @@ hash = '824lDpfyaIFkmQd0D9Qldg';
 
 bin = (await reqBin(URL + hash));
 
+await DB.add(1, {
+  t: [1, 3]
+}, bin, 'avif');
+
 // > ava:test
 //   ../index.js > Db
 //   @w5/uridir
