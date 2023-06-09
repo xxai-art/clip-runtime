@@ -75,7 +75,7 @@ mod tests {
 
   #[test]
   fn test() -> Result<()> {
-    let mut process_dir: std::path::PathBuf = std::env::current_dir()?;
+    let mut process_dir: std::path::PathBuf = std::env::var("MODEL_DIR").unwrap();
     process_dir.push("process");
     let mut process_tokenizer_json = process_dir.clone();
     process_tokenizer_json.push("tokenizer.json");
