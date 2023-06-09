@@ -4,4 +4,4 @@ DIR=$(realpath ${0%/*})
 cd $DIR
 set -ex
 
-exec build
+bunx cep -c src -o lib

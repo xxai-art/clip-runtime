@@ -7,7 +7,7 @@ set -ex
 ./build.sh
 
 if [ ! -n "$1" ]; then
-  exec ./src/index.coffee
+  exec ./lib/index.js
 else
   exec ./${@:1}
 fi
