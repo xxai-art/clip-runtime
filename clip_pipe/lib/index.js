@@ -5,15 +5,9 @@ import {
   Db
 } from '@w5/clip_img2qdrant';
 
-import gid from '@w5/gid';
-
 import {
   UPSERT
 } from '@w5/pg/PG';
-
-import KV from '@w5/redis/KV';
-
-import R from '@w5/redis/R';
 
 import redistream from '@w5/redistream';
 
