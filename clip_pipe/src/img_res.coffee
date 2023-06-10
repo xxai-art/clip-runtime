@@ -68,7 +68,7 @@ res_by_id = (id)=>
       txt = prompt+','+nprompt
       console.log txt
       [embed, lora] = await prompt2res txt
-      console.log {embed,lora}
+      console.log {embed,lora},res_file_id_li
 
   return
 
