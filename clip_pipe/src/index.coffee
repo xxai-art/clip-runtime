@@ -10,7 +10,8 @@ PORN = await UPSERT('tag.tag',{val:'porn'})
 URL = 'https://5ok.pw/h950/'
 {clip:DB} = Db
 
-await redistream.clip (id, hash, adult)=>
+await redistream.clip (id)=>
+  # , hash, adult
   hash = Buffer.from(hash).toString 'base64url'
   url = URL+hash
   console.log url
