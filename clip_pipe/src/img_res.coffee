@@ -8,14 +8,15 @@ R_NAME_EMBED = 'nameEmbed'
 R_NAME_LORA = 'nameLora'
 
 kvGet = (key, set)=>
-  _li = Array.from set
   li = []
-  for i,pos in await KV.hmgetB(key,_li)
-    if i
-      li.push [
-        _li[pos]
-        binUint i
-      ]
+  if set.size
+    _li = Array.from set
+    for i,pos in await KV.hmgetB(key,_li)
+      if i
+        li.push [
+          _li[pos]
+          binUint i
+        ]
   return li
 
 prompt2res = (prompt)=>
@@ -64,7 +65,9 @@ res_by_id = (id)=>
       ] = await ONE"SELECT prompt_id,nprompt_id,res_file_id_li FROM bot.civitai_img WHERE id=#{rid}"
       prompt = await ONE0"SELECT val FROM img.prompt WHERE id=#{prompt_id}"
       nprompt = await ONE0"SELECT val FROM img.nprompt WHERE id=#{nprompt_id}"
-      [embed, lora] = await prompt2res prompt+','+nprompt
+      txt = prompt+','+nprompt
+      console.log txt
+      [embed, lora] = await prompt2res txt
       console.log {embed,lora}
 
   return
