@@ -1,7 +1,7 @@
 #!/usr/bin/env coffee
 
 > @w5/redis/KV
-  @w5/pg/PG > ONE
+  @w5/pg/PG > ONE ONE0
   @w5/uintbin/binUint
 
 R_NAME_EMBED = 'nameEmbed'
@@ -57,8 +57,15 @@ res_by_id = (id)=>
   switch cid
     when 1
       console.log {rid,hash}
-      console.log await ONE"SELECT res_file_id_li FROM bot.civitai_img WHERE id=#{rid}"
-      # await ONE"SELECT "
+      [
+        prompt_id
+        nprompt_id
+        res_file_id_li
+      ] = await ONE"SELECT prompt_id,nprompt_id,res_file_id_li FROM bot.civitai_img WHERE id=#{rid}"
+      prompt = await ONE0"SELECT val FROM img.prompt WHERE id=#{prompt_id}"
+      nprompt = await ONE0"SELECT val FROM img.nprompt WHERE id=#{nprompt_id}"
+      [embed, lora] = await prompt2res prompt+','+nprompt
+      console.log {embed,lora}
 
   return
 
