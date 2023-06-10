@@ -5,8 +5,8 @@ dependencies:
     specifier: link:../rust/clip_img2qdrant
     version: link:../rust/clip_img2qdrant
   '@w5/pg':
-    specifier: ^0.0.40
-    version: 0.0.40
+    specifier: ^0.0.42
+    version: 0.0.42
   '@w5/redis':
     specifier: ^0.0.23
     version: 0.0.23
@@ -16,6 +16,9 @@ dependencies:
   '@w5/req':
     specifier: ^0.0.9
     version: 0.0.9
+  '@w5/uintbin':
+    specifier: ^0.0.2
+    version: 0.0.2
 
 packages:
 
@@ -87,6 +90,14 @@ packages:
       postgres: 3.3.5
     dev: false
 
+  /@w5/pg@0.0.42:
+    resolution: {integrity: sha512-VsB6khF0ZeKeG8PQ1qZXplJdra1UHn/SQxKxlBn9H4+8M+sWaFhe6GMYYfGcXDSjTi7hnyVARz9MShYTwzmLXw==}
+    dependencies:
+      '@w5/onexit': 0.0.8
+      '@w5/write': 0.0.1
+      postgres: 3.3.5
+    dev: false
+
   /@w5/pool@0.0.1:
     resolution: {integrity: sha512-MIKgocZeh02gSVaI8EJNNX0jucwRhFODwNJNVfL8hDowdBN+vISsWzMFqkfYTHX4w7aFKGKbQSl5lxeAIuBGcQ==}
     dev: false
@@ -138,6 +149,10 @@ packages:
 
   /@w5/u8@0.0.1:
     resolution: {integrity: sha512-1IJecPZlVeTYViGTZF+ZAd+v3S6MGB9LGGC0GHH96tdp36s5EkpZi3d02VzUt7l3okCFyH93QM5U9+GI5ToQhA==}
+    dev: false
+
+  /@w5/uintbin@0.0.2:
+    resolution: {integrity: sha512-5dg7WbzcPokStvwTORfHqbxVGkinSTYkJq6ecCfC7tA59ZF8NFH6h51BPk5dO4gUH/HFyGZWgqXvL0WU0OFk3g==}
     dev: false
 
   /@w5/utf8@0.0.3:
