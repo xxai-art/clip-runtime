@@ -60,11 +60,12 @@ res_by_id = (id)=>
   hash = hash.toString('base64url')
   switch cid
     when 1
+      r = await ONE"SELECT prompt_id,nprompt_id,res_file_id_li,user_id,sampler_id,w,h,step,genway_id,seed,time FROM bot.civitai_img WHERE id=#{rid}"
       [
         prompt_id
         nprompt_id
         res_file_id_li
-      ] = await ONE"SELECT prompt_id,nprompt_id,res_file_id_li FROM bot.civitai_img WHERE id=#{rid}"
+      ] = r
       prompt = await ONE0"SELECT val FROM img.prompt WHERE id=#{prompt_id}"
       nprompt = await ONE0"SELECT val FROM img.nprompt WHERE id=#{nprompt_id}"
       txt = prompt+','+nprompt
@@ -82,7 +83,7 @@ res_by_id = (id)=>
       lora = new Map lora
 
       if id_set.size
-        li = await LI"SELECT cid,sd.res_file.id,kind_id,sd.res.name,sd.res_ver.rid,sd.res.rid FROM sd.res_file,sd.res,sd.res_ver WHERE sd.res_file.id in #{Q [...id_set]} AND sd.res_ver.id=sd.res_file.res_ver_id AND sd.res.id=sd.res_file.res_id"
+        li = Array.from await LI"SELECT cid,sd.res_file.id,kind_id,sd.res.name,sd.res_ver.rid,sd.res.rid FROM sd.res_file,sd.res,sd.res_ver WHERE sd.res_file.id in #{Q [...id_set]} AND sd.res_ver.id=sd.res_file.res_ver_id AND sd.res.id=sd.res_file.res_id"
         for i from li
           kind = i[2]
           if LORA.has kind
@@ -95,7 +96,11 @@ res_by_id = (id)=>
               i.push key
       else
         li = []
-      console.log li
+      r[2] = li
+      r.unshift nprompt
+      r.unshift prompt
+      r.unshift cid
+      console.log r
   return
 
 
