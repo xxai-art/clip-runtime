@@ -128,7 +128,6 @@ upload = (id)=>
     => bin
     'application/msgpack'
   )
-  console.log process.env.BACKBLAZE_url+'/'+url
   return
 
 await upload 215060
