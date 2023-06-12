@@ -97,7 +97,12 @@ res_by_id = (id)=>
       else
         li = []
       r[2] = li
-      console.log r[3]
+      user_id = r[3]
+      if user_id
+        r[3] = [
+          r[3]
+          await ONE0"SELECT val FROM bot.civitai_user WHERE id=#{user_id}"
+        ]
       console.log 'https://5ok.pw/'+hash.toString('base64url')
       return [
         cid
