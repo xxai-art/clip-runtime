@@ -97,6 +97,7 @@ res_by_id = (id)=>
       else
         li = []
       r[2] = li
+      console.log r[3]
       console.log 'https://5ok.pw/'+hash.toString('base64url')
       return [
         cid
