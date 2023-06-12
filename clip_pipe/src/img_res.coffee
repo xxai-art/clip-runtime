@@ -122,14 +122,13 @@ res_by_id = (id)=>
 
 upload = (id)=>
   url = uintBin(id).toString('base64url')
-
+  bin = pack await res_by_id id
   await ossput(
     url
-    =>
-      pack await res_by_id id
-
+    => bin
+    'application/msgpack'
   )
-  console.log id
+  console.log process.env.BACKBLAZE_url+'/'+url
   return
 
 await upload 215060
