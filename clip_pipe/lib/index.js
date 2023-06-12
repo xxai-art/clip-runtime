@@ -23,8 +23,9 @@ URL = 'https://5ok.pw/h950/';
   clip: DB
 } = Db);
 
-await redistream.clip(async(id, hash, adult) => {
-  var bin, t, url;
+await redistream.clip(async(id) => {
+  var bin, hash, t, url;
+  // , hash, adult
   hash = Buffer.from(hash).toString('base64url');
   url = URL + hash;
   console.log(url);

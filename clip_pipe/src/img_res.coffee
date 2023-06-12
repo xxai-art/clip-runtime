@@ -1,7 +1,7 @@
 #!/usr/bin/env coffee
 
 > @w5/redis/KV
-  @w5/pg/PG > ONE ONE0
+  @w5/pg/PG > ONE ONE0 LI Q
   @w5/uintbin/binUint
 
 R_NAME_EMBED = 'nameEmbed'
@@ -14,8 +14,8 @@ kvGet = (key, set)=>
     for i,pos in await KV.hmgetB(key,_li)
       if i
         li.push [
-          _li[pos]
           binUint i
+          _li[pos]
         ]
   return li
 
@@ -67,8 +67,25 @@ res_by_id = (id)=>
       nprompt = await ONE0"SELECT val FROM img.nprompt WHERE id=#{nprompt_id}"
       txt = prompt+','+nprompt
       console.log txt
-      [embed, lora] = await prompt2res txt
-      console.log {embed,lora},res_file_id_li
+      id_set = new Set res_file_id_li
+      [embed, lora] = await prompt2res txt #
+
+      for [id,name] from embed
+        id_set.add id
+
+      embed = new Map embed
+
+      for [id, name] from lora
+        id_set.add id
+
+      lora = new Map lora
+
+      console.log {embed,lora,res_file_id_li}
+      console.log id_set
+      if id_set.size
+        li = await LI"SELECT sd.res_file.id,sd.res.name,cid,sd.res_ver.rid,sd.res.rid FROM sd.res_file,sd.res,sd.res_ver WHERE sd.res_file.id in #{Q [...id_set]} AND sd.res_ver.id=sd.res_file.res_ver_id AND sd.res.id=sd.res_file.res_id"
+        for [id,name,cid,ver,rid] from li
+          console.log {id,name,cid,ver,rid}
 
   return
 
