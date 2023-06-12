@@ -19,6 +19,9 @@ dependencies:
   '@w5/uintbin':
     specifier: ^0.0.4
     version: 0.0.4
+  msgpackr:
+    specifier: ^1.9.5
+    version: 1.9.5
 
 packages:
 

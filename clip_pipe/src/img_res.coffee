@@ -3,6 +3,7 @@
 > @w5/redis/KV
   @w5/pg/PG > ONE ONE0 LI Q
   @w5/uintbin/binUint
+  msgpackr > pack
 
 R_NAME_EMBED = 'nameEmbed'
 R_NAME_LORA = 'nameLora'
@@ -119,7 +120,10 @@ res_by_id = (id)=>
 > @w5/uintbin/uintBin
 
 upload = (id)=>
-  console.log await res_by_id id
+  msg = pack await res_by_id id
+  id = uintBin(id).toString('base64url')
+  console.log id
+  return
 
 await upload 215060
 process.exit()
