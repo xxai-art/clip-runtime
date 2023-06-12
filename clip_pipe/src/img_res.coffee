@@ -70,7 +70,7 @@ res_by_id = (id)=>
       nprompt = await ONE0"SELECT val FROM img.nprompt WHERE id=#{nprompt_id}"
       txt = prompt+','+nprompt
       id_set = new Set res_file_id_li
-      [embed, lora] = await prompt2res txt #
+      [embed, lora] = await prompt2res txt
 
       for [id,name] from embed
         id_set.add id
