@@ -17,8 +17,8 @@ dependencies:
     specifier: ^0.0.9
     version: 0.0.9
   '@w5/uintbin':
-    specifier: ^0.0.2
-    version: 0.0.2
+    specifier: ^0.0.4
+    version: 0.0.4
 
 packages:
 
@@ -151,8 +151,8 @@ packages:
     resolution: {integrity: sha512-1IJecPZlVeTYViGTZF+ZAd+v3S6MGB9LGGC0GHH96tdp36s5EkpZi3d02VzUt7l3okCFyH93QM5U9+GI5ToQhA==}
     dev: false
 
-  /@w5/uintbin@0.0.2:
-    resolution: {integrity: sha512-5dg7WbzcPokStvwTORfHqbxVGkinSTYkJq6ecCfC7tA59ZF8NFH6h51BPk5dO4gUH/HFyGZWgqXvL0WU0OFk3g==}
+  /@w5/uintbin@0.0.4:
+    resolution: {integrity: sha512-gru+9pFA8Z6Ip2Dr4OezpnXTQEilDPo2ks5fCFKa56VQ2FZ9HxcN3ZmA4DtUw/rrdIGIIEyQxmR37isIDJ9VDA==}
     dev: false
 
   /@w5/utf8@0.0.3:

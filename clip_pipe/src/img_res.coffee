@@ -107,7 +107,10 @@ res_by_id = (id)=>
       ].concat r
   return
 
+> @w5/uintbin/uintBin
 
-id = 215060
-console.log await res_by_id id
+upload = (id)=>
+  console.log await res_by_id id
+
+await upload 215060
 process.exit()
