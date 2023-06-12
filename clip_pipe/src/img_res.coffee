@@ -82,15 +82,16 @@ res_by_id = (id)=>
       lora = new Map lora
 
       if id_set.size
-        li = Array.from await LI"SELECT cid,sd.res_file.id,kind_id,sd.res.name,sd.res_ver.rid,sd.res.rid FROM sd.res_file,sd.res,sd.res_ver WHERE sd.res_file.id in #{Q [...id_set]} AND sd.res_ver.id=sd.res_file.res_ver_id AND sd.res.id=sd.res_file.res_id"
+        li = Array.from await LI"SELECT sd.res_file.id,cid,kind_id,sd.res.name,sd.res_ver.rid,sd.res.rid FROM sd.res_file,sd.res,sd.res_ver WHERE sd.res_file.id in #{Q [...id_set]} AND sd.res_ver.id=sd.res_file.res_ver_id AND sd.res.id=sd.res_file.res_id"
         for i from li
-          kind = i[2]
+          key = i.shift()
+          kind = i[1]
           if LORA.has kind
             if kind == TEXTUALINVERSION
               m = embed
             else
               m = lora
-            key = m.get i[1]
+            key = m.get key
             if key
               i.push key
       else
@@ -107,5 +108,6 @@ res_by_id = (id)=>
   return
 
 
-console.log await res_by_id(215060)
+id = 215060
+console.log await res_by_id id
 process.exit()
