@@ -80,13 +80,17 @@ res_by_id = (id)=>
 
       lora = new Map lora
 
-      console.log {embed,lora,res_file_id_li}
-      console.log id_set
       if id_set.size
         li = await LI"SELECT sd.res_file.id,sd.res.name,cid,sd.res_ver.rid,sd.res.rid FROM sd.res_file,sd.res,sd.res_ver WHERE sd.res_file.id in #{Q [...id_set]} AND sd.res_ver.id=sd.res_file.res_ver_id AND sd.res.id=sd.res_file.res_id"
-        for [id,name,cid,ver,rid] from li
-          console.log {id,name,cid,ver,rid}
-
+        for i from li
+          for m from [lora, embed]
+            key = m.get (id)
+            if key
+              i.push key
+              break
+      else
+        li = []
+      console.log li
   return
 
 
