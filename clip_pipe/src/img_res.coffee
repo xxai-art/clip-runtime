@@ -118,10 +118,17 @@ res_by_id = (id)=>
   return
 
 > @w5/uintbin/uintBin
+  @w5/ossput
 
 upload = (id)=>
-  msg = pack await res_by_id id
-  id = uintBin(id).toString('base64url')
+  url = uintBin(id).toString('base64url')
+
+  await ossput(
+    url
+    =>
+      pack await res_by_id id
+
+  )
   console.log id
   return
 
