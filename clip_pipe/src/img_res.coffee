@@ -56,8 +56,7 @@ LORA = new Set [1,3,6,TEXTUALINVERSION]
 res_by_id = (id)=>
   # [embed,lora] = await prompt2res prompt
   # console.log { embed, lora }
-  [cid,rid,hash] = await ONE"SELECT cid,rid,hash::bytea FROM bot.task WHERE id=#{id}"
-  hash = hash.toString('base64url')
+  [cid,adult,hash,rid] = await ONE"SELECT cid,adult,hash::bytea,rid FROM bot.task WHERE id=#{id}"
   switch cid
     when 1
       r = await ONE"SELECT prompt_id,nprompt_id,res_file_id_li,user_id,rid,sampler_id,w,h,step,genway_id,seed,time FROM bot.civitai_img WHERE id=#{rid}"
@@ -97,12 +96,16 @@ res_by_id = (id)=>
       else
         li = []
       r[2] = li
-      r.unshift nprompt
-      r.unshift prompt
-      r.unshift cid
-      console.log r
+      console.log 'https://5ok.pw/'+hash.toString('base64url')
+      return [
+        cid
+        adult
+        hash
+        prompt
+        nprompt
+      ].concat r
   return
 
 
-console.log await res_by_id(226875)
+console.log await res_by_id(215060)
 process.exit()
