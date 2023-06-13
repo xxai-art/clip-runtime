@@ -103,12 +103,15 @@ res_by_id = (id)=>
       else
         li = []
       r[2] = li
-      user_id = r[3]
-      if user_id
-        r[3] = [
-          r[3]
-          await ONE0"SELECT val FROM bot.civitai_user WHERE id=#{user_id}"
-        ]
+      if r[11] # 有 rid 的时候才显示 user
+        user_id = r[3]
+        if user_id
+          r[3] = [
+            r[3]
+            await ONE0"SELECT val FROM bot.civitai_user WHERE id=#{user_id}"
+          ]
+      else
+        r[3] = 0
       console.log 'https://5ok.pw/'+hash.toString('base64url')
       return [
         cid
@@ -125,7 +128,7 @@ res_by_id = (id)=>
 upload = (id)=>
   url = uintBin(id).toString('base64url')
   meta = await res_by_id id
-  console.log meta
+  # console.log meta
   await ossput(
     url
     => pack meta
