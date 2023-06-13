@@ -85,23 +85,21 @@ res_by_id = (id)=>
       lora = new Map lora
 
       if id_set.size
-        li = Array.from await LI"SELECT sd.res_file.id,cid,kind_id,sd.res.name,sd.res_ver.rid,sd.res.rid,sd.res_ver.name FROM sd.res_file,sd.res,sd.res_ver WHERE sd.res_file.id in #{Q [...id_set]} AND sd.res_ver.id=sd.res_file.res_ver_id AND sd.res.id=sd.res_file.res_id"
+        li = Array.from await LI"SELECT sd.res_file.id,cid,kind_id,sd.res.name,sd.res_ver.rid,sd.res.rid FROM sd.res_file,sd.res,sd.res_ver WHERE sd.res_file.id in #{Q [...id_set]} AND sd.res_ver.id=sd.res_file.res_ver_id AND sd.res.id=sd.res_file.res_id"
         for i from li
           key = i.shift()
           kind = i[1]
-          if kind != CHECKPOINT
-            i.pop() # 不需要 res_ver.name
-            if LORA.has kind
-              if kind == TEXTUALINVERSION
-                m = embed
-              else
-                m = lora
-              key = m.get key
-              if key
-                if key == i[2].toLocaleLowerCase()
-                  key = ''
-                  # 相同名称的时候，以空字符串占位
-                i.push key
+          if LORA.has kind
+            if kind == TEXTUALINVERSION
+              m = embed
+            else
+              m = lora
+            key = m.get key
+            if key
+              if key == i[2].toLocaleLowerCase()
+                key = ''
+                # 相同名称的时候，以空字符串占位
+              i.push key
       else
         li = []
       r[2] = li
@@ -126,10 +124,11 @@ res_by_id = (id)=>
 
 upload = (id)=>
   url = uintBin(id).toString('base64url')
-  bin = pack await res_by_id id
+  meta = await res_by_id id
+  console.log meta
   await ossput(
     url
-    => bin
+    => pack meta
     'application/msgpack'
   )
   return
