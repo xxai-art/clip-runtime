@@ -62,7 +62,7 @@ res_by_id = (id)=>
   [cid,adult,hash,rid] = await ONE"SELECT cid,adult,hash::bytea,rid FROM bot.task WHERE id=#{id}"
   switch cid
     when 1
-      r = await ONE"SELECT prompt_id,nprompt_id,res_file_id_li,user_id,sampler_id,w,h,step,genway_id,seed,time,rid FROM bot.civitai_img WHERE id=#{rid}"
+      r = await ONE"SELECT prompt_id,nprompt_id,res_file_id_li,user_id,sampler_id,w,h,step,genway_id,seed,time,rid,cfg FROM bot.civitai_img WHERE id=#{rid}"
       [
         prompt_id
         nprompt_id
@@ -102,6 +102,10 @@ res_by_id = (id)=>
               i.push key
       else
         li = []
+
+      if li.length == 0
+        li = 0
+
       r[2] = li
       if r[11] # 有 rid 的时候才显示 user
         user_id = r[3]
