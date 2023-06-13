@@ -60,7 +60,7 @@ res_by_id = (id)=>
   [cid,adult,hash,rid] = await ONE"SELECT cid,adult,hash::bytea,rid FROM bot.task WHERE id=#{id}"
   switch cid
     when 1
-      r = await ONE"SELECT prompt_id,nprompt_id,res_file_id_li,user_id,rid,sampler_id,w,h,step,genway_id,seed,time FROM bot.civitai_img WHERE id=#{rid}"
+      r = await ONE"SELECT prompt_id,nprompt_id,res_file_id_li,user_id,sampler_id,w,h,step,genway_id,seed,time,rid FROM bot.civitai_img WHERE id=#{rid}"
       [
         prompt_id
         nprompt_id
