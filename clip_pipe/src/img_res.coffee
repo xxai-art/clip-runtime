@@ -97,7 +97,7 @@ res_by_id = (id)=>
             key = m.get key
             if key
               if key == i[2].toLocaleLowerCase()
-                key = ''
+                key = 0
                 # 相同名称的时候，以空字符串占位
               i.push key
       else
