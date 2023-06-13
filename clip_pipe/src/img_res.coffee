@@ -128,7 +128,7 @@ res_by_id = (id)=>
 upload = (id)=>
   url = uintBin(id).toString('base64url')
   meta = await res_by_id id
-  # console.log meta
+  console.log meta
   await ossput(
     url
     => pack meta
