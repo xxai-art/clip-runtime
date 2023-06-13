@@ -8,6 +8,10 @@
 R_NAME_EMBED = 'nameEmbed'
 R_NAME_LORA = 'nameLora'
 
+CHECKPOINT = 2
+TEXTUALINVERSION = 4
+LORA = new Set [1,3,6,TEXTUALINVERSION]
+
 kvGet = (key, set)=>
   li = []
   if set.size
@@ -51,8 +55,6 @@ prompt2res = (prompt)=>
     kvGet R_NAME_LORA, lora_set
   ]
 
-TEXTUALINVERSION = 4
-LORA = new Set [1,3,6,TEXTUALINVERSION]
 
 res_by_id = (id)=>
   # [embed,lora] = await prompt2res prompt
@@ -83,21 +85,23 @@ res_by_id = (id)=>
       lora = new Map lora
 
       if id_set.size
-        li = Array.from await LI"SELECT sd.res_file.id,cid,kind_id,sd.res.name,sd.res_ver.rid,sd.res.rid FROM sd.res_file,sd.res,sd.res_ver WHERE sd.res_file.id in #{Q [...id_set]} AND sd.res_ver.id=sd.res_file.res_ver_id AND sd.res.id=sd.res_file.res_id"
+        li = Array.from await LI"SELECT sd.res_file.id,cid,kind_id,sd.res.name,sd.res_ver.rid,sd.res.rid,sd.res_ver.name FROM sd.res_file,sd.res,sd.res_ver WHERE sd.res_file.id in #{Q [...id_set]} AND sd.res_ver.id=sd.res_file.res_ver_id AND sd.res.id=sd.res_file.res_id"
         for i from li
           key = i.shift()
           kind = i[1]
-          if LORA.has kind
-            if kind == TEXTUALINVERSION
-              m = embed
-            else
-              m = lora
-            key = m.get key
-            if key
-              if key == i[2].toLocaleLowerCase()
-                key = ''
-                # 相同名称的时候，以空字符串占位
-              i.push key
+          if kind != CHECKPOINT
+            i.pop() # 不需要 res_ver.name
+            if LORA.has kind
+              if kind == TEXTUALINVERSION
+                m = embed
+              else
+                m = lora
+              key = m.get key
+              if key
+                if key == i[2].toLocaleLowerCase()
+                  key = ''
+                  # 相同名称的时候，以空字符串占位
+                i.push key
       else
         li = []
       r[2] = li
