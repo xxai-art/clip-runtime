@@ -15,7 +15,7 @@ LORA = new Set [1,3,6,TEXTUALINVERSION]
 kvGet = (key, set)=>
   li = []
   if set.size
-    _li = Array.from set
+    _li = Array.from(set).map (i)=>i.toLocaleLowerCase()
     for i,pos in await KV.hmgetB(key,_li)
       if i
         li.push [
@@ -25,7 +25,7 @@ kvGet = (key, set)=>
   return li
 
 prompt2res = (prompt)=>
-  prompt = prompt.toLocaleLowerCase()
+  prompt = prompt
     .replace(/[\r\n\s]+/g,' ')
     .replaceAll(')',',')
     .replaceAll('(',',')
