@@ -47,9 +47,12 @@ prompt2res = (prompt)=>
         continue
       i = i.replaceAll('<','').trim()
 
-    for j from i.split(' ')
-      if j and (j.includes('-') or j.includes('_') or j.toLocaleLowerCase()!=j)
-        embed_set.add j
+    if i.includes ' '
+      for j from i.split(' ')
+        if j and (j.includes('-') or j.includes('_') or j.toLocaleLowerCase()!=j)
+          embed_set.add j
+    else
+      embed_set.add i
 
   Promise.all [
     kvGet R_NAME_EMBED, embed_set
