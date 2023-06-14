@@ -26,7 +26,7 @@ kvGet = (key, set)=>
 
 prompt2res = (prompt)=>
   prompt = prompt.toLocaleLowerCase()
-    .replaceAll('\n',' ')
+    .replace(/[\r\n\s]+/g,' ')
     .replaceAll(')',',')
     .replaceAll('(',',')
     .replaceAll('[',',')
@@ -47,8 +47,9 @@ prompt2res = (prompt)=>
         continue
       i = i.replaceAll('<','').trim()
 
-    if not i.includes(' ')
-      embed_set.add i
+    for j from i.split(' ')
+      if j and (j.includes('-') or j.includes('_') or j.toLocaleLowerCase()!=j)
+        embed_set.add j
 
   Promise.all [
     kvGet R_NAME_EMBED, embed_set
