@@ -70,7 +70,10 @@ ensure() {
 
 ensure pnpm yarn
 
-curl -fsSL https://bun.sh/install | bash
+if ! command -v bun &>/dev/null; then
+  curl -fsSL https://bun.sh/install | bash
+fi
+
 if [ -n "$GFW" ]; then
   yarn config set registry $npmmirror
 fi
