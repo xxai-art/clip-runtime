@@ -44,9 +44,15 @@ dependencies:
   '@w5/wasm':
     specifier: ^0.0.34
     version: 0.0.34
+  https-proxy-agent:
+    specifier: ^7.0.1
+    version: 7.0.1
   msgpackr:
     specifier: ^1.9.7
     version: 1.9.7
+  node-fetch:
+    specifier: ^3.3.2
+    version: 3.3.2
 
 packages:
 

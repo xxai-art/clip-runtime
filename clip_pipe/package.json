@@ -14,6 +14,8 @@
     "@w5/uintbin": "^0.0.8",
     "@w5/vbyte": "^0.0.1",
     "@w5/wasm": "^0.0.34",
-    "msgpackr": "^1.9.7"
+    "https-proxy-agent": "^7.0.1",
+    "msgpackr": "^1.9.7",
+    "node-fetch": "^3.3.2"
   }
 }
