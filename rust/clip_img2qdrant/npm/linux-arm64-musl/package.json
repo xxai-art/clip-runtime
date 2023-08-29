@@ -1,0 +1,21 @@
+{
+  "name": "@w5/clip_img2qdrant-linux-arm64-musl",
+  "version": "0.0.0",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "arm64"
+  ],
+  "main": "clip_img2qdrant.linux-arm64-musl.node",
+  "files": [
+    "clip_img2qdrant.linux-arm64-musl.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  },
+  "libc": [
+    "musl"
+  ]
+}

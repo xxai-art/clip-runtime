@@ -1,0 +1,6 @@
+.yarn/
+bun.lockb
+*.node
+node_modules/
+target/
+.git/

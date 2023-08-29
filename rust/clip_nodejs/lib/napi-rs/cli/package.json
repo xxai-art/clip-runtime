@@ -1,0 +1,108 @@
+{
+  "name": "@napi-rs/cli",
+  "version": "3.0.0-alpha.5",
+  "description": "Cli tools for napi-rs",
+  "author": "LongYinan <lynweklm@gmail.com>",
+  "homepage": "https://github.com/napi-rs/napi-rs",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">= 16"
+  },
+  "bin": {
+    "napi": "./dist/cli.js",
+    "napi-raw": "./cli.mjs"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./dist/index.js",
+        "types": "./dist/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/index.cjs",
+        "types": "./dist/index.d.ts"
+      }
+    },
+    "./package.json": {
+      "import": "./package.json",
+      "require": "./package.json"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "cli",
+    "rust",
+    "napi",
+    "n-api",
+    "node-api",
+    "node-addon",
+    "neon"
+  ],
+  "maintainers": [
+    {
+      "name": "LongYinan",
+      "email": "lynweklm@gmail.com",
+      "homepage": "https://github.com/Brooooooklyn"
+    },
+    {
+      "name": "forehalo",
+      "homepage": "https://github.com/forehalo"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/napi-rs/napi-rs.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/napi-rs/napi-rs/issues"
+  },
+  "dependencies": {
+    "@octokit/rest": "^19.0.7",
+    "clipanion": "^3.2.0",
+    "colorette": "^2.0.20",
+    "debug": "^4.3.4",
+    "inquirer": "^9.2.2",
+    "@octokit/rest": "^20.0.1",
+    "clipanion": "^3.2.1",
+    "colorette": "^2.0.20",
+    "debug": "^4.3.4",
+    "inquirer": "^9.2.8",
+    "js-yaml": "^4.1.0",
+    "lodash-es": "^4.17.21",
+    "typanion": "^3.13.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.3",
+    "@types/js-yaml": "^4.0.5",
+    "@types/lodash-es": "^4.17.7",
+    "ava": "^5.2.0",
+    "esbuild": "^0.17.18",
+    "prettier": "^2.8.8",
+    "@types/lodash-es": "^4.17.8",
+    "ava": "^5.3.1",
+    "esbuild": "^0.18.13",
+    "prettier": "^3.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/Brooooooklyn"
+  },
+  "scripts": {
+    "codegen": "node --loader ts-node/esm/transpile-only ./codegen/index.ts",
+    "build": "tsc && yarn build:cjs",
+    "build:cjs": "node ./esbuild.mjs",
+    "test": "node --loader ts-node/esm/transpile-only ../node_modules/ava/entrypoints/cli.mjs"
+  }
+}

@@ -1,0 +1,25 @@
+[package]
+authors = ["LongYinan <lynweklm@gmail.com>"]
+edition = "2021"
+name = "napi-shared"
+publish = false
+version = "0.1.0"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+napi = { path = "../../crates/napi", default-features = false, features = [
+  "tokio_fs",
+  "napi8",
+  "tokio_rt",
+  "serde-json",
+  "async",
+  "experimental",
+  "latin1",
+  "chrono_date",
+] }
+napi-derive = { path = "../../crates/macro", features = ["type-def"] }
+
+[build-dependencies]
+napi-build = { path = "../../crates/build" }

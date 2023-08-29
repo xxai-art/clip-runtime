@@ -1,0 +1,36 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  '@w5/qdrant':
+    specifier: ^0.0.5
+    version: 0.0.5
+  '@w5/sleep':
+    specifier: ^0.0.1
+    version: 0.0.1
+
+packages:
+
+  /@w5/caller_line@0.0.1:
+    resolution: {integrity: sha512-JpKA5fV4NPtyE5pOvG1/z/qLSUOIvONOQhsdaZaBX9LPHQgYmUoteY28XXMpF+HAcIaUZpUFMGxZRU5WXWGJOA==}
+    dev: false
+
+  /@w5/qdrant@0.0.5:
+    resolution: {integrity: sha512-OMuiPhOMXJ0wKGiBz//GttLE/U/tHKZMZQxsvbtqe0qjjGvHQWtyILVZect4NOnI8ztixgkwJouXXXAMUGQDzg==}
+    dependencies:
+      '@w5/retry': 0.0.1
+    dev: false
+
+  /@w5/retry@0.0.1:
+    resolution: {integrity: sha512-EO+0hpJ17QZ9JmJLvCInwYHIX15iCyrcuB10nBJ4/8m+CByeuWnTwhiHkChEWQ9c0YRLkw1U8WGYVq48I5KbBg==}
+    dependencies:
+      '@w5/caller_line': 0.0.1
+      '@w5/sleep': 0.0.1
+    dev: false
+
+  /@w5/sleep@0.0.1:
+    resolution: {integrity: sha512-GjLtl9qx0bYhJO9kUIHkkmaApa6Uvqr93sPYg6obAxSR5+OKYtRTqC+fZZ0gMov+TKchNGvZFKSS7slA3BAVPw==}
+    dev: false

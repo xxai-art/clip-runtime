@@ -1,0 +1,15 @@
+{
+  "name": "@w5/clip_img2qdrant-darwin-universal",
+  "version": "0.0.0",
+  "os": [
+    "darwin"
+  ],
+  "main": "clip_img2qdrant.darwin-universal.node",
+  "files": [
+    "clip_img2qdrant.darwin-universal.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  }
+}

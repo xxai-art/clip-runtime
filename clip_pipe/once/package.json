@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@w5/qdrant": "^0.0.5",
+    "@w5/sleep": "^0.0.1"
+  }
+}

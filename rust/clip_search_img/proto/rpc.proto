@@ -1,0 +1,18 @@
+syntax = "proto3";
+package rpc;
+
+message qIn
+{
+  uint64 id = 1;
+  string url = 2;
+  string payload = 3;
+}
+
+message qOut
+{
+}
+
+service Q
+{
+  rpc add(qIn) returns (qOut);
+}

@@ -1,0 +1,19 @@
+# @w5/clip_img2qdrant
+
+## Install
+
+```
+pnpm i -g @w5/clip_img2qdrant
+```
+
+## Test
+
+[coffee/main.coffee](./coffee/main.coffee) :
+
+```coffee
+<+ ./coffee/main.coffee >
+```
+
+output :
+
+<+ ./out.txt >

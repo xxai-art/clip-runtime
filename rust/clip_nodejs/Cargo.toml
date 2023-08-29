@@ -1,0 +1,28 @@
+[package]
+edition = "2021"
+name = "clip_nodejs"
+version = "0.1.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+anyhow = "1.0.75"
+napi-derive = "2.13.0"
+
+[dependencies.clip_runtime]
+path = "../clip_runtime"
+
+[dependencies.napi]
+version = "2.12.6"
+path = "./lib/napi-rs/crates/napi"
+default-features = false
+features = [
+  "napi8",
+  "error_anyhow"
+  # "tokio_rt",
+  # "async"
+]
+
+[build-dependencies]
+napi-build = "2.0.1"

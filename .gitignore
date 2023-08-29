@@ -1,0 +1,15 @@
+Dockerfile
+out/*
+!out/package.json
+!out/run.sh
+*.out
+bun.lockb
+.DS_Store
+target/
+*.pyc
+*.log
+__pycache__
+node_modules
+
+lib/*
+!lib/img/

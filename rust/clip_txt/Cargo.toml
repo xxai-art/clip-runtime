@@ -1,0 +1,13 @@
+[package]
+name = "clip_txt"
+homepage = "https://github.com/xxai-art/clip-runtime/tree/main/rust/clip_txt"
+repository = "https://github.com/xxai-art/clip-runtime.git"
+description = "Tokener for clip txt"
+version = "0.1.0"
+edition = "2021"
+license = "SSPL-1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+anyhow = "1.0.75"
+tokenizers = "0.13.4"

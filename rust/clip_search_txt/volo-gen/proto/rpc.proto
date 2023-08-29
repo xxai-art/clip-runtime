@@ -1,0 +1,41 @@
+syntax = "proto3";
+package rpc;
+
+message DayRange
+{
+  uint32 begin = 1;
+  uint32 end = 2;
+}
+
+message OffsetLimit
+{
+  uint32 offset = 1;
+  uint32 limit = 2;
+}
+
+message qIn
+{
+  string txt = 1;
+  sint32 nsfw = 2;
+  DayRange day_range = 3;
+  OffsetLimit offset_limit = 4;
+  string lang = 5;
+  uint32 w = 6;
+  uint32 h = 7;
+}
+
+message Point
+{
+  uint64 id = 1;
+  float score = 2;
+}
+
+message qOut
+{
+  repeated Point li = 1;
+}
+
+service Rpc
+{
+  rpc clip(qIn) returns (qOut);
+}

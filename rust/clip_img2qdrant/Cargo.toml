@@ -1,0 +1,38 @@
+[package]
+edition = "2021"
+name = "w5_clip_img2qdrant"
+version = "0.0.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+anyhow = "1.0.75"
+async-lazy = { version = "0.1.0", features = ["parking_lot", "nightly"] }
+napi-derive = "2.13.0"
+qdrant-client = "1.4.0"
+
+[dependencies.napi]
+version = "2.13.3"
+#path = "../napi-rs/crates/napi"
+default-features = false
+features = ["napi8", "error_anyhow", "tokio_rt", "async"]
+
+[build-dependencies]
+napi-build = "2.0.1"
+
+[profile.release]
+lto = true
+opt-level = 3
+incremental = true
+codegen-units = 1
+overflow-checks = false
+panic = 'abort'
+debug-assertions = false
+strip = true
+
+[dependencies.clip_qdrant]
+path = "../clip_qdrant"
+
+[dependencies.clip_runtime]
+path = "../clip_runtime"

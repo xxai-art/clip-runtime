@@ -1,0 +1,25 @@
+[package]
+license = "SSPL-1.0"
+description = "run AltCLIP ( Altering the Language Encoder in CLIP for Extended Language Capabilities ) in rust"
+homepage = "https://github.com/xxai-art/clip-runtime/tree/main/rust/clip_runtime"
+repository = "https://github.com/xxai-art/clip-runtime.git"
+name = "clip_runtime"
+version = "0.1.4"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.72"
+ndarray = "0.15.6"
+num_cpus = "1.16.0"
+
+[dependencies.tracing-subscriber]
+version = "0.3.17"
+features = ["env-filter", "fmt"]
+
+[dependencies.clip_txt]
+path = "../clip_txt"
+version = "0.1.0"
+
+[dependencies.clip_img]
+path = "../clip_img"
+version = "0.1.3"

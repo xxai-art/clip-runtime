@@ -1,0 +1,20 @@
+[workspace]
+members = [
+  "clip_runtime",
+  "clip_img2qdrant",
+  "clip_txt",
+  "clip_img",
+  "clip_nodejs",
+  "clip_qdrant"
+]
+resolver = "2"
+
+[profile.release]
+lto = true
+opt-level = 3
+incremental = true
+codegen-units = 1
+overflow-checks = false
+panic = 'abort'
+debug-assertions = false
+strip = true

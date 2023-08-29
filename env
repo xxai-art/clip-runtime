@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+export RUST_LOG="debug,globset=warn,watchexec=off,supervisor=warn,hyper=warn,rustls=warn,h2=warn,tower=warn,ort=warn"
+export MODEL=AltCLIP-XLMR-L-m18
+
+export MODEL_URL=https://huggingface.co/xxai-art/tar/resolve/main/$MODEL.tar.zstd
+
+export ORT_LIB_LOCATION=$DIR/lib/so
+export ORT_DYLIB_PATH=$ORT_LIB_LOCATION/onnxruntime.dll
+
+export MODEL_DIR=$DIR/lib/model/$MODEL
+
+export ONNX_IMG="onnx/Img"
+
+
+env_sh() {
+local dir_conn=$(dirname $DIR)/conf/conn
+if [ ! -d "$dir_conn" ]; then
+echo "$dir_conn not exist"
+return
+fi
+
+  cd  $dir_conn
+  local i
+  for i in $@; do
+if [ -f "$i.sh" ]; then
+set -o allexport
+source "$i".sh
+set +o allexport
+else
+echo "$i not exist"
+fi
+  done
+
+  cd $DIR
+  unset -f env_sh
+}
+
+env_sh host mq qdrant apg ak kv clip_pipe
+
+
+

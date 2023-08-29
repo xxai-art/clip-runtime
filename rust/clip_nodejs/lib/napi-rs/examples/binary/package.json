@@ -1,0 +1,12 @@
+{
+  "name": "binary",
+  "private": true,
+  "version": "0.0.0",
+  "bin": "napi-examples-binary",
+  "scripts": {
+    "build": "napi-raw build"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "workspace:*"
+  }
+}
