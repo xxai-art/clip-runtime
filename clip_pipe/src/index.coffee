@@ -14,8 +14,8 @@ N = 0
 await redistream.clip(
   (id)=>
     await upload(id)
-    if N % 并发 == 1
-      console.log '→',Math.round((new Date - BEGIN) / ++N)/1000+' s / item'
+    if ++N % 并发 == 1
+      console.log '→',Math.round((new Date - BEGIN) / N)/1000+' s / item'
     return true
   并发
 )
