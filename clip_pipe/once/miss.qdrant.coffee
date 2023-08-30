@@ -21,12 +21,10 @@ for await [id] from ITER.bot.clip_same('',{limit})
 {points} = clip
 points_payload = points.payload
 
-CID_MAP = new Map
-CID_MAP.set 1, CID_IMG
 
-hset = (cid,id,adult,rid,iaa,ing)=>
+hset = (src_id,id,adult,rid,iaa,ing)=>
   p = do =>
-    cid = CID_MAP.get(cid)
+    cid = CID_IMG
     star = await ONE0"SELECT star from bot.civitai_img WHERE id=#{rid}"
     star = Math.log1p(star or 0)*25
     score = Math.round(iaa+star)
