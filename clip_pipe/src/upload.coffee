@@ -31,7 +31,7 @@ export default (id)=>
   await Promise.all [
     KV.zadd rec+adult,bin_id,score
     KV.zadd rec,bin_id,score
-    KV.zadd 'recImg',u64Bin(id),score
+    KV.zadd 'recImg',Buffer.from(u64Bin(id)),score
     do =>
       url = cidB64(cid,id)
       func = RES_META[cid]
