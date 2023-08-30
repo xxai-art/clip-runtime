@@ -74,8 +74,7 @@ if [ -n "$GFW" ]; then
   yarn config set registry $npmmirror
 fi
 
-direnv allow
-direnv exec . ./init.sh
+source ./env
 for script in down.*.sh; do
   if [ -f "$script" ]; then
     direnv exec . ./$script &
@@ -95,6 +94,8 @@ fi
 #   source ~/.bashrc
 
 # cd clip-runtime
+direnv allow
+direnv exec . ./init.sh
 
 cd rust/clip_img2qdrant
 
