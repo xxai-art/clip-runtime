@@ -19,7 +19,8 @@ curl --connect-timeout 2 -m 4 -s https://t.co >/dev/null || export GFW=1
 
 apt-get update
 apt-get install -y \
-  wget yasm tar unzip zstd git direnv tmux gcc git-lfs bzip2 htop g++ bash libssl-dev pkg-config cmake pbzip2 curl rsync direnv netcat-openbsd
+  wget yasm tar unzip zstd git direnv tmux gcc git-lfs bzip2 htop g++ bash libssl-dev pkg-config cmake pbzip2 curl rsync direnv netcat-openbsd psmisc
+# killall -> psmisc
 
 if [ ! -f "$HOME/.cargo/env" ]; then
   curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path --default-toolchain nightly
