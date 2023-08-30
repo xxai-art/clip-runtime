@@ -30,13 +30,14 @@ export default (id)=>
   for [prefix,key] from [
     [
       'rec'
-      Buffer.from vbyteE [cid, id]
+      vbyteE [cid, id]
     ]
     [
       'img'
       u64Bin id
     ]
   ]
+    key = Buffer.from key
     for zset from [prefix, prefix+adult]
       ing.push KV.zadd zset, key, score
   await Promise.all [

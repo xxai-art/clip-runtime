@@ -30,14 +30,24 @@ hset = (cid,id,adult,rid,iaa,ing)=>
     star = await ONE0"SELECT star from bot.civitai_img WHERE id=#{rid}"
     star = Math.log1p(star or 0)*25
     score = Math.round(iaa+star)
-    id_bin = Buffer.from vbyteE [cid, id]
     score += 20000
-    for k from ['rec','rec'+(+!!adult)]
-      await KV.zadd k,id_bin,score
-    await KV.zadd(
-      'recImg', Buffer.from(u64Bin(id)), score
-    )
-    ing.delete p
+    adult = +!!adult
+    ing = []
+    for [prefix,key] from [
+      [
+        'rec'
+        vbyteE [cid, id]
+      ]
+      [
+        'img'
+        u64Bin id
+      ]
+    ]
+      key = Buffer.from key
+      for zset from [prefix, prefix+adult]
+        ing.push KV.zadd zset, key, score
+      ing.delete p
+    await Promise.all ing
     return
   p
 
