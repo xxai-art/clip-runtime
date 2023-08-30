@@ -15,8 +15,8 @@ dependencies:
     specifier: ^0.0.2
     version: 0.0.2
   '@w5/ossput':
-    specifier: ^0.0.17
-    version: 0.0.17
+    specifier: ^0.0.18
+    version: 0.0.18
   '@w5/pg':
     specifier: ^0.0.46
     version: 0.0.46
@@ -1181,13 +1181,14 @@ packages:
     resolution: {integrity: sha512-zlWFrcSjqqmUGw+R3xhtrDAZH3s3IxSt+p3OOcQWM1AQySCvVeI8yKjUy7OYBdfQPvZneZbSn42lYJTQMQjl9w==}
     dev: false
 
-  /@w5/ossput@0.0.17:
-    resolution: {integrity: sha512-nO4fXHC4To2pSQJRV2NlWUSVVT7U1veZYSkIOQJLpOXFKRHXCXow3TdV5SSx3Y2Bh+eJHWiW43+Y99Of2KpS/A==}
+  /@w5/ossput@0.0.18:
+    resolution: {integrity: sha512-nMnO+9M7VhFf3uBpGinnCcjEVyzxhN751UZ5ZfTrKv7TSGNOipCgb+aVJvWGwkxBj41aCRdgmb16kB+dg2eKeg==}
     dependencies:
       '@aws-sdk/abort-controller': 3.374.0
       '@aws-sdk/client-s3': 3.400.0
       '@aws-sdk/lib-storage': 3.400.0(@aws-sdk/client-s3@3.400.0)
       '@aws-sdk/node-http-handler': 3.374.0
+      '@smithy/node-http-handler': 2.0.5
       https-proxy-agent: 7.0.1
     transitivePeerDependencies:
       - '@aws-sdk/signature-v4-crt'
