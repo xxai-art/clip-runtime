@@ -70,18 +70,9 @@ ensure() {
 
 ensure pnpm yarn
 
-if ! command -v bun &>/dev/null; then
-  curl -fsSL https://bun.sh/install | bash
-fi
-
 if [ -n "$GFW" ]; then
   yarn config set registry $npmmirror
 fi
-# git clone --depth=1 https://github.com/xxai-art/clip-runtime.git
-
-#   source ~/.bashrc
-
-# cd clip-runtime
 
 direnv allow
 direnv exec . ./init.sh
@@ -91,6 +82,20 @@ for script in down.*.sh; do
   fi
 done
 wait
+
+if ! command -v bun &>/dev/null; then
+  if [ -n "$GFW" ]; then
+    nc -z -w 1 127.0.0.1 7890 && export HTTPS_PROXY=http://127.0.0.1:7890
+  fi
+  curl -fsSL https://bun.sh/install | bash
+fi
+
+# git clone --depth=1 https://github.com/xxai-art/clip-runtime.git
+
+#   source ~/.bashrc
+
+# cd clip-runtime
+
 cd rust/clip_img2qdrant
 
 ./dist.sh
