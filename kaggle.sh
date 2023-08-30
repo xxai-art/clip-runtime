@@ -101,5 +101,5 @@ cd rust/clip_img2qdrant
 
 cd $DIR/clip_pipe
 pnpm i
-
-direnv exec . ./run.sh
+./supervisor.sh
+tail -f /var/log/supervisor/xxai-*.log
