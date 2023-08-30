@@ -46,6 +46,7 @@ hset = (src_id,id,adult,rid,iaa,ing)=>
         runing.push KV.zadd zset, key, score
     await Promise.all runing
     return
+  ing.add p
   p.finally =>
     ing.delete p
     return
@@ -82,7 +83,7 @@ for await m from clip_iter()
     if 'w' of payload
       exist.delete id
       [cid,rid,iaa,adult] = m.get id
-      ing.add hset cid,id,adult,rid,iaa,ing
+      hset cid,id,adult,rid,iaa,ing
       if ing.size > 100
         console.log 'ing',ing.size
         await Promise.all [...ing]
