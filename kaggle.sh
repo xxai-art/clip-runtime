@@ -77,7 +77,7 @@ fi
 source ./env
 for script in down.*.sh; do
   if [ -f "$script" ]; then
-    direnv exec . ./$script &
+    ./$script &
   fi
 done
 wait
