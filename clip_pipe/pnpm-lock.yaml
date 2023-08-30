@@ -27,8 +27,8 @@ dependencies:
     specifier: ^0.0.14
     version: 0.0.14
   '@w5/redistream':
-    specifier: ^0.0.58
-    version: 0.0.58
+    specifier: ^0.0.59
+    version: 0.0.59
   '@w5/req':
     specifier: ^0.0.13
     version: 0.0.13
@@ -1207,8 +1207,8 @@ packages:
       postgres: 3.3.5
     dev: false
 
-  /@w5/pool@0.0.3:
-    resolution: {integrity: sha512-TujQE80ZiPyQGQ46QTVvR0CNyfdyiRh1b86+x0ULhBE0sbm/PqotmtWksBHK3EyYLfAfIBUnHtwOAoraoLgKqw==}
+  /@w5/pool@0.0.4:
+    resolution: {integrity: sha512-xLF1QADoJyocnMzpNFXqHPYTAG+pp/RzNj8hYYydnGs4j9npssfwemtZmGx4bZ4vqYtkJVmsUZNuZrMjFW0bYw==}
     dev: false
 
   /@w5/redis@0.0.35:
@@ -1230,11 +1230,11 @@ packages:
       '@w5/utf8': 0.0.3
     dev: false
 
-  /@w5/redistream@0.0.58:
-    resolution: {integrity: sha512-pgdhcJrlk56UtVLTlb8pQxv4Y5uayMXLSL860IugZOyNMtjECrmfQbRAeDa4ab4dyZpM1pAI57acZO2WMDLxyA==}
+  /@w5/redistream@0.0.59:
+    resolution: {integrity: sha512-Tj3r6vML1/ytwW8atY0EKjozjTxTBqSnCQBzBQCY9E6dNGUni0kGpojtqo1n7FE1PrVLHamqOySpI71YulUatQ==}
     dependencies:
       '@w5/pg': 0.0.46
-      '@w5/pool': 0.0.3
+      '@w5/pool': 0.0.4
       '@w5/redis_lua': 0.0.14
       msgpackr: 1.9.7
     dev: false
