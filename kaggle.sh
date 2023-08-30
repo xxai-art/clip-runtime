@@ -101,5 +101,10 @@ cd rust/clip_img2qdrant
 
 cd $DIR/clip_pipe
 pnpm i
-./supervisor.sh
-tail -f /var/log/supervisor/xxai-*.log
+
+if [ -n "$GFW" ]; then
+  direnv exec . ./supervisor.sh
+  tail -f /var/log/supervisor/xxai-*.log
+else
+  ./clip_pipe/run.sh
+fi
