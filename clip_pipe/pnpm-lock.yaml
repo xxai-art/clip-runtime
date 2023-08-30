@@ -27,8 +27,8 @@ dependencies:
     specifier: ^0.0.14
     version: 0.0.14
   '@w5/redistream':
-    specifier: ^0.0.62
-    version: 0.0.62
+    specifier: ^0.0.63
+    version: 0.0.63
   '@w5/req':
     specifier: ^0.0.13
     version: 0.0.13
@@ -1227,8 +1227,8 @@ packages:
       '@w5/utf8': 0.0.3
     dev: false
 
-  /@w5/redistream@0.0.62:
-    resolution: {integrity: sha512-7HloyHGOmXmR6wg6oGL+MguJoCcRs9qvJ72ZxFJZL2WJvbv+kscoeIcwn3f8yrcvecsiP+NFB3qzPrUIIAFLLQ==}
+  /@w5/redistream@0.0.63:
+    resolution: {integrity: sha512-of7EHUQXiXGJ+uZqliq+C4iWNDbnt9zj3NxWxQLtDleWjgnnuayzQ+4giINQul6OmmGbAdDCFrWY1KTX9Z6p1w==}
     dependencies:
       '@w5/pg': 0.0.46
       '@w5/pool': 0.0.6
