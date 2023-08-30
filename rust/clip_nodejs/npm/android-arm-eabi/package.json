@@ -1,18 +1,3 @@
-{
-  "name": "@w5/clip-android-arm-eabi",
-  "version": "0.0.0",
-  "os": [
-    "android"
-  ],
-  "cpu": [
-    "arm"
-  ],
-  "main": "clip.android-arm-eabi.node",
-  "files": [
-    "clip.android-arm-eabi.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:be49979691e2a0fee3ef3a9d23ed6535a0322ecdddd4e55ad70d230312568030
+size 269

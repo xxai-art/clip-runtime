@@ -1,18 +1,3 @@
-{
-  "name": "@w5/clip-win32-ia32-msvc",
-  "version": "0.0.0",
-  "os": [
-    "win32"
-  ],
-  "cpu": [
-    "ia32"
-  ],
-  "main": "clip.win32-ia32-msvc.node",
-  "files": [
-    "clip.win32-ia32-msvc.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:90c4468f35f16f74e53c355a993fd5fcd8996106b53bd0f5e742f84a526991ca
+size 265

@@ -1,18 +1,3 @@
-{
-  "name": "@w5/clip_img2qdrant-darwin-arm64",
-  "version": "0.0.0",
-  "os": [
-    "darwin"
-  ],
-  "cpu": [
-    "arm64"
-  ],
-  "main": "clip_img2qdrant.darwin-arm64.node",
-  "files": [
-    "clip_img2qdrant.darwin-arm64.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:732e9e7db788600213207a65e0738901aba7dfd772613d13814bcdf9f10be569
+size 291

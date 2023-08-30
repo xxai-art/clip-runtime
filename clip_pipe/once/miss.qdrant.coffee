@@ -1,7 +1,7 @@
 #!/usr/bin/env coffee
 > @w5/pg/APG > ITER ONE LI0 ONE0
   @w5/cid > CID_IMG
-  @w5/wasm > vbyteE
+  @w5/wasm > vbyteE u64Bin
   @w5/qdrant:Q
   @w5/redis/KV
   @w5/sleep
@@ -30,7 +30,7 @@ hset = (src_id,id,adult,rid,iaa,ing)=>
     score = Math.round(iaa+star)
     score += 20000
     adult = +!!adult
-    ing = []
+    runing = []
     for [prefix,key] from [
       [
         'rec'
@@ -43,11 +43,12 @@ hset = (src_id,id,adult,rid,iaa,ing)=>
     ]
       key = Buffer.from key
       for zset from [prefix, prefix+adult]
-        ing.push KV.zadd zset, key, score
-      ing.delete p
-    await Promise.all ing
+        runing.push KV.zadd zset, key, score
+    await Promise.all runing
     return
-  p
+  p.finally =>
+    ing.delete p
+    return
 
 clip_iter = ->
   iter = ITER.bot.task('cid,rid,iaa,adult',{where:"iaa>25", limit, id:(+process.env.ID) or 0})

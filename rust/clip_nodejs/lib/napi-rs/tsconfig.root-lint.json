@@ -1,10 +1,3 @@
-{
-  "extends": "./tsconfig.json",
-  "include": [
-    "./ava.config.mjs",
-    "./triples/index.js",
-    "./memory-testing/*.js",
-    "./memory-testing/*.mjs",
-    "./crates/cli/index.js"
-  ]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:d8362e9e77d0567910a83bb0101e1b5917e6032922639afea0c15344dd96a812
+size 192

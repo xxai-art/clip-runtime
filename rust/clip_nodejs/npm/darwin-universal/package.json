@@ -1,15 +1,3 @@
-{
-  "name": "@w5/clip-darwin-universal",
-  "version": "0.0.0",
-  "os": [
-    "darwin"
-  ],
-  "main": "clip.darwin-universal.node",
-  "files": [
-    "clip.darwin-universal.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:14f2c98542bba90bb18bf19354e2a837d1e5f9f2e12e11b9e0261619a8dd999f
+size 242

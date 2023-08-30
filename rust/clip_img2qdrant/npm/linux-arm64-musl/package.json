@@ -1,21 +1,3 @@
-{
-  "name": "@w5/clip_img2qdrant-linux-arm64-musl",
-  "version": "0.0.0",
-  "os": [
-    "linux"
-  ],
-  "cpu": [
-    "arm64"
-  ],
-  "main": "clip_img2qdrant.linux-arm64-musl.node",
-  "files": [
-    "clip_img2qdrant.linux-arm64-musl.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  },
-  "libc": [
-    "musl"
-  ]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:507a00a212326b74fb2f566bb432705062dcc8b31c997ea561f92b46876d8293
+size 330

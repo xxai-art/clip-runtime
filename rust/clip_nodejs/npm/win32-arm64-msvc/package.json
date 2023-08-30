@@ -1,18 +1,3 @@
-{
-  "name": "@w5/clip-win32-arm64-msvc",
-  "version": "0.0.0",
-  "os": [
-    "win32"
-  ],
-  "cpu": [
-    "arm64"
-  ],
-  "main": "clip.win32-arm64-msvc.node",
-  "files": [
-    "clip.win32-arm64-msvc.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:51deddb44f1bc597a715c9bfa9fc5c548175f794b3fd534d01ae050160ed25d2
+size 269
