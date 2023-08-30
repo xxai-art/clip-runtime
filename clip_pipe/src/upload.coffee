@@ -22,16 +22,25 @@ export default (id)=>
     return
 
   cid = CID_IMG
-  bin_id = Buffer.from vbyteE [cid, id]
   score = 20000 + iaa
 
   adult = if adult > 0 then 1 else 0
 
-  rec = 'rec'
+  ing = []
+  for [prefix,key] from [
+    [
+      'rec'
+      Buffer.from vbyteE [cid, id]
+    ]
+    [
+      'img'
+      u64Bin id
+    ]
+  ]
+    for zset from [prefix, prefix+adult]
+      ing.push KV.zadd zset, key, score
   await Promise.all [
-    KV.zadd rec+adult,bin_id,score
-    KV.zadd rec,bin_id,score
-    KV.zadd 'recImg',Buffer.from(u64Bin(id)),score
+    Promise.all ing
     do =>
       url = cidB64(cid,id)
       func = RES_META[cid]
