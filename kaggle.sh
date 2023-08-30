@@ -75,12 +75,8 @@ if [ -n "$GFW" ]; then
 fi
 
 source ./env
-for script in down.*.sh; do
-  if [ -f "$script" ]; then
-    ./$script &
-  fi
-done
-wait
+
+./down.model.sh &
 
 if ! command -v bun &>/dev/null; then
   if [ -n "$GFW" ]; then
@@ -89,13 +85,15 @@ if ! command -v bun &>/dev/null; then
   curl -fsSL https://bun.sh/install | bash
 fi
 
+direnv allow
+./down.dll.sh
+wait
+direnv exec . ./init.sh
 # git clone --depth=1 https://github.com/xxai-art/clip-runtime.git
 
 #   source ~/.bashrc
 
 # cd clip-runtime
-direnv allow
-direnv exec . ./init.sh
 
 cd rust/clip_img2qdrant
 
