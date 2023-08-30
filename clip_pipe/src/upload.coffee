@@ -1,7 +1,7 @@
 #!/usr/bin/env coffee
 > @w5/uintbin/cidB64
   msgpackr > pack
-  @w5/wasm > vbyteE
+  @w5/wasm > vbyteE u64Bin
   @w5/ossput
   @w5/cid > CID_IMG
   @w5/redis/KV
@@ -13,15 +13,15 @@
 export default (id)=>
   [adult,hash,rid,time,iaa] = args = await ONE"SELECT adult,hash::bytea,rid,time,iaa,cid FROM bot.task WHERE id=#{id}"
 
-  cid = args.pop()
-  if cid == 1 # 来源 https://civitai.com
+  src_id = args.pop()
+  if src_id == 1 # 来源 https://civitai.com
     star = await ONE0"SELECT star from bot.civitai_img WHERE id=#{rid}"
     star = Math.log1p(star or 0)*25
     iaa += Math.round star
-    cid = CID_IMG
   else
     return
 
+  cid = CID_IMG
   bin_id = Buffer.from vbyteE [cid, id]
   score = 20000 + iaa
 
@@ -31,6 +31,7 @@ export default (id)=>
   await Promise.all [
     KV.zadd rec+adult,bin_id,score
     KV.zadd rec,bin_id,score
+    KV.zadd 'recImg',u64Bin(id),score
     do =>
       url = cidB64(cid,id)
       func = RES_META[cid]
