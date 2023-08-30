@@ -1,18 +1,3 @@
-{
-  "name": "@w5/clip-darwin-x64",
-  "version": "0.0.0",
-  "os": [
-    "darwin"
-  ],
-  "cpu": [
-    "x64"
-  ],
-  "main": "clip.darwin-x64.node",
-  "files": [
-    "clip.darwin-x64.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f36db0f0902d85e545370e26980dd23a63ccc405797e9c011112a631c57b76a2
+size 250

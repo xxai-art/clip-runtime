@@ -1,18 +1,3 @@
-{
-  "name": "@w5/clip_img2qdrant-win32-x64-msvc",
-  "version": "0.0.0",
-  "os": [
-    "win32"
-  ],
-  "cpu": [
-    "x64"
-  ],
-  "main": "clip_img2qdrant.win32-x64-msvc.node",
-  "files": [
-    "clip_img2qdrant.win32-x64-msvc.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:2e4be9996c5e0ce9bd71e0b6a916cc68d996586563a04fb6d6709124dd420166
+size 294

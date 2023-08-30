@@ -1,21 +1,3 @@
-{
-  "name": "@w5/clip-linux-x64-gnu",
-  "version": "0.0.0",
-  "os": [
-    "linux"
-  ],
-  "cpu": [
-    "x64"
-  ],
-  "main": "clip.linux-x64-gnu.node",
-  "files": [
-    "clip.linux-x64-gnu.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  },
-  "libc": [
-    "glibc"
-  ]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:204029ad37a733fab33bfe48976ebfeb1a5a1aaf8ff3f134194c9156cb006dd7
+size 287

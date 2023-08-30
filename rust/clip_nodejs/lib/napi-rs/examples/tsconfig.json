@@ -1,10 +1,3 @@
-{
-  "extends": "../tsconfig.json",
-  "include": ["."],
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": ".",
-    "target": "ES2015"
-  },
-  "exclude": ["dist"]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:97ffe062456731ac398b1e21c72a6028f829e08926db48edb35a18230f674be0
+size 174

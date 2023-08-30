@@ -1,18 +1,3 @@
-{
-  "name": "@w5/clip-freebsd-x64",
-  "version": "0.0.0",
-  "os": [
-    "freebsd"
-  ],
-  "cpu": [
-    "x64"
-  ],
-  "main": "clip.freebsd-x64.node",
-  "files": [
-    "clip.freebsd-x64.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:0d37eadc1cddf3d5e687b1334933fd2ce216946efd7a1e4317254d906cecaff7
+size 254

@@ -1,15 +1,3 @@
-{
-  "name": "@w5/clip_img2qdrant-darwin-universal",
-  "version": "0.0.0",
-  "os": [
-    "darwin"
-  ],
-  "main": "clip_img2qdrant.darwin-universal.node",
-  "files": [
-    "clip_img2qdrant.darwin-universal.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:8bd0acb640c6983a49e4969a848b9357b8fee688fd2eccae850a286295a512e7
+size 275

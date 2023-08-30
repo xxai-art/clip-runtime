@@ -1,7 +1,7 @@
 #!/usr/bin/env coffee
 > @w5/pg/APG > ITER ONE LI0 ONE0
   @w5/cid > CID_IMG
-  @w5/wasm > vbyteE
+  @w5/wasm > vbyteE u64Bin
   @w5/qdrant:Q
   @w5/redis/KV
   @w5/sleep

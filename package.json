@@ -1,17 +1,3 @@
-{
-  "type": "module",
-  "dependencies": {
-    "@iarna/toml": "^2.2.5",
-    "@w5/coffee_plus": "^0.0.17",
-    "@w5/jsext": "^0.0.1",
-    "@w5/loader": "^0.0.3",
-    "@w5/mdt": "^0.0.16",
-    "@w5/read": "^0.0.1",
-    "@w5/uridir": "^0.0.1",
-    "@w5/walk": "^0.0.1",
-    "@w5/write": "^0.0.1",
-    "glob": "^10.3.3",
-    "glob-promise": "^6.0.3",
-    "zx": "^7.2.3"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:5d0773aee341af39fcd50cac6345f6921e9b346c2ae4be2f3832c4e43eb1937c
+size 371

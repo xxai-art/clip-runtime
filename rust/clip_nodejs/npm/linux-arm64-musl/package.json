@@ -1,21 +1,3 @@
-{
-  "name": "@w5/clip-linux-arm64-musl",
-  "version": "0.0.0",
-  "os": [
-    "linux"
-  ],
-  "cpu": [
-    "arm64"
-  ],
-  "main": "clip.linux-arm64-musl.node",
-  "files": [
-    "clip.linux-arm64-musl.node"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  },
-  "libc": [
-    "musl"
-  ]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:b16f90287d565b1fc464d4a20a472bad90c26b0ead9acf1c7591830d17007b9d
+size 297
