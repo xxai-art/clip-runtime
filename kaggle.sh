@@ -19,8 +19,11 @@ curl --connect-timeout 2 -m 4 -s https://t.co >/dev/null || export GFW=1
 
 apt-get update
 apt-get install -y \
-  wget yasm tar unzip zstd git direnv tmux gcc git-lfs bzip2 htop g++ bash libssl-dev pkg-config cmake pbzip2 curl rsync direnv netcat-openbsd psmisc
+  wget yasm tar unzip zstd git direnv tmux gcc git-lfs bzip2 htop g++ bash libssl-dev pkg-config cmake pbzip2 curl rsync netcat-openbsd psmisc
 # killall -> psmisc
+
+direnv allow
+direnv exec . ./down.model.sh
 
 if [ ! -f "$HOME/.cargo/env" ]; then
   curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path --default-toolchain nightly
@@ -40,15 +43,13 @@ if ! command -v fd &>/dev/null; then
   to_install+="fd-find "
 fi
 
+if [ -n "$GFW" ]; then
+  nc -z -w 1 127.0.0.1 7890 && export HTTPS_PROXY=http://127.0.0.1:7890
+fi
+
 if [ -n "$to_install" ]; then
-  if [ -n "$GFW" ]; then
-    for pkg in "$to_install"; do
-      cargo install $pkg
-    done
-  else
-    curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash &&
-      cargo binstall --no-confirm --no-symlinks $to_install || cargo install $to_install
-  fi
+  curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash &&
+    cargo binstall --no-confirm --no-symlinks $to_install || cargo install $to_install
 fi
 
 source ./docker/root/.bashrc
@@ -79,18 +80,11 @@ fi
 
 source ./env
 
-./down.model.sh &
-
 if ! command -v bun &>/dev/null; then
-  if [ -n "$GFW" ]; then
-    nc -z -w 1 127.0.0.1 7890 && export HTTPS_PROXY=http://127.0.0.1:7890
-  fi
   curl -fsSL https://bun.sh/install | bash
 fi
 
-direnv allow
 ./down.dll.sh
-wait
 direnv exec . ./init.sh
 # git clone --depth=1 https://github.com/xxai-art/clip-runtime.git
 
