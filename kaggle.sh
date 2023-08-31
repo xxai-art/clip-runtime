@@ -42,7 +42,9 @@ fi
 
 if [ -n "$to_install" ]; then
   if [ -n "$GFW" ]; then
-    cargo install $to_install
+    for pkg in "$to_install"; do
+      cargo install $pkg
+    done
   else
     curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash &&
       cargo binstall --no-confirm --no-symlinks $to_install || cargo install $to_install
