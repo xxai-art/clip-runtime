@@ -34,7 +34,7 @@ mod tests {
     let txt = "狗".into();
     let req = QIn {
       txt,
-      nsfw: -1,
+      sfw: -1,
       day_range: None, //Some(DayRange { begin: 0, end: 0 }),
       offset_limit: Some(OffsetLimit {
         offset: 0,

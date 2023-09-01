@@ -16,7 +16,7 @@ message OffsetLimit
 message qIn
 {
   string txt = 1;
-  sint32 nsfw = 2;
+  sint32 sfw = 2;
   DayRange day_range = 3;
   OffsetLimit offset_limit = 4;
   string lang = 5;

@@ -62,9 +62,9 @@ pub fn search_day_range(day_range: DayRange) -> Condition {
 
 async fn clip(msg: QIn) -> anyhow::Result<QOut> {
   let txt = msg.txt;
-  let nsfw = msg.nsfw;
+  let sfw = msg.sfw;
   let txt = lang::detect::prompt(txt, msg.lang);
-  dbg!(&txt, &nsfw);
+  dbg!(&txt, &sfw);
   let vec = onnx().encode(txt)?.into_raw_vec();
 
   let client = qdrant_client();
@@ -87,8 +87,8 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
   let mut must = vec![];
   // let mut must_not = vec![];
 
-  if nsfw >= 0 {
-    let cond = Condition::matches("nsfw", nsfw != 0);
+  if sfw >= 0 {
+    let cond = Condition::matches("sfw", sfw != 0);
     must.push(cond);
   }
 

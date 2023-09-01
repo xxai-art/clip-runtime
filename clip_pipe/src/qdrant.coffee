@@ -16,7 +16,7 @@ URL = 'https://5ok.pw/'
   o = {
     day
   }
-  o.nsfw = !!nsfw
+  o.sfw = !nsfw
   rid = await DB.addIfNotExist(
     id
     JSON.stringify(o)
