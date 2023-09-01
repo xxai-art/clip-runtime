@@ -1682,7 +1682,7 @@ dependencies = [
  "napi-derive-backend 1.0.52",
  "proc-macro2",
  "quote",
- "syn 1.0.109",
+ "syn 2.0.29",
 ]
 
 [[package]]
@@ -1709,7 +1709,7 @@ dependencies = [
  "quote",
  "regex",
  "semver",
- "syn 1.0.109",
+ "syn 2.0.29",
 ]
 
 [[package]]
