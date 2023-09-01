@@ -1,6 +1,6 @@
 [package]
 name = "clip_search_txt_client"
-version = "0.1.6"
+version = "0.1.7"
 edition = "2021"
 description = "clip_search_txt client"
 homepage = "https://github.com/xxai-art/clip-runtime"
