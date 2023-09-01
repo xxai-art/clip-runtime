@@ -12,7 +12,7 @@ pilota.workspace = true
 anyhow.workspace = true
 async-trait.workspace = true
 tokio = { workspace = true, features = ["full"] }
-loginit = "0.1.0"
+loginit = "0.1.3"
 tracing = "0.1.37"
 volo_macro = "0.1.2"
 clip_runtime = { path = "../clip_runtime" }
