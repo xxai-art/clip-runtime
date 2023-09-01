@@ -8,7 +8,7 @@
 
 URL = 'https://5ok.pw/'
 
-< (id, hash, nsfw, day)=>
+< (id, hash, sfw, day)=>
   hash = Buffer.from(hash).toString 'base64url'
   url = URL+hash
   console.log url
@@ -16,7 +16,7 @@ URL = 'https://5ok.pw/'
   o = {
     day
   }
-  o.sfw = !nsfw
+  o.sfw = sfw
   rid = await DB.addIfNotExist(
     id
     JSON.stringify(o)

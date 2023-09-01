@@ -56,6 +56,6 @@ export default (id)=>
       return
   ]
   day = Math.floor time/86400
-  await qdrant id,hash,adult,day
+  await qdrant id,hash,!adult,day
   return
 
