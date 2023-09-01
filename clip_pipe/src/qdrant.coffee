@@ -15,8 +15,8 @@ URL = 'https://5ok.pw/'
   bin = await reqBin url, proxy
   o = {
     day
+    sfw
   }
-  o.sfw = sfw
   rid = await DB.addIfNotExist(
     id
     JSON.stringify(o)
