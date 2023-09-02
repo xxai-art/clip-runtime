@@ -4,8 +4,7 @@ use std::net::SocketAddr;
 
 use anyhow::Result;
 use lazy_static::lazy_static;
-pub use volo_gen::rpc::{DayRange, OffsetLimit, Point, QIn, QOut};
-use volo_gen::rpc::{RpcClient, RpcClientBuilder};
+pub use volo_gen::rpc::*;
 
 lazy_static! {
   static ref CLIENT: RpcClient = {
