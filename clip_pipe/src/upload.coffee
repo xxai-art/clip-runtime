@@ -11,7 +11,10 @@
 
 
 export default (id)=>
-  [adult,hash,rid,time,iaa] = args = await ONE"SELECT adult,hash::bytea,rid,time,iaa,cid FROM bot.task WHERE id=#{id}"
+  args = await ONE"SELECT adult,hash::bytea,rid,time,iaa,cid FROM bot.task WHERE id=#{id}"
+  if not args
+    return
+  [adult,hash,rid,time,iaa] = args
 
   src_id = args.pop()
   if src_id == 1 # 来源 https://civitai.com
