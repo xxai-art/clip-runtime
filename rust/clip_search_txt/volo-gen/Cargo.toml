@@ -3,7 +3,7 @@ name = "clip_search_txt_volo_gen"
 description = "clip_search_txt volo gen"
 homepage = "https://github.com/xxai-art/clip-runtime"
 license = "SSPL-1.0"
-version = "0.1.6"
+version = "0.1.7"
 edition.workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
