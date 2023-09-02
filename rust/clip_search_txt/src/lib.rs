@@ -1,14 +1,13 @@
 #![feature(impl_trait_in_assoc_type)]
 #![feature(async_fn_in_trait)]
 #![feature(const_trait_impl)]
-
 mod lang;
 use std::sync::OnceLock;
 
 use clip_qdrant::qdrant_client;
 use clip_runtime::{ort::ClipOrt, txt::ClipTxt};
 use qdrant_client::qdrant::{point_id::PointIdOptions, Condition, Filter, Range, SearchPoints};
-use volo_gen::rpc::{DayRange, Point, QIn, QOut, Rpc};
+use volo_gen::rpc::{DayRange, Level, Point, QIn, QOut, Rpc};
 use volo_macro::volo;
 
 pub static ONNX: OnceLock<ClipTxt> = OnceLock::new();
@@ -62,9 +61,9 @@ pub fn search_day_range(day_range: DayRange) -> Condition {
 
 async fn clip(msg: QIn) -> anyhow::Result<QOut> {
   let txt = msg.txt;
-  let sfw = msg.sfw;
+  let level = msg.level;
   let txt = lang::detect::prompt(txt, msg.lang);
-  dbg!(&txt, &sfw);
+  dbg!(&txt, &level);
   let vec = onnx().encode(txt)?.into_raw_vec();
 
   let client = qdrant_client();
@@ -87,8 +86,8 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
   let mut must = vec![];
   // let mut must_not = vec![];
 
-  if sfw >= 0 {
-    let cond = Condition::matches("sfw", sfw != 0);
+  if level != Level::all {
+    let cond = Condition::matches("sfw", level == Level::sfw);
     must.push(cond);
   }
 

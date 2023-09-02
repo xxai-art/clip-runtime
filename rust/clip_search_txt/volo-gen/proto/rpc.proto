@@ -14,9 +14,9 @@ message OffsetLimit
 }
 
 enum Level {
-  nsfw = 0;
-  sfw = 1;
-  all = 2;
+  NSFW = 0;
+  SFW = 1;
+  ALL = 2;
 }
 
 message qIn
