@@ -86,8 +86,8 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
   let mut must = vec![];
   // let mut must_not = vec![];
 
-  if level != Level::all {
-    let cond = Condition::matches("sfw", level == Level::sfw);
+  if level != Level::ALL {
+    let cond = Condition::matches("sfw", level == Level::SFW);
     must.push(cond);
   }
 
