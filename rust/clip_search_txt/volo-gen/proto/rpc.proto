@@ -14,9 +14,9 @@ message OffsetLimit
 }
 
 enum Level {
-  uint32 nsfw = 0;
-  uint32 sfw = 1;
-  uint32 all = 2;
+  nsfw = 0;
+  sfw = 1;
+  all = 2;
 }
 
 message qIn
