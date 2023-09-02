@@ -87,8 +87,7 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
   // let mut must_not = vec![];
 
   if level != Level::All {
-    let cond = Condition::matches("sfw", level == Level::Sfw);
-    must.push(cond);
+    must.push(Condition::matches("sfw", level == Level::Sfw));
   }
 
   if let Some(day_range) = msg.day_range {
