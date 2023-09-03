@@ -1,6 +1,8 @@
+#![feature(let_chains)]
 #![feature(impl_trait_in_assoc_type)]
 #![feature(async_fn_in_trait)]
 #![feature(const_trait_impl)]
+
 mod lang;
 use std::sync::OnceLock;
 
@@ -80,7 +82,7 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
     vector: vec,
     limit,
     offset,
-    with_payload: None, //Some(true.into()),
+    with_payload: Some(true.into()),
     ..Default::default()
   };
 
@@ -114,11 +116,17 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
   let li: Vec<_> = response
     .into_iter()
     .filter_map(|i| {
-      if let PointIdOptions::Num(id) = i.id?.point_id_options? {
-        Some(Point { id, score: i.score })
-      } else {
-        None
-      }
+      let payload = i.payload;
+      if let PointIdOptions::Num(id) = i.id?.point_id_options? &&
+       let Some(r) = payload.get("r")?.as_integer() &&
+       let Some(s) = payload.get("s")?.as_integer()
+       {
+         // let s = payload.get("s"); // 质量因子
+         // w * 1024 / h
+         Some(Point { id, score: i.score , sort:s as u32, whr:r as u32})
+       } else {
+         None
+       }
     })
     .collect();
 
