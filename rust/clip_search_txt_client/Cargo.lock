@@ -172,7 +172,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "clip_search_txt_client"
-version = "0.1.11"
+version = "0.1.12"
 dependencies = [
  "anyhow",
  "clip_search_txt_volo_gen",
@@ -184,9 +184,9 @@ dependencies = [
 
 [[package]]
 name = "clip_search_txt_volo_gen"
-version = "0.1.12"
+version = "0.1.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "83c5e4acbf5176854ed674b27f82813230b1118bc4f3471d93638f8b14e3f38c"
+checksum = "0374f18fbc26ff247a4f30f43c0f2c979f726f10f3a521a44d424a7309ddd890"
 dependencies = [
  "anyhow",
  "async-trait",
