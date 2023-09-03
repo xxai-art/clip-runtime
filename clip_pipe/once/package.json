@@ -1,7 +1,3 @@
-{
-  "type": "module",
-  "dependencies": {
-    "@w5/qdrant": "^0.0.5",
-    "@w5/sleep": "^0.0.1"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:29269de0332df010456ef72b62fb9d32efbdcc1fb0a26024daeaddae0b2fa5fb
+size 102

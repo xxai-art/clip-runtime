@@ -1,6 +1,3 @@
-{
-  "type": "module",
-  "dependencies": {
-    "esbuild": "^0.19.2"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:35796662ab670fa60b40cb6e0ec587ddc23ffb3f71037ffc6874f489a517cb82
+size 73
