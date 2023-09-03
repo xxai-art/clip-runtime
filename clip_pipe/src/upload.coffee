@@ -5,7 +5,7 @@
   @w5/ossput
   @w5/cid > CID_IMG
   @w5/redis/KV
-  @w5/pg/APG > ONE ONE
+  @w5/pg/APG > ONE
   ./qdrant
   ./RES_META
 
