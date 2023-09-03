@@ -42,8 +42,8 @@ dependencies:
     specifier: ^0.0.1
     version: 0.0.1
   '@w5/wasm':
-    specifier: ^0.0.34
-    version: 0.0.34
+    specifier: ^0.0.39
+    version: 0.0.39
   https-proxy-agent:
     specifier: ^7.0.1
     version: 7.0.1
@@ -1280,8 +1280,8 @@ packages:
     resolution: {integrity: sha512-QkFNMIDTE35YFYSMPJUJD6YIQ2MA6aAmRfWmG+6GDIJK3rMywlXqlgONOU7pPyMzTKvVB9cNGO4EEZmvxnuWZQ==}
     dev: false
 
-  /@w5/wasm@0.0.34:
-    resolution: {integrity: sha512-PgZhhB+xnp2Qyy4FLQc0ey8NTw1k59N4QuWoistqFn8DuhJQbVeCg06lmV9wr2GbKearzU+jokDvZFv2cxLTag==}
+  /@w5/wasm@0.0.39:
+    resolution: {integrity: sha512-gDhBRRZB3PsFF8U8nQaMALHdXRaIuUPTEpFxFnW7FIgEspLK6qJUg3rl07Ek0WqWCXlKa2zmeKnVxoHQ4PoB4w==}
     dev: false
 
   /@w5/write@0.0.1:
