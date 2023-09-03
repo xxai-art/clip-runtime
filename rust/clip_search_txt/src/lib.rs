@@ -12,6 +12,7 @@ use volo_macro::volo;
 
 pub static ONNX: OnceLock<ClipTxt> = OnceLock::new();
 pub static CLIP: &'static str = "clip";
+pub static SFW: &'static str = "sfw";
 
 pub fn onnx() -> &'static ClipTxt {
   loop {
@@ -84,10 +85,12 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
   };
 
   let mut must = vec![];
-  // let mut must_not = vec![];
+  let mut must_not = vec![];
 
-  if level != Level::All {
-    must.push(Condition::matches("sfw", level == Level::Sfw));
+  if level == Level::Nsfw {
+    must.push(Condition::matches(SFW, false));
+  } else if level == Level::Sfw {
+    must_not.push(Condition::is_empty(SFW))
   }
 
   if let Some(day_range) = msg.day_range {
@@ -96,13 +99,14 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
 
   search_wh(&mut must, msg.w, msg.h);
 
-  if !(
-    must.is_empty()
-    // && must_not.is_empty()
-  ) {
-    // let mut filter = Filter::must(must);
-    // filter.must_not = must_not;
-    let filter = Filter::must(must);
+  if !(must.is_empty() && must_not.is_empty()) {
+    let mut filter = Filter::default();
+    if !must.is_empty() {
+      filter.must = must;
+    }
+    if !must_not.is_empty() {
+      filter.must_not = must_not;
+    }
     point.filter = Some(filter);
   }
 
