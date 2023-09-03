@@ -39,12 +39,13 @@ export default (id)=>
   ing = []
   for [prefix,key] from [
     [
-      'rec'
-      vbyteE [cid, id, w_h_r]
+      'r'
+      vbyteE [cid, id]
     ]
   ]
     key = Buffer.from key
-    for zset from [prefix, prefix+adult]
+    suffix = +!adult
+    for zset from [prefix, prefix+suffix]
       ing.push KV.zadd zset, key, score
   await Promise.all [
     Promise.all ing
