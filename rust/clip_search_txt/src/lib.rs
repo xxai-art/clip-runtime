@@ -31,23 +31,23 @@ pub fn onnx() -> &'static ClipTxt {
   }
 }
 
-pub fn search_wh(must: &mut Vec<Condition>, w: u32, h: u32) {
-  macro_rules! must_push {
-    ($x:ident) => {
-      if $x > 0 {
-        must.push(Condition::range(
-          stringify!($x),
-          Range {
-            gte: Some($x as _),
-            ..Default::default()
-          },
-        ))
-      }
-    };
-  }
-  must_push!(w);
-  must_push!(h);
-}
+// pub fn search_wh(must: &mut Vec<Condition>, w: u32, h: u32) {
+//   macro_rules! must_push {
+//     ($x:ident) => {
+//       if $x > 0 {
+//         must.push(Condition::range(
+//           stringify!($x),
+//           Range {
+//             gte: Some($x as _),
+//             ..Default::default()
+//           },
+//         ))
+//       }
+//     };
+//   }
+//   must_push!(w);
+//   must_push!(h);
+// }
 
 pub fn search_day_range(day_range: DayRange) -> Condition {
   let begin = day_range.begin;
@@ -99,7 +99,7 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
     must.push(search_day_range(day_range));
   }
 
-  search_wh(&mut must, msg.w, msg.h);
+  // search_wh(&mut must, msg.w, msg.h);
 
   if !(must.is_empty() && must_not.is_empty()) {
     let mut filter = Filter::default();
