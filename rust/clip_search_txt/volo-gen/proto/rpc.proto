@@ -26,8 +26,6 @@ message qIn
   DayRange day_range = 3;
   OffsetLimit offset_limit = 4;
   string lang = 5;
-  uint32 w = 6;
-  uint32 h = 7;
 }
 
 message Point
