@@ -11,6 +11,7 @@ use qdrant_client::qdrant::{point_id::PointIdOptions, PointId, SearchPoints};
 
 pub type ClipImgCropTop = ClipImg<clip_img::CropTop>;
 pub static ONNX: OnceLock<ClipImgCropTop> = OnceLock::new();
+pub static CLIP: &'static str = "clip";
 
 pub fn onnx() -> &'static ClipImgCropTop {
   loop {
@@ -41,11 +42,10 @@ impl Db {
     img: Buffer,
     ext: Option<String>,
   ) -> napi::Result<u64> {
-    let vec_w_h = onnx().encode(ext.as_deref(), &img)?;
-    let vec = vec_w_h.0.clone();
+    let vector = onnx().encode(ext.as_deref(), &img)?.0;
     let point = SearchPoints {
-      collection_name: "clip".to_string(),
-      vector: vec,
+      collection_name: CLIP.to_string(),
+      vector: vector.clone(),
       limit: 1,
       offset: None,
       with_payload: None, //Some(true.into()),
@@ -59,27 +59,22 @@ impl Db {
         point_id_options: Some(PointIdOptions::Num(id)),
       }) = item.id
       {
+        // 结合其他算法去重
         if item.score > 0.99 {
           // cost 大于 0.99 基本可以认为是同一张图
           return Ok(id);
         }
       }
     }
-    self._add(id, payload, vec_w_h).await?;
+    self._add(id, payload, vector).await?;
     Ok(0)
   }
 
-  async fn _add(
-    &self,
-    id: i64,
-    payload: String,
-    vec_w_h: (Vec<f32>, u32, u32),
-  ) -> napi::Result<()> {
+  async fn _add(&self, id: i64, payload: String, vec: Vec<f32>) -> napi::Result<()> {
     let db = clip_qdrant::Db {
       name: self.0.clone(),
     };
-    let (vec, w, h) = vec_w_h;
-    let payload = format!("{{\"w\":{w},\"h\":{h},") + &payload[1..];
+    // let payload = format!("{{\"w\":{w},\"h\":{h},") + &payload[1..];
     db.add(id as u64, vec, &payload).await?;
     Ok(())
   }
@@ -93,7 +88,7 @@ impl Db {
     ext: Option<String>,
   ) -> napi::Result<()> {
     let vec_w_h = onnx().encode(ext.as_deref(), &img)?;
-    self._add(id, payload, vec_w_h).await
+    self._add(id, payload, vec_w_h.0).await
   }
 }
 

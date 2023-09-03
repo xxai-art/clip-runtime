@@ -5,7 +5,7 @@
   @w5/ossput
   @w5/cid > CID_IMG
   @w5/redis/KV
-  @w5/pg/APG > ONE ONE0
+  @w5/pg/APG > ONE ONE
   ./qdrant
   ./RES_META
 
@@ -17,12 +17,19 @@ export default (id)=>
   [adult,hash,rid,time,iaa] = args
 
   src_id = args.pop()
-  if src_id == 1 # 来源 https://civitai.com
-    star = await ONE0"SELECT star from bot.civitai_img WHERE id=#{rid}"
-    star = Math.log1p(star or 0)*25
-    iaa += Math.round star
-  else
-    return
+  switch src_id
+    when 1 # 来源 https://civitai.com
+      t = await ONE"SELECT star,w,h from bot.civitai_img WHERE id=#{rid}"
+      if not t
+        return
+      [star,w,h] = t
+      if h <= 0
+        return
+      w_h_r = Math.round(w * 1024 / h)
+      star = Math.log1p(star or 0)*25
+      iaa += Math.round star
+    else
+      return
 
   cid = CID_IMG
   score = 20000 + iaa
@@ -33,11 +40,7 @@ export default (id)=>
   for [prefix,key] from [
     [
       'rec'
-      vbyteE [cid, id]
-    ]
-    [
-      'img'
-      u64Bin id
+      vbyteE [cid, id, w_h_r]
     ]
   ]
     key = Buffer.from key
@@ -59,6 +62,6 @@ export default (id)=>
       return
   ]
   day = Math.floor time/86400
-  await qdrant id,hash,!adult,day
+  await qdrant id,hash,w_h_r,score,!adult,day
   return
 
