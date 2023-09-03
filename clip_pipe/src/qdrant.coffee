@@ -19,6 +19,8 @@ URL = 'https://5ok.pw/h952/'
     r:w_h_r
     s:score
   }
+  if sfw == false
+    o.sfw = sfw
   rid = await DB.addIfNotExist(
     id
     JSON.stringify(o)
