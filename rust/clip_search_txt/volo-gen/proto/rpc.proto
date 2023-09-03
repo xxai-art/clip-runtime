@@ -34,6 +34,8 @@ message Point
 {
   uint64 id = 1;
   float score = 2;
+  uint32 whr = 3; // w * 1024 / h
+  uint32 sort = 4;
 }
 
 message qOut
