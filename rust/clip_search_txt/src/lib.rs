@@ -118,12 +118,11 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
     .filter_map(|i| {
       let payload = i.payload;
       if let PointIdOptions::Num(id) = i.id?.point_id_options? &&
-       let Some(r) = payload.get("r")?.as_integer() &&
-       let Some(s) = payload.get("s")?.as_integer()
+       let Some(quality) = payload.get("q")?.as_integer()
        {
          // let s = payload.get("s"); // 质量因子
          // w * 1024 / h
-         Some(Point { id, score: i.score , sort:s as u32, whr:r as u32})
+         Some(Point { id, score: i.score , quality:quality as _})
        } else {
          None
        }
