@@ -87,7 +87,8 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
   };
 
   let mut must = vec![];
-  let mut must_not = vec![];
+
+  let must_not = vec![];
 
   if level == Level::Nsfw {
     must.push(Condition::matches(SFW, false));
