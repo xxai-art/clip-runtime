@@ -92,7 +92,7 @@ async fn clip(msg: QIn) -> anyhow::Result<QOut> {
   if level == Level::Nsfw {
     must.push(Condition::matches(SFW, false));
   } else if level == Level::Sfw {
-    must_not.push(Condition::is_empty(SFW))
+    must.push(Condition::is_empty(SFW))
   }
 
   if let Some(day_range) = msg.day_range {
