@@ -25,7 +25,6 @@ export default (id)=>
       [star,w,h] = t
       if h <= 0
         return
-      w_h_r = Math.round(w * 1024 / h)
       star = Math.log1p(star or 0)*25
       iaa += Math.round star
     else
@@ -63,6 +62,6 @@ export default (id)=>
       return
   ]
   day = Math.floor time/86400
-  await qdrant id,hash,w_h_r,score,!adult,day
+  await qdrant id,hash,score,!adult,day
   return
 

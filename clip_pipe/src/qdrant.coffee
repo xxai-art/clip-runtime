@@ -8,7 +8,7 @@
 
 URL = 'https://5ok.pw/h952/'
 
-< (id, hash, w_h_r, score, sfw, day)=>
+< (id, hash, quality, sfw, day)=>
   hash = Buffer.from(hash).toString 'base64url'
   url = URL+hash
   console.log url
@@ -16,8 +16,7 @@ URL = 'https://5ok.pw/h952/'
   o = {
     day
     sfw
-    r:w_h_r
-    s:score
+    q:quality
   }
   if sfw == false
     o.sfw = sfw
