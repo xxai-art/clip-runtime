@@ -29,7 +29,7 @@ hset = (src_id,id,adult,rid,iaa,ing)=>
     star = Math.log1p(star or 0)*25
     score = Math.round(iaa+star)
     score += 20000
-    suffix = +!adult
+    sfw = +!adult
     runing = []
     for [prefix,key] from [
       [
@@ -38,7 +38,7 @@ hset = (src_id,id,adult,rid,iaa,ing)=>
       ]
     ]
       key = Buffer.from key
-      for zset from [prefix, prefix+suffix]
+      for zset from [prefix, prefix+sfw]
         runing.push KV.zadd zset, key, score
     await Promise.all runing
     return

@@ -44,8 +44,8 @@ export default (id)=>
     ]
   ]
     key = Buffer.from key
-    suffix = +!adult
-    for zset from [prefix, prefix+suffix]
+    sfw = +!adult
+    for zset from [prefix, prefix+sfw]
       ing.push KV.zadd zset, key, score
   await Promise.all [
     Promise.all ing
