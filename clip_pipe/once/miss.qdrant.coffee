@@ -76,7 +76,7 @@ for await m from clip_iter()
 
   for i from li
     {id, payload} = i
-    if 'w' of payload
+    if 'q' of payload
       exist.delete id
       [cid,rid,iaa,adult] = m.get id
       hset cid,id,adult,rid,iaa,ing
