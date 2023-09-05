@@ -14,8 +14,8 @@ napi-derive = "2.13.0"
 path = "../clip_runtime"
 
 [dependencies.napi]
-version = "2.12.6"
-path = "./lib/napi-rs/crates/napi"
+version = "2.13.3"
+# path = "./lib/napi-rs/crates/napi"
 default-features = false
 features = [
   "napi8",
