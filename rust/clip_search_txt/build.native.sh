@@ -12,15 +12,15 @@ cargo build $RUST_FEATURES --release --target $RUST_TARGET
 
 name=$(grep "^name" Cargo.toml | sed 's/name = //g' | awk -F\" '{print $2}')
 
-sudo mkdir -p /opt/bin
-sudo mv target/$RUST_TARGET/release/server /opt/bin/$name
-
 pre=/opt/bin/$name
 
 if [ -f "$pre" ]; then
   rm -rf /tmp/$name
   sudo mv $pre /tmp
 fi
+
+sudo mkdir -p /opt/bin
+sudo mv target/$RUST_TARGET/release/server /opt/bin/$name
 
 case $(uname -s) in
 Linux*)
