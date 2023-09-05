@@ -8,11 +8,11 @@ export MODEL=AltCLIP-XLMR-L-m18
 
 export MODEL_URL=https://huggingface.co/xxai-art/tar/resolve/main/$MODEL.tar.zstd
 
-export ORT_LIB_LOCATION=$DIR/lib/so
+ROOT=$(realpath $DIR/../..)
+
+export ORT_LIB_LOCATION=$ROOT/lib/so
 export ORT_DYLIB_PATH=$ORT_LIB_LOCATION/onnxruntime.dll
 
-export MODEL_DIR=$DIR/lib/model/$MODEL
-
-export ONNX_IMG="onnx/Img"
+export MODEL_DIR=$ROOT/lib/model/$MODEL
 
 exec cargo run

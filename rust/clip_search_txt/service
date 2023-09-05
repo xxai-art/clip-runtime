@@ -8,7 +8,7 @@ Restart=on-failure
 CPUSchedulingPolicy=rr
 CPUSchedulingPriority=70
 RestartSec=1
-ExecStart=timeout 7d /opt/bin/${EXE}
+ExecStart=/opt/bin/${EXE}
 
 [Install]
 WantedBy=multi-user.target
