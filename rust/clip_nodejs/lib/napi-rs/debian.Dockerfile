@@ -40,12 +40,12 @@ RUN apt-get update && \
   ln -sf /usr/bin/lld-15 /usr/bin/lld && \
   ln -sf /usr/bin/clang-15 /usr/bin/cc
 
-RUN wget https://www.nasm.us/pub/nasm/releasebuilds/${NASM_VERSION}/nasm-${NASM_VERSION}.tar.xz && \
-  tar -xf nasm-${NASM_VERSION}.tar.xz && \
-  cd nasm-${NASM_VERSION} && \
+RUN wget https://www.yasm.us/pub/yasm/releasebuilds/${NASM_VERSION}/yasm-${NASM_VERSION}.tar.xz && \
+  tar -xf yasm-${NASM_VERSION}.tar.xz && \
+  cd yasm-${NASM_VERSION} && \
   ./configure --prefix=/usr/ && \
   make && \
   make install && \
   cd / && \
-  rm -rf nasm-${NASM_VERSION} && \
-  rm nasm-${NASM_VERSION}.tar.xz
+  rm -rf yasm-${NASM_VERSION} && \
+  rm yasm-${NASM_VERSION}.tar.xz
