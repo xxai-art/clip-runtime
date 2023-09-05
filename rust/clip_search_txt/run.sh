@@ -14,3 +14,5 @@ export ORT_DYLIB_PATH=$ORT_LIB_LOCATION/onnxruntime.dll
 export MODEL_DIR=$DIR/lib/model/$MODEL
 
 export ONNX_IMG="onnx/Img"
+
+exec cargo run
