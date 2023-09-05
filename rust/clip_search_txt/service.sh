@@ -27,7 +27,7 @@ chmod +x $service_sh
 system_service=/etc/systemd/system/$name.service
 cp ./service $system_service
 
-sed -i 's#EXEC#${service_sh}#' $system_service
+sed -i "s#EXEC#${service_sh}#" $system_service
 
 systemctl daemon-reload
 

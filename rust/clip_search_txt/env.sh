@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-DIR=$(realpath $0) && DIR=${DIR%/*}
+DIR=$(dirname "${BASH_SOURCE[0]}")
 cd $DIR
 set -ex
 export RUST_LOG="debug,globset=warn,watchexec=off,supervisor=warn,hyper=warn,rustls=warn,h2=warn,tower=warn,ort=warn"
