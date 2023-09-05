@@ -34,6 +34,6 @@ systemctl daemon-reload
 systemctl enable --now $name
 systemctl restart $name
 
-systemctl status $name --no-pager
+systemctl status $name --no-pager || true
 
 journalctl -u $name -n 10 --no-pager --no-hostname
