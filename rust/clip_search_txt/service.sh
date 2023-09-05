@@ -14,12 +14,20 @@ if [ ! -f "$EXE" ]; then
   ./dist.native.sh
 fi
 
+service_sh=/opt/bin/$name.service.sh
+
+cat >$service_sh <<EOF
+#!/usr/bin/env bash
+source $DIR/env.sh
+exec $EXE
+EOF
+
+chmod +x $service_sh
+
 system_service=/etc/systemd/system/$name.service
 cp ./service $system_service
 
-# if [ -n "$TO" ]; then
-#   sed -i 's#Environment="TO=.*"#Environment="TO='"$TO"'"#' $system_service
-# fi
+sed -i 's#EXEC#${service_sh}#' $system_service
 
 systemctl daemon-reload
 
