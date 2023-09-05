@@ -1,5 +1,5 @@
 [Unit]
-Description=Img Service
+Description=Clip Txt Search
 After=network.target
 
 [Service]
