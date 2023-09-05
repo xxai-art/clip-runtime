@@ -29,8 +29,8 @@ codegen-units = 1
 overflow-checks = false
 panic = 'abort'
 debug-assertions = false
-strip = true
 
+#strip = true
 [dependencies.clip_qdrant]
 path = "../clip_qdrant"
 

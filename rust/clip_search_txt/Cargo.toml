@@ -24,15 +24,15 @@ lazy_static = "1.4.0"
 
 [profile.release]
 opt-level = 3
-debug = true
+debug = false
 debug-assertions = false
 overflow-checks = false
 lto = true
-panic = 'unwind'
-incremental = false
-codegen-units = 1
+incremental = true
 rpath = false
+codegen-units = 1
 
+# panic = 'unwind'
 [workspace]
 members = ["volo-gen"]
 resolver = "2"
