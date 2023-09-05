@@ -1,0 +1,14 @@
+[Unit]
+Description=Img Service
+After=network.target
+
+[Service]
+Type=simple
+Restart=on-failure
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=70
+RestartSec=1
+ExecStart=timeout 7d /opt/bin/${EXE}
+
+[Install]
+WantedBy=multi-user.target
