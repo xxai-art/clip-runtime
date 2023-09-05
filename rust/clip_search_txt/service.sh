@@ -11,7 +11,7 @@ name=$(grep "^name" Cargo.toml | sed 's/name = //g' | awk -F\" '{print $2}')
 EXE=/opt/bin/$name
 
 if [ ! -f "$EXE" ]; then
-  ./dist.native.sh
+  ./build.native.sh
 fi
 
 service_sh=/opt/bin/$name.service.sh
