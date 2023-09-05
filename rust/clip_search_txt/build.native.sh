@@ -13,7 +13,7 @@ cargo build $RUST_FEATURES --release --target $RUST_TARGET
 name=$(grep "^name" Cargo.toml | sed 's/name = //g' | awk -F\" '{print $2}')
 
 sudo mkdir -p /opt/bin
-sudo mv target/$RUST_TARGET/release/$name /opt/bin
+sudo mv target/$RUST_TARGET/release/server /opt/bin
 
 pre=/opt/bin/$name
 
