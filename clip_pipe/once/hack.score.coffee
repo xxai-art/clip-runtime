@@ -8,3 +8,4 @@ bin = vbyteE [CID_IMG,id]
 
 key = 'r1'
 console.log await KV.zscore key, bin
+console.log await KV.zadd key, bin, 20000
