@@ -5,4 +5,5 @@
 id = 740446
 bin = u64Bin id
 
-console.log await KV.zscore bin
+key = 'r1'
+console.log await KV.zscore key, bin
