@@ -12,7 +12,14 @@ URL = 'https://5ok.pw/h952/'
   hash = Buffer.from(hash).toString 'base64url'
   url = URL+hash
   console.log url
-  bin = await reqBin url, proxy
+  bin = await reqBin(
+    url
+    {
+      ...proxy
+      headers:
+        origin: 'http://xxai.art'
+    }
+  )
   o = {
     day
     sfw
